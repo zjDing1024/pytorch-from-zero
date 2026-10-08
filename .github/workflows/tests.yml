@@ -18,3 +18,4 @@ jobs:
       - run: ruff format --check .
       - run: pytest -q
       - run: python -m pytorch_lab --output results/local-ci.json
+      - run: python -m pytorch_lab.minibatch_cli --output results/local-ci-minibatch.json
