@@ -1,6 +1,6 @@
 # Epoch 边界 checkpoint：恢复同一条训练轨迹
 
-2026-10-08 同日第三增量。**当前状态：本地实现与验证完成：319项测试、静态检查、三条CLI及三种子恢复实验通过；最终文档/清单验收、发布与远程CI待完成。** 下文区分恢复契约、本地实际结果与远程发布状态。原始全批次和第二增量的小批次源码、CLI、结果继续保留。
+2026-10-08 同日第三增量。**当前状态：已实现、发布并通过本地及远程验证：319项测试、静态检查、三条CLI及三种子恢复实验通过。** 下文区分恢复契约、本地实际结果与远程发布状态。原始全批次和第二增量的小批次源码、CLI、结果继续保留。
 
 本增量由 AI 助理准备。即使工程验证通过，学习者也需完成[独立自测](learner-self-check.md)后，才能把它计入个人能力。
 
@@ -123,7 +123,7 @@ python -m pytorch_lab.checkpoint_cli verify \
 
 这些差异证明相关状态在本例中影响恢复轨迹，不构成任意模型/数据的充分性证明。3个合成种子不证明统计稳健性或跨环境逐位一致。
 
-完整本地pytest为319项通过（原152项、checkpoint契约151项、checkpoint CLI 16项），用时77.76秒；Ruff检查/29文件格式检查、pip check、compileall及原始/小批次/checkpoint三条CLI全部通过。独立审查检查了fsync失败注入和真实三进程同路径写入竞争，并推动只读config修复。修复后独立复跑319项测试通过（78.55秒），lint/29文件格式、pip check、compileall和种子42精确重放也通过。最终文档/清单验收与发布待完成，详见[本次验证记录](../results/2026-10-08-checkpoint-verification.md)。远程发布及CI需另行核对，不能由本地成功推定。
+完整本地pytest为319项通过（原152项、checkpoint契约151项、checkpoint CLI 16项），用时77.76秒；Ruff检查/29文件格式检查、pip check、compileall及原始/小批次/checkpoint三条CLI全部通过。独立审查检查了fsync失败注入和真实三进程同路径写入竞争，并推动只读config修复。修复后独立复跑319项测试通过（78.55秒），lint/29文件格式、pip check、compileall和种子42精确重放也通过。最终文档/清单验收和发布已完成，详见[本次验证记录](../results/2026-10-08-checkpoint-verification.md)。工程增量 [9a5707696c064523ee95bcaddb49ab1f07dc4467](https://github.com/zjDing1024/pytorch-from-zero/commit/9a5707696c064523ee95bcaddb49ab1f07dc4467) 已发布；精确提交对应的 [CPU checks #37751219715](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37751219715) 已成功完成，319项测试与三条CLI通过。
 
 ## 未覆盖与下一步
 

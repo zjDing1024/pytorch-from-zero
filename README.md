@@ -93,9 +93,9 @@ ruff format --check .
 
 ## 当前增量：epoch 边界 checkpoint 恢复
 
-状态：**本地实现与验证完成：319项测试及三种子恢复实验通过；最终文档/清单验收、发布与远程CI待完成。** [恢复协议与边界](docs/checkpoint-recovery.md)固定CPU float64、3→1仿射模型和 `num_workers=0` DataLoader；默认batch20、学习率0.05、momentum0.8。完整epoch边界保存模型、完整优化器、配置、数据指纹、历史与训练/指标Generator状态；新进程加载后继续到累计目标轮数，epoch0也可保存。
+状态：**已实现、发布并通过本地及远程验证：319项测试、三种子新进程恢复实验通过。** [恢复协议与边界](docs/checkpoint-recovery.md)固定CPU float64、3→1仿射模型和 `num_workers=0` DataLoader；默认batch20、学习率0.05、momentum0.8。完整epoch边界保存模型、完整优化器、配置、数据指纹、历史与训练/指标Generator状态；新进程加载后继续到累计目标轮数，epoch0也可保存。
 
-[种子42原始结果](results/2026-10-08-checkpoint-cpu.json)：连续40轮与“7轮后保存、新进程恢复到40轮”的模型、优化器、RNG、完整历史和报告相同，参数最大差距0，15项断言通过，测试MSE为0.0043601093。遗漏momentum、重置shuffle后再训练一轮的参数差分别为0.0144504611、0.0036747311。种子[7](results/2026-10-08-checkpoint-seed7.json)/[123](results/2026-10-08-checkpoint-seed123.json)同配置也各通过15项断言、恢复参数差0。完整本地测试319项通过；远程发布与CI仍待核对。旧无momentum实验的原始结果保持独立。
+[种子42原始结果](results/2026-10-08-checkpoint-cpu.json)：连续40轮与“7轮后保存、新进程恢复到40轮”的模型、优化器、RNG、完整历史和报告相同，参数最大差距0，15项断言通过，测试MSE为0.0043601093。遗漏momentum、重置shuffle后再训练一轮的参数差分别为0.0144504611、0.0036747311。种子[7](results/2026-10-08-checkpoint-seed7.json)/[123](results/2026-10-08-checkpoint-seed123.json)同配置也各通过15项断言、恢复参数差0。完整本地及远程测试各319项通过；精确提交与CI链接见下方。旧无momentum实验的原始结果保持独立。
 
 只加载自己或可信来源的 checkpoint。受限 weights-only 加载、内容 checksum、文件/epoch 上限和严格验证不构成不可信文件安全沙箱。保存拒绝覆盖，Linux 本地文件系统的原子可见性不等于断电持久性。详细命令及未支持场景见[checkpoint 文档](docs/checkpoint-recovery.md)。
 
@@ -120,4 +120,4 @@ ruff format --check .
 
 2026-10-08 本地验证：首轮52项测试与独立隔离安装检查通过；新增量合计152项测试、lint、格式和两条CLI通过，详见[本次验证记录](results/2026-10-08-minibatch-verification.md)。远程 CI 的最新状态请查看 [Actions](https://github.com/zjDing1024/pytorch-from-zero/actions)，本地结果不替代远程运行证据。未选择开源许可证，不应将公开可读等同于已授予再分发许可。
 
-第三增量本地验证：319项测试（原152项+checkpoint契约151项+CLI16项）、Ruff检查/29文件格式、pip check、compileall和三条CLI全部通过；最终代码独立复跑319项及种子42精确重放也通过。详见[checkpoint验证记录](results/2026-10-08-checkpoint-verification.md)。最终文档/清单验收与发布及该增量远程CI尚待核对，不沿用上一增量的绿色CI作为本次证据。
+第三增量本地验证：319项测试（原152项+checkpoint契约151项+CLI16项）、Ruff检查/29文件格式、pip check、compileall和三条CLI全部通过；最终代码独立复跑319项及种子42精确重放也通过。详见[checkpoint验证记录](results/2026-10-08-checkpoint-verification.md)。最终文档/清单验收和发布已完成。工程增量 [9a5707696c064523ee95bcaddb49ab1f07dc4467](https://github.com/zjDing1024/pytorch-from-zero/commit/9a5707696c064523ee95bcaddb49ab1f07dc4467) 已发布；精确提交对应的 [CPU checks #37751219715](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37751219715) 已成功完成，319项测试与三条CLI通过。该证据专属于本次恢复增量。

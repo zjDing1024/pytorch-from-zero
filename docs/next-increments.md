@@ -6,9 +6,9 @@
 
 ## 2026-10-08 当前增量：epoch 边界恢复
 
-[Checkpoint 协议](checkpoint-recovery.md)已实现并完成本地验证：种子42/7/123新进程实验各15项断言通过、连续/恢复参数差0；319项测试、静态检查与三条CLI通过。最终文档/清单验收、发布及远程CI待核对。范围为固定CPU float64仿射实验、torch SGD momentum、`num_workers=0`和完整epoch边界；保存模型、完整优化器、配置、数据指纹、历史与两个局部 Generator。验收包括新进程中的连续/恢复一致性、遗漏 momentum/重置 shuffle 负对照、严格加载与无覆盖保存。原两阶段源码和证据继续保留。
+[Checkpoint 协议](checkpoint-recovery.md)已实现并完成本地验证：种子42/7/123新进程实验各15项断言通过、连续/恢复参数差0；319项测试、静态检查与三条CLI通过。最终文档/清单验收与发布已完成，精确提交远程CI已通过。范围为固定CPU float64仿射实验、torch SGD momentum、`num_workers=0`和完整epoch边界；保存模型、完整优化器、配置、数据指纹、历史与两个局部 Generator。验收包括新进程中的连续/恢复一致性、遗漏 momentum/重置 shuffle 负对照、严格加载与无覆盖保存。原两阶段源码和证据继续保留。
 
-本地检查和实际实验已经完成，详见[验证记录](../results/2026-10-08-checkpoint-verification.md)；发布与远程CI单独核对。`weights_only=True`、checksum 和大小上限不会使未知来源文件自动可信。此阶段不实现 mid-batch、GPU、AMP、DDP 或 scheduler 恢复。
+本地检查和实际实验已经完成，详见[验证记录](../results/2026-10-08-checkpoint-verification.md)；工程增量 [9a5707696c064523ee95bcaddb49ab1f07dc4467](https://github.com/zjDing1024/pytorch-from-zero/commit/9a5707696c064523ee95bcaddb49ab1f07dc4467) 已发布；精确提交对应的 [CPU checks #37751219715](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37751219715) 已成功完成，319项测试与三条CLI通过。`weights_only=True`、checksum 和大小上限不会使未知来源文件自动可信。此阶段不实现 mid-batch、GPU、AMP、DDP 或 scheduler 恢复。
 
 ## 下一阶段验收门槛
 

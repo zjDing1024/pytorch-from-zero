@@ -55,4 +55,13 @@ python -m pytorch_lab.checkpoint_cli verify --seed 123 --output results/2026-10-
 
 ## 尚未代表的证据
 
-此记录证明上述本地执行和独立复跑；完整发布清单及文档的最终审查门槛另行核对。发布与精确提交的远程CI仍须分别核对，不用本地通过代替；后续发布记录应链接真实commit和CI。学习者的独立实现、数学解释和失败定位仍待自测。下一工程增量是手写momentum逐步对照及scheduler顺序/状态恢复，而非重复宣称本次epoch恢复尚未实现。
+上述章节记录本地执行和独立复跑；完整发布清单及文档已通过最终独立审查。精确提交的发布与远程CI证据见下方补记，未用本地通过替代远程结果。学习者的独立实现、数学解释和失败定位仍待自测。下一工程增量是手写momentum逐步对照及scheduler顺序/状态恢复，而非重复宣称本次epoch恢复尚未实现。
+
+## 发布与远程 CI 补记
+
+工程增量 [9a5707696c064523ee95bcaddb49ab1f07dc4467](https://github.com/zjDing1024/pytorch-from-zero/commit/9a5707696c064523ee95bcaddb49ab1f07dc4467) 已发布；精确提交对应的 [CPU checks #37751219715](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37751219715) 已成功完成，319项测试与三条CLI通过。
+
+- 发布时已核对工程 main 指向上述实现提交，15个变更文件原子提交，全部41个工程文件的Git blob哈希与审查通过的清单一致，26个未改文件原样保留。
+- 远程执行环境：Ubuntu 24.04.5、Python 3.12.15、PyTorch 2.14.1+cpu。依赖/项目安装、Ruff检查与29文件格式检查、319项测试（60.83秒）及三条CLI全部成功；原CLI10项、小批次5项、checkpoint15项断言全部为true。
+- 远程保留1条可选NumPy未安装警告，以及官方Actions的Node 20/24与punycode弃用提示，未影响成功结论。
+- 本节是实际CI完成后的独立文档补记；实现、测试和三份原始checkpoint JSON未因补记更改。后续纯文档提交的CI与此实现提交的证据分开记录。
