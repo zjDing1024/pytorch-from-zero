@@ -2,7 +2,7 @@
 
 **A CPU-first lab connecting PyTorch behavior, mathematical derivations, and executable tests.**
 
-当前内容：Tensor 布局、Autograd、三路梯度校验、独立留出集回归、nn.Module、Dataset/DataLoader 和小批次 SGD。2026-10-08 同日第三增量加入 epoch 边界 checkpoint 与 momentum SGD 恢复，最终验证状态见下文。代码原创编写，官方源码只用于阅读与核对。
+当前内容：Tensor 布局、Autograd、三路梯度校验、独立留出集回归、nn.Module、Dataset/DataLoader 和小批次 SGD。2026-10-08 同日第三增量加入 epoch 边界 checkpoint 与 momentum SGD 恢复，第四增量加入手写 momentum 与 StepLR 等预算/恢复验证，最终状态见下文。代码原创编写，官方源码只用于阅读与核对。
 
 > 证据边界：本增量由 AI 助理实现并在 CPU 环境验证。它提供可复查的工程材料，用户的独立理解与实现能力仍需 [自测](docs/learner-self-check.md)。当前项目尚不足以证明生产级训练、GPU 优化或分布式能力。
 
@@ -31,6 +31,9 @@ src/pytorch_lab/
   checkpoint.py   epoch 边界训练状态、严格加载、无覆盖保存
   checkpoint_cli.py train / resume / verify 独立入口
   checkpoint_experiment.py 新进程恢复对照与遗漏状态的负对照
+  momentum.py     原创函数式SGD更新及逐参数/缓冲torch参考轨迹
+  scheduled_checkpoint.py StepLR边界训练、LR历史及严格状态恢复
+  scheduler_cli.py / scheduler_experiment.py 调度顺序、等预算、跨进程对照
 tests/            数学正确性、坏输入、重复运行、CLI 集成测试
 examples/         独立运行入口
 docs/             推导、源码阅读、质量边界、自测与扩展计划
@@ -91,13 +94,24 @@ ruff format --check .
 
 小批次与40轮手写全批次均访问3840个训练样本，但分别更新200次和40次；这里没有吞吐或等更新预算的优越性结论。在线损失和本轮最终模型损失分开记录。原始证据：[42](results/2026-10-08-minibatch-cpu.json)、[7](results/2026-10-08-minibatch-seed7.json)、[123](results/2026-10-08-minibatch-seed123.json)。
 
-## 当前增量：epoch 边界 checkpoint 恢复
+## 第三增量：epoch 边界 checkpoint 恢复
 
 状态：**已实现、发布并通过本地及远程验证：319项测试、三种子新进程恢复实验通过。** [恢复协议与边界](docs/checkpoint-recovery.md)固定CPU float64、3→1仿射模型和 `num_workers=0` DataLoader；默认batch20、学习率0.05、momentum0.8。完整epoch边界保存模型、完整优化器、配置、数据指纹、历史与训练/指标Generator状态；新进程加载后继续到累计目标轮数，epoch0也可保存。
 
 [种子42原始结果](results/2026-10-08-checkpoint-cpu.json)：连续40轮与“7轮后保存、新进程恢复到40轮”的模型、优化器、RNG、完整历史和报告相同，参数最大差距0，15项断言通过，测试MSE为0.0043601093。遗漏momentum、重置shuffle后再训练一轮的参数差分别为0.0144504611、0.0036747311。种子[7](results/2026-10-08-checkpoint-seed7.json)/[123](results/2026-10-08-checkpoint-seed123.json)同配置也各通过15项断言、恢复参数差0。完整本地及远程测试各319项通过；精确提交与CI链接见下方。旧无momentum实验的原始结果保持独立。
 
 只加载自己或可信来源的 checkpoint。受限 weights-only 加载、内容 checksum、文件/epoch 上限和严格验证不构成不可信文件安全沙箱。保存拒绝覆盖，Linux 本地文件系统的原子可见性不等于断电持久性。详细命令及未支持场景见[checkpoint 文档](docs/checkpoint-recovery.md)。
+
+
+## 当前增量：手写 Momentum / StepLR / 调度状态恢复
+
+状态：**本地679项测试、静态检查、四条CLI及三种子实验通过；独立审查、最终清单验收、发布及精确提交远程CI仍待完成。** [手写更新方程](docs/momentum-sgd.md)覆盖None/零梯度、初始buffer、dampening、coupled weight decay、Nesterov、maximize与变化LR；六组配置×六步×两参数逐步对照torch，参数/buffer最大差1.11e-16/2.22e-16，容差1e-12。函数式手写模块不调用torch.optim，恢复实验仍用torch SGD。
+
+[StepLR协议与新CLI](docs/scheduler-recovery.md)固定每轮全部optimizer更新后调用一次scheduler。三种子42/7/123连续40轮与7轮后新进程恢复到40轮的模型、优化器、scheduler、RNG、完整历史及报告相同，参数差均0，各24项实验断言通过。新格式严格校验当前LR、initial_lr、scheduler计数和每轮LR历史；旧checkpoint格式保持不变。
+
+固定LR与StepLR均为200次更新/3840次样本访问、相同数据/初始化/打乱。测试MSE（StepLR / 固定LR）：42为0.004408268 / 0.004360109；7为0.003279841 / 0.003395952；123为0.001914461 / 0.001906621。结果没有一致胜者，不声称调度器普遍更好。原始证据：[42](results/2026-10-08-scheduler-cpu.json)、[7](results/2026-10-08-scheduler-seed7.json)、[123](results/2026-10-08-scheduler-seed123.json)。
+
+重置scheduler、遗漏momentum和重置shuffle的负对照另行记录；StepLR在整周期切点重置可能保留相同LR轨迹，不能把默认第7轮反例推广到所有切点。[完整验证记录](results/2026-10-08-scheduler-verification.md)区分旧远程绿色CI和本增量尚待核验的状态。
 
 ## 性能分析
 
@@ -116,7 +130,7 @@ ruff format --check .
 - [后续工程计划](docs/next-increments.md)
 - [贡献与证据规范](CONTRIBUTING.md)
 
-`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。下一步做手写momentum SGD等价对照与scheduler顺序/状态实验，并继续学习者独立自测。混合精度和分布式仍属后续计划。
+`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。手写momentum SGD等价对照与StepLR顺序/状态实验现已加入；下一步先完成学习者独立自测，再进入公开授权真实数据与误差分析。混合精度和分布式仍属后续计划。
 
 2026-10-08 本地验证：首轮52项测试与独立隔离安装检查通过；新增量合计152项测试、lint、格式和两条CLI通过，详见[本次验证记录](results/2026-10-08-minibatch-verification.md)。远程 CI 的最新状态请查看 [Actions](https://github.com/zjDing1024/pytorch-from-zero/actions)，本地结果不替代远程运行证据。未选择开源许可证，不应将公开可读等同于已授予再分发许可。
 

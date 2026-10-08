@@ -90,3 +90,16 @@ shape 描述各维长度，stride 描述沿各维移动一步在存储中跨过�
 [expand-grad]: https://github.com/pytorch/pytorch/blob/a8d6afb511a69687bbb2b7e88a3cf67917e1697e/tools/autograd/derivatives.yaml#L664-L666
 [views-doc]: https://github.com/pytorch/pytorch/blob/a8d6afb511a69687bbb2b7e88a3cf67917e1697e/docs/source/tensor_view.rst
 [broadcast-doc]: https://github.com/pytorch/pytorch/blob/a8d6afb511a69687bbb2b7e88a3cf67917e1697e/docs/source/notes/broadcasting.rst
+
+
+## 2026-10-08 第四增量：SGD momentum 与 StepLR 阅读补记
+
+本节基于实际安装的2.14.1+cpu包与[2.14 SGD文档](https://docs.pytorch.org/docs/2.14/generated/torch.optim.SGD.html)、[StepLR文档](https://docs.pytorch.org/docs/2.14/generated/torch.optim.lr_scheduler.StepLR.html)、[调度顺序说明](https://docs.pytorch.org/docs/2.14/optim.html#how-to-adjust-learning-rate)。它与上文v2.5.1固定提交研究分开，不混用行号。
+
+本地使用inspect实际读取：torch/optim/sgd.py的SGD.__init__ 29–73、_init_group 84–103、_single_tensor_sgd 322–379；torch/optim/lr_scheduler.py的LRScheduler.__init__ 119–174、_initial_step 176–180、load_state_dict 192–199、step 238–282、StepLR.get_lr 632–658；Optimizer.load_state_dict 899–1045。只核对Python状态与更新入口，未研究所有内核/后端。
+
+独立推导和测试关注三个行为：momentum buffer记录未乘学习率的方向；首次出现梯度时buffer不做dampening；每轮全部optimizer更新完成后才前进StepLR。恢复时先构造scheduler，再加载scheduler和optimizer状态，确保下一次更新使用保存的当前LR。实际测试比只阅读API名更能暴露None梯度、首次buffer、学习率索引与历史不一致问题。
+
+原创新增代码不是上游源码复制。公式和分支解释见[手写momentum](momentum-sgd.md)，调度器验证及恢复边界见[scheduler协议](scheduler-recovery.md)。手写更新端不调用torch.optim，参考端才调用实际torch SGD；恢复实验本身仍使用torch优化器。六组配置×六步×两参数的逐步最大差为参数1.11e-16、buffer2.22e-16（容差1e-12）；三种子新进程恢复模型/优化器/scheduler/RNG/历史一致、参数差0。这些是助理执行的工程证据，个人能力仍待自测。
+
+本地sgd.py SHA-256为e6c647249cee41c99cd29da4cb3fe74c94d899e775c9f952308fcafdcae43725；lr_scheduler.py为86de19442f38e8817ee3283853ef4377565d3b6b936a779ce7f5f599f1312849。安装包自报git版本仍为5c4886908584029761b579af026dcfb627c84070，不把它当作已另行验证的远程标签映射。[官方版本源码入口](https://github.com/pytorch/pytorch/blob/v2.14.1/torch/optim/lr_scheduler.py)用于定位；本节行号仅对应本地已读取包。
