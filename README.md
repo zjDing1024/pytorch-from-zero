@@ -2,7 +2,7 @@
 
 **A CPU-first lab connecting PyTorch behavior, mathematical derivations, and executable tests.**
 
-当前增量：Tensor 布局、Autograd、三路梯度校验、带独立留出集的线性回归，以及新增 nn.Module、Dataset/DataLoader 和小批次 SGD。代码原创编写，官方源码只用于阅读与核对。
+当前内容：Tensor 布局、Autograd、三路梯度校验、独立留出集回归、nn.Module、Dataset/DataLoader 和小批次 SGD。2026-10-08 同日第三增量加入 epoch 边界 checkpoint 与 momentum SGD 恢复，最终验证状态见下文。代码原创编写，官方源码只用于阅读与核对。
 
 > 证据边界：本增量由 AI 助理实现并在 CPU 环境验证。它提供可复查的工程材料，用户的独立理解与实现能力仍需 [自测](docs/learner-self-check.md)。当前项目尚不足以证明生产级训练、GPU 优化或分布式能力。
 
@@ -27,7 +27,10 @@ src/pytorch_lab/
   experiments.py  实验组合、判定条件、环境与结果记录
   __main__.py     原始 CLI、JSON 输出、失败退出码、防止覆盖证据
   minibatch.py    Module 参数注册、Dataset/DataLoader、模式切换与小批次 SGD
-  minibatch_cli.py 新增量独立 CLI；保留原始实验入口
+  minibatch_cli.py 模块化增量独立 CLI；保留原始实验入口
+  checkpoint.py   epoch 边界训练状态、严格加载、无覆盖保存
+  checkpoint_cli.py train / resume / verify 独立入口
+  checkpoint_experiment.py 新进程恢复对照与遗漏状态的负对照
 tests/            数学正确性、坏输入、重复运行、CLI 集成测试
 examples/         独立运行入口
 docs/             推导、源码阅读、质量边界、自测与扩展计划
@@ -88,6 +91,14 @@ ruff format --check .
 
 小批次与40轮手写全批次均访问3840个训练样本，但分别更新200次和40次；这里没有吞吐或等更新预算的优越性结论。在线损失和本轮最终模型损失分开记录。原始证据：[42](results/2026-10-08-minibatch-cpu.json)、[7](results/2026-10-08-minibatch-seed7.json)、[123](results/2026-10-08-minibatch-seed123.json)。
 
+## 当前增量：epoch 边界 checkpoint 恢复
+
+状态：**本地实现与验证完成：319项测试及三种子恢复实验通过；最终文档/清单验收、发布与远程CI待完成。** [恢复协议与边界](docs/checkpoint-recovery.md)固定CPU float64、3→1仿射模型和 `num_workers=0` DataLoader；默认batch20、学习率0.05、momentum0.8。完整epoch边界保存模型、完整优化器、配置、数据指纹、历史与训练/指标Generator状态；新进程加载后继续到累计目标轮数，epoch0也可保存。
+
+[种子42原始结果](results/2026-10-08-checkpoint-cpu.json)：连续40轮与“7轮后保存、新进程恢复到40轮”的模型、优化器、RNG、完整历史和报告相同，参数最大差距0，15项断言通过，测试MSE为0.0043601093。遗漏momentum、重置shuffle后再训练一轮的参数差分别为0.0144504611、0.0036747311。种子[7](results/2026-10-08-checkpoint-seed7.json)/[123](results/2026-10-08-checkpoint-seed123.json)同配置也各通过15项断言、恢复参数差0。完整本地测试319项通过；远程发布与CI仍待核对。旧无momentum实验的原始结果保持独立。
+
+只加载自己或可信来源的 checkpoint。受限 weights-only 加载、内容 checksum、文件/epoch 上限和严格验证不构成不可信文件安全沙箱。保存拒绝覆盖，Linux 本地文件系统的原子可见性不等于断电持久性。详细命令及未支持场景见[checkpoint 文档](docs/checkpoint-recovery.md)。
+
 ## 性能分析
 
 - 每个训练步矩阵乘法量级为 `O(NDK)`；存储以输入、参数和自动微分中间量为主。当前训练规模很小，不用于吞吐结论。
@@ -99,10 +110,14 @@ ruff format --check .
 
 - [数学、设计与失败模式](docs/design.md)
 - [固定版本源码阅读](docs/source-reading.md)
+- [Checkpoint 恢复协议](docs/checkpoint-recovery.md)
+- [Checkpoint 验证记录](results/2026-10-08-checkpoint-verification.md)
 - [学习者自测](docs/learner-self-check.md)
 - [后续工程计划](docs/next-increments.md)
 - [贡献与证据规范](CONTRIBUTING.md)
 
-本次已完成 `nn.Module`、`Dataset/DataLoader` 与小批次 SGD。下一步先做独立自测，再实现 checkpoint 的模型、优化器与随机状态恢复；调度器、混合精度和分布式仍是后续计划。
+`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。下一步做手写momentum SGD等价对照与scheduler顺序/状态实验，并继续学习者独立自测。混合精度和分布式仍属后续计划。
 
 2026-10-08 本地验证：首轮52项测试与独立隔离安装检查通过；新增量合计152项测试、lint、格式和两条CLI通过，详见[本次验证记录](results/2026-10-08-minibatch-verification.md)。远程 CI 的最新状态请查看 [Actions](https://github.com/zjDing1024/pytorch-from-zero/actions)，本地结果不替代远程运行证据。未选择开源许可证，不应将公开可读等同于已授予再分发许可。
+
+第三增量本地验证：319项测试（原152项+checkpoint契约151项+CLI16项）、Ruff检查/29文件格式、pip check、compileall和三条CLI全部通过；最终代码独立复跑319项及种子42精确重放也通过。详见[checkpoint验证记录](results/2026-10-08-checkpoint-verification.md)。最终文档/清单验收与发布及该增量远程CI尚待核对，不沿用上一增量的绿色CI作为本次证据。
