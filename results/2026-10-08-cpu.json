@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-10-08T07:35:30.250761+00:00",
+  "executed_by": "AI assistant; learner self-check remains pending",
+  "environment": {
+    "python": "3.12.14",
+    "pytorch": "2.14.1+cpu",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cuda_available": false,
+    "pytorch_git_version": "5c4886908584029761b579af026dcfb627c84070"
+  },
+  "layouts": {
+    "base_shape": [
+      3,
+      4
+    ],
+    "base_stride": [
+      4,
+      1
+    ],
+    "transposed_shape": [
+      4,
+      3
+    ],
+    "transposed_stride": [
+      1,
+      4
+    ],
+    "transpose_is_contiguous": false,
+    "transpose_shares_storage": true,
+    "mutation_visible_in_base": true,
+    "view_flatten_rejected": true,
+    "reshape_copy_in_this_case": true
+  },
+  "broadcasting": {
+    "output_shape": [
+      4,
+      1
+    ],
+    "bias_shape": [
+      1
+    ],
+    "bias_gradient": 4.0,
+    "expected_gradient": 4.0
+  },
+  "gradient_accumulation": {
+    "first": 6.0,
+    "without_reset": 12.0,
+    "after_reset": 6.0
+  },
+  "gradient_comparison": {
+    "seed": 17,
+    "shapes": {
+      "x": [
+        5,
+        3
+      ],
+      "target": [
+        5,
+        2
+      ],
+      "weight": [
+        3,
+        2
+      ],
+      "bias": [
+        2
+      ]
+    },
+    "loss": 6.4770434819762155,
+    "autograd_vs_analytical_max_abs_error": 5.551115123125783e-17,
+    "autograd_vs_finite_difference_max_abs_error": 8.9854546025947e-10,
+    "central_difference_epsilon": 1e-06,
+    "torch_gradcheck_passed": true
+  },
+  "training": {
+    "config": {
+      "seed": 42,
+      "steps": 200,
+      "learning_rate": 0.1,
+      "noise_std": 0.05
+    },
+    "device": "cpu",
+    "dtype": "float64",
+    "split_sizes": {
+      "train": 96,
+      "validation": 32,
+      "test": 32
+    },
+    "initial_train_mse": 7.805888942924352,
+    "final_train_mse": 0.0033105241136422146,
+    "validation_mse": 0.0029612738032937158,
+    "test_mse": 0.004405606054043351,
+    "test_mean_baseline_mse": 3.8913270718095747,
+    "least_squares_train_mse": 0.003310524113642211,
+    "gradient_descent_lstsq_max_parameter_gap": 3.5638159090467525e-14,
+    "learned_weight": [
+      1.7473709569808995,
+      -2.000157877302472,
+      0.49803437995029953
+    ],
+    "learned_bias": -0.30417605105904266,
+    "true_weight": [
+      1.75,
+      -2.0,
+      0.5
+    ],
+    "true_bias": -0.3,
+    "history": [
+      {
+        "step": 0,
+        "train_mse": 7.805888942924352
+      },
+      {
+        "step": 20,
+        "train_mse": 0.00465972180477709
+      },
+      {
+        "step": 40,
+        "train_mse": 0.003311849764960901
+      },
+      {
+        "step": 60,
+        "train_mse": 0.0033105270095083756
+      },
+      {
+        "step": 80,
+        "train_mse": 0.0033105241207427812
+      },
+      {
+        "step": 100,
+        "train_mse": 0.0033105241136598142
+      },
+      {
+        "step": 120,
+        "train_mse": 0.0033105241136422527
+      },
+      {
+        "step": 140,
+        "train_mse": 0.003310524113642214
+      },
+      {
+        "step": 160,
+        "train_mse": 0.0033105241136422137
+      },
+      {
+        "step": 180,
+        "train_mse": 0.0033105241136422076
+      },
+      {
+        "step": 200,
+        "train_mse": 0.0033105241136422146
+      }
+    ]
+  },
+  "checks": {
+    "transpose_aliases": true,
+    "incompatible_view_rejected": true,
+    "reshape_copied_in_this_case": true,
+    "broadcast_backward_sums": true,
+    "gradients_accumulate_and_reset": true,
+    "analytical_matches_autograd": true,
+    "finite_difference_matches_autograd": true,
+    "torch_gradcheck": true,
+    "training_improves": true,
+    "holdout_beats_mean_baseline": true
+  },
+  "all_checks_passed": true
+}

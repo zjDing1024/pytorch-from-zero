@@ -1,0 +1,2 @@
+# Install CPU wheels with --index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1
