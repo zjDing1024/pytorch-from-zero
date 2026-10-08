@@ -105,13 +105,13 @@ ruff format --check .
 
 ## 当前增量：手写 Momentum / StepLR / 调度状态恢复
 
-状态：**本地679项测试、静态检查、四条CLI及三种子实验通过；独立审查、最终清单验收、发布及精确提交远程CI仍待完成。** [手写更新方程](docs/momentum-sgd.md)覆盖None/零梯度、初始buffer、dampening、coupled weight decay、Nesterov、maximize与变化LR；六组配置×六步×两参数逐步对照torch，参数/buffer最大差1.11e-16/2.22e-16，容差1e-12。函数式手写模块不调用torch.optim，恢复实验仍用torch SGD。
+状态：**本地与全新环境独立审查各679项测试通过，静态检查、四条CLI及三种子实验通过；最终清单验收、公开发布和精确提交远程CI已完成。** [工程提交2ac5b1b](https://github.com/zjDing1024/pytorch-from-zero/commit/2ac5b1b7f4aa1fce36557b09ec85ce8e837cbdd8)对应的[CPU checks #37785797239](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37785797239)成功，远程679项测试与四条CLI通过。 [手写更新方程](docs/momentum-sgd.md)覆盖None/零梯度、初始buffer、dampening、coupled weight decay、Nesterov、maximize与变化LR；六组配置×六步×两参数逐步对照torch，参数/buffer最大差1.11e-16/2.22e-16，容差1e-12。函数式手写模块不调用torch.optim，恢复实验仍用torch SGD。
 
 [StepLR协议与新CLI](docs/scheduler-recovery.md)固定每轮全部optimizer更新后调用一次scheduler。三种子42/7/123连续40轮与7轮后新进程恢复到40轮的模型、优化器、scheduler、RNG、完整历史及报告相同，参数差均0，各24项实验断言通过。新格式严格校验当前LR、initial_lr、scheduler计数和每轮LR历史；旧checkpoint格式保持不变。
 
 固定LR与StepLR均为200次更新/3840次样本访问、相同数据/初始化/打乱。测试MSE（StepLR / 固定LR）：42为0.004408268 / 0.004360109；7为0.003279841 / 0.003395952；123为0.001914461 / 0.001906621。结果没有一致胜者，不声称调度器普遍更好。原始证据：[42](results/2026-10-08-scheduler-cpu.json)、[7](results/2026-10-08-scheduler-seed7.json)、[123](results/2026-10-08-scheduler-seed123.json)。
 
-重置scheduler、遗漏momentum和重置shuffle的负对照另行记录；StepLR在整周期切点重置可能保留相同LR轨迹，不能把默认第7轮反例推广到所有切点。[完整验证记录](results/2026-10-08-scheduler-verification.md)区分旧远程绿色CI和本增量尚待核验的状态。
+重置scheduler、遗漏momentum和重置shuffle的负对照另行记录；StepLR在整周期切点重置可能保留相同LR轨迹，不能把默认第7轮反例推广到所有切点。[完整验证记录](results/2026-10-08-scheduler-verification.md)保存独立审查、冻结清单、真实提交和本增量远程CI证据。
 
 ## 性能分析
 
