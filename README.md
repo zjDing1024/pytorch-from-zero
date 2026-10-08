@@ -2,7 +2,7 @@
 
 **A CPU-first lab connecting PyTorch behavior, mathematical derivations, and executable tests.**
 
-当前内容：Tensor 布局、Autograd、三路梯度校验、独立留出集回归、nn.Module、Dataset/DataLoader 和小批次 SGD。2026-10-08 同日第三增量加入 epoch 边界 checkpoint 与 momentum SGD 恢复，第四增量加入手写 momentum 与 StepLR 等预算/恢复验证，最终状态见下文。代码原创编写，官方源码只用于阅读与核对。
+当前内容：Tensor 布局、Autograd、三路梯度校验、独立留出集回归、nn.Module、Dataset/DataLoader 和小批次 SGD。2026-10-08 同日第三增量加入 epoch 边界 checkpoint 与 momentum SGD 恢复，第四增量加入手写 momentum 与 StepLR 等预算/恢复验证，最终状态见下文。2026-10-09新增公开授权UCI Wine真实数据分类、固定划分、训练集归一化、验证选择与误差分析。代码原创编写，官方源码只用于阅读与核对；随包数据有单独署名和许可。
 
 > 证据边界：本增量由 AI 助理实现并在 CPU 环境验证。它提供可复查的工程材料，用户的独立理解与实现能力仍需 [自测](docs/learner-self-check.md)。当前项目尚不足以证明生产级训练、GPU 优化或分布式能力。
 
@@ -34,6 +34,8 @@ src/pytorch_lab/
   momentum.py     原创函数式SGD更新及逐参数/缓冲torch参考轨迹
   scheduled_checkpoint.py StepLR边界训练、LR历史及严格状态恢复
   scheduler_cli.py / scheduler_experiment.py 调度顺序、等预算、跨进程对照
+  wine.py / wine_cli.py 真实数据分类、无泄漏预处理、验证选择与误差分析
+  data/           固定Wine数据、来源/许可、完整划分行ID
 tests/            数学正确性、坏输入、重复运行、CLI 集成测试
 examples/         独立运行入口
 docs/             推导、源码阅读、质量边界、自测与扩展计划
@@ -62,6 +64,7 @@ python -m pip install --no-deps -e .
 python -m pytorch_lab --output results/local-run.json
 python examples/run_lab.py --seed 7
 python -m pytorch_lab.minibatch_cli --output results/local-minibatch.json
+python -m pytorch_lab.wine_cli --output results/local-wine.json
 pytest -q
 ruff check .
 ruff format --check .
@@ -130,8 +133,17 @@ ruff format --check .
 - [后续工程计划](docs/next-increments.md)
 - [贡献与证据规范](CONTRIBUTING.md)
 
-`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。手写momentum SGD等价对照与StepLR顺序/状态实验现已加入；下一步先完成学习者独立自测，再进入公开授权真实数据与误差分析。混合精度和分布式仍属后续计划。
+`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。手写momentum SGD等价对照与StepLR顺序/状态实验已完成；2026-10-09继续完成UCI Wine真实数据评估。个人独立自测仍待完成；下一工程重点为运行时复现与资源计量。混合精度和分布式仍属后续计划。
 
 2026-10-08 本地验证：首轮52项测试与独立隔离安装检查通过；新增量合计152项测试、lint、格式和两条CLI通过，详见[本次验证记录](results/2026-10-08-minibatch-verification.md)。远程 CI 的最新状态请查看 [Actions](https://github.com/zjDing1024/pytorch-from-zero/actions)，本地结果不替代远程运行证据。未选择开源许可证，不应将公开可读等同于已授予再分发许可。
 
 第三增量本地验证：319项测试（原152项+checkpoint契约151项+CLI16项）、Ruff检查/29文件格式、pip check、compileall和三条CLI全部通过；最终代码独立复跑319项及种子42精确重放也通过。详见[checkpoint验证记录](results/2026-10-08-checkpoint-verification.md)。最终文档/清单验收和发布已完成。工程增量 [9a5707696c064523ee95bcaddb49ab1f07dc4467](https://github.com/zjDing1024/pytorch-from-zero/commit/9a5707696c064523ee95bcaddb49ab1f07dc4467) 已发布；精确提交对应的 [CPU checks #37751219715](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37751219715) 已成功完成，319项测试与三条CLI通过。该证据专属于本次恢复增量。
+
+
+## 2026-10-09：真实数据、验证选择与错误分析
+
+[Wine协议与数据卡](docs/wine-evaluation.md)把已有训练机制扩展到公开授权的178条真实化学分析数据；这是评估工程示例，不是困难基准。数据SHA-256和107/36/35固定分层划分随包保存，离线运行；仅训练集拟合归一化，检查行重叠/完全重复特征，验证集选择模型，测试集最后评估。[数据署名与许可](THIRD_PARTY_NOTICES.md)及原始文件均已保留。
+
+120轮、batch16、相同SGD配置和种子42/7/123；线性42参数与小MLP275参数分别每次840更新/12,840次样本访问。验证CE均值选择MLP（0.014833，对照线性0.017577），但最终测试准确率均值为MLP96.19%、线性97.14%，训练类先验/多数类基线40%。按原协议保留MLP选择，没有用测试结果倒改。两个模型都误判行68，MLP种子123另外误判行134；35条测试样本的一条错误对应2.86个百分点，不宣称统计显著性或深度模型优越。
+
+[首次完整原始JSON](results/2026-10-09-wine-cpu.json)包含每个种子的预测/概率、混淆矩阵、macro-F1、错误行ID、训练统计和公平预算；[验证记录](results/2026-10-09-wine-verification.md)区分本地、独立审查与远程状态。三种子只刻画同一划分下初始化/打乱的变化。尚未证明跨地区/年份泛化、部署、GPU或个人独立掌握。

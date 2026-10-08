@@ -27,3 +27,6 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.setuptools.package-data]
+pytorch_lab = ["data/*.csv", "data/*.json", "data/LICENSE.*"]
