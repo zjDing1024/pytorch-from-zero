@@ -14,3 +14,8 @@ The original dataset is based on wine chemical analyses described by Forina et a
 The exact distributed CSV comes from scikit-learn commit e316dbeeebfd8f38cf293d6443ce81aaa33686d3, sklearn/datasets/data/wine_data.csv. scikit-learn added a metadata header, moved class labels to the last column, and encoded them as 0/1/2 instead of UCI's 1/2/3. No further changes were made to the CSV. Full machine-readable provenance and hashes are in src/pytorch_lab/data/wine_provenance.json.
 
 The upstream scikit-learn BSD-3-Clause notice is retained verbatim in src/pytorch_lab/data/LICENSE.scikit-learn. It is distinct from the UCI dataset license. Dataset provenance is based on UCI's recommended citation rather than inconsistent historical fields in scikit-learn's description file.
+
+
+## 2026-10-10 runtime source study
+
+Original runtime probe/checker/Dockerfile implementation; no pip or Python Official Image implementation was copied. Source study: PyPA pip (MIT), commit `01857ef79f59a98db592bacb6e7b48f354528c80`; Docker Community Python Official Image source (MIT), commit `688a0b86bb44289df16a363e9f41d90514c1a5f9`. Links and design lessons are in [runtime documentation](docs/runtime-reproducibility.md). Installed third-party wheels and the base image carry their own licenses; their installed license metadata is retained. Existing UCI Wine attribution and dataset/software license files remain unchanged.

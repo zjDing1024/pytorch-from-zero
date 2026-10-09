@@ -11,7 +11,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Acquire locked runtime wheels from their official indexes
+        run: |
+          python -m pip download --only-binary=:all: --no-deps --require-hashes --index-url https://pypi.org/simple -r requirements/runtime-common.lock -d wheelhouse
+          python -m pip download --only-binary=:all: --no-deps --require-hashes --index-url https://download.pytorch.org/whl/cpu -r requirements/torch-cpu.lock -d wheelhouse
+      - run: python -m pip install --no-index --find-links=wheelhouse --only-binary=:all: --require-hashes -r requirements/runtime-cpu.lock
       - run: python -m pip install -r requirements-dev.txt
       - run: python -m pip install --no-deps -e .
       - run: ruff check .
@@ -22,3 +26,18 @@ jobs:
       - run: python -m pytorch_lab.checkpoint_cli verify --output results/local-ci-checkpoint.json
       - run: python -m pytorch_lab.scheduler_cli verify --output results/local-ci-scheduler.json
       - run: python -m pytorch_lab.wine_cli --output results/local-ci-wine.json
+      - run: python -m pytorch_lab.runtime_probe --repeats 2 --output results/local-ci-runtime.json
+  installed-cpu-container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build hash-locked Linux amd64 CPU wheel image
+        run: docker build --platform linux/amd64 --progress plain -t pytorch-lab:cpu .
+      - name: Check wheel with no network and a read-only nonroot runtime
+        run: |
+          docker image inspect pytorch-lab:cpu --format '{{.Id}} {{.Config.User}}'
+          docker run --rm --network none --read-only --cap-drop ALL \
+            --security-opt no-new-privileges --pids-limit 128 --memory 1g --cpus 2 \
+            --tmpfs /tmp:rw,noexec,nosuid,size=64m \
+            pytorch-lab:cpu /checks/check_installed.py

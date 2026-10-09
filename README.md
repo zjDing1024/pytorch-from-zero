@@ -6,6 +6,17 @@
 
 > 证据边界：本增量由 AI 助理实现并在 CPU 环境验证。它提供可复查的工程材料，用户的独立理解与实现能力仍需 [自测](docs/learner-self-check.md)。当前项目尚不足以证明生产级训练、GPU 优化或分布式能力。
 
+## 2026-10-10：CPU运行时与资源证据
+
+新增[运行时协议](docs/runtime-reproducibility.md)：目标平台限定的10个依赖wheel哈希锁、新建最小环境的已安装wheel检查、六条CLI、原创新进程资源探针和超时/损坏产物负对照。固定Wine协议每次6次拟合，共5,040更新/77,040样本访问；source与wheel各3次实测的科学输出均与前日结果一致。
+
+运行时间、CPU时间和Linux高水位RSS分开记录，不把RSS当张量内存，也不因环境不同的数值差异宣称性能提升。Dockerfile及CPU source/container两路径CI已准备；本机没有Docker/Podman，registry manifest核实不代表容器已运行。实际验证/公开状态见[本次验证记录](results/2026-10-10-runtime-verification.md)。个人理解仍待独立自测。
+
+```bash
+# 先按运行时文档安装hash-locked wheel；本命令不会覆盖已有结果。
+python -I -m pytorch_lab.runtime_probe --output results/local-runtime.json
+```
+
 ## 背景与解决的问题
 
 入门实验容易只验证“能跑”，却漏掉目标张量广播、梯度缩放、累加与数据泄漏。本项目把行为写成可失败的测试，并同时保留数学解释、数据划分、运行环境和原始 JSON 结果。
@@ -35,6 +46,7 @@ src/pytorch_lab/
   scheduled_checkpoint.py StepLR边界训练、LR历史及严格状态恢复
   scheduler_cli.py / scheduler_experiment.py 调度顺序、等预算、跨进程对照
   wine.py / wine_cli.py 真实数据分类、无泄漏预处理、验证选择与误差分析
+  runtime_probe.py Linux新进程资源测量、科学输出/包文件hash与重复性检查
   data/           固定Wine数据、来源/许可、完整划分行ID
 tests/            数学正确性、坏输入、重复运行、CLI 集成测试
 examples/         独立运行入口
@@ -133,7 +145,7 @@ ruff format --check .
 - [后续工程计划](docs/next-increments.md)
 - [贡献与证据规范](CONTRIBUTING.md)
 
-`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。手写momentum SGD等价对照与StepLR顺序/状态实验已完成；2026-10-09继续完成UCI Wine真实数据评估。个人独立自测仍待完成；下一工程重点为运行时复现与资源计量。混合精度和分布式仍属后续计划。
+`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。手写momentum SGD等价对照与StepLR顺序/状态实验已完成；2026-10-09继续完成UCI Wine真实数据评估。2026-10-10已在本地完成依赖/wheel复现与资源实测；当前先闭合容器CI与个人独立自测，再设计受控profiling。混合精度和分布式仍属后续计划。
 
 2026-10-08 本地验证：首轮52项测试与独立隔离安装检查通过；新增量合计152项测试、lint、格式和两条CLI通过，详见[本次验证记录](results/2026-10-08-minibatch-verification.md)。远程 CI 的最新状态请查看 [Actions](https://github.com/zjDing1024/pytorch-from-zero/actions)，本地结果不替代远程运行证据。未选择开源许可证，不应将公开可读等同于已授予再分发许可。
 

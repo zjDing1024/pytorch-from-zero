@@ -31,3 +31,10 @@
 ## 2026-10-09 第五增量与后续
 
 已执行公开授权真实数据分类，不重复此前momentum/StepLR或本次Wine实现。本地与独立隔离环境各709项测试、五条CLI及离线wheel验证通过，最终冻结清单验收无遗留阻塞。[工程提交a274382](https://github.com/zjDing1024/pytorch-from-zero/commit/a27438230cbb2a9b515a6ca355029e5c6889ec26)已公开发布，其精确提交的[CPU checks #37808159705](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37808159705)已成功，远程709项测试、Ruff/格式和五条CLI全部通过。完整证据见[验证记录](../results/2026-10-09-wine-verification.md)。下一工程增量优先CPU容器/依赖可复现与资源计量；有可运行环境再做实测。继续跟进独立自测，在缺少证据时不宣布阶段1已掌握或自动跳级。进一步模型比较须先写新的评估协议，避免对已观察测试集反复调参。
+
+
+## 2026-10-10 第六增量与后续
+
+已经补齐CPU依赖wheel哈希闭包、干净wheel安装、六条CLI、新进程资源测量及实际失败路径检查，详见[运行时协议](runtime-reproducibility.md)与[验证记录](../results/2026-10-10-runtime-verification.md)。资源范围严格区分wall/CPU/RSS；本机无容器引擎，Docker build/run与精确提交CI状态另行记录，不宣称未运行的结果。
+
+下一步优先闭合容器CI，完成学习者独立自测：解释为何hash-lock不保证数值逐位或构建字节相同，为什么进程高水位RSS不是训练分配量，以及如何正确清理超时子进程。随后可设计受控单因素profiling或依赖/基础镜像更新兼容性实验。未有个人证据前不升级技能，不重复Wine调参，也不跳到大型Agent系统。

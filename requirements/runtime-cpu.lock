@@ -1,0 +1,4 @@
+# Complete runtime dependency closure for CPython 3.12 / Linux x86_64.
+# Install locally: pip install --no-index --find-links wheelhouse --require-hashes -r this-file
+-r runtime-common.lock
+-r torch-cpu.lock

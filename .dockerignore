@@ -1,0 +1,16 @@
+*
+!Dockerfile
+!pyproject.toml
+!README.md
+!THIRD_PARTY_NOTICES.md
+!requirements/
+!requirements/*.lock
+!src/
+!src/pytorch_lab/
+!src/pytorch_lab/*.py
+!src/pytorch_lab/data/
+!src/pytorch_lab/data/*.csv
+!src/pytorch_lab/data/*.json
+!src/pytorch_lab/data/LICENSE.*
+!scripts/
+!scripts/check_installed.py
