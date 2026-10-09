@@ -5,7 +5,7 @@
 ## 三种不同的复现
 
 1. **安装重复性**：对CPython 3.12 / Linux x86_64使用相同10个运行依赖wheel及SHA-256。完整闭包包括torch、filelock、typing_extensions、setuptools、sympy、networkx、jinja2、fsspec、mpmath和markupsafe。
-2. **数值重复性**：相同数据、代码、seed与线程设置下，科学输出一致。本次六次正式新进程测量及前一日Wine JSON除时间戳/环境字段外完全一致。
+2. **数值重复性**：相同数据、代码、seed与线程设置下，科学输出一致。本地六次正式新进程测量及前一日Wine JSON除时间戳/环境字段外完全一致。
 3. **构建字节重复性**：不据此宣称成立。自产wheel记录哈希，但ZIP时间戳、构建工具链及基础系统仍可能影响重建字节。pip/bootstrap工具不在运行依赖锁内；pip实际版本单独记录。
 
 锁文件只覆盖本目标平台。torch与MarkupSafe含CPython/ABI/架构标签，不能把它宣传为Windows/macOS/ARM或任意Python版本的通用锁。CPU机器无需GPU依赖；旧requirements.txt保留便捷开发路径，严格复现使用本页的新锁。
@@ -70,7 +70,7 @@ python -I -m pytorch_lab.runtime_probe \
 
 ## CPU容器与最小矩阵
 
-[Dockerfile](../Dockerfile)分为wheel获取/构建和非root运行两阶段；基础镜像为Python Official Image 3.12.14-slim-bookworm，固定OCI index digest。已向官方registry按该digest取回manifest，核实含linux/amd64子manifest；**这不等于镜像层已拉取或容器已执行**。只支持`linux/amd64`，其它架构的wheel哈希不匹配即失败。
+[Dockerfile](../Dockerfile)分为wheel获取/构建和非root运行两阶段；基础镜像为Python Official Image 3.12.14-slim-bookworm，固定OCI index digest。本机先向官方registry按该digest核实linux/amd64子manifest；后续[修复后工程提交e162eaf](https://github.com/zjDing1024/pytorch-from-zero/commit/e162eafd654e44bfea3473c391491fa071b443d0)的[CPU checks #37959687015](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37959687015)已成功：source job通过784项测试（243.42秒，1条可选NumPy警告）、Ruff/格式和6条CLI；container job实际构建并以非root、只读文件系统和断网方式完成6条已安装wheel CLI。只支持`linux/amd64`，其它架构的wheel哈希不匹配即失败。
 
 ```bash
 docker build --platform linux/amd64 --progress plain -t pytorch-lab:cpu .
@@ -82,14 +82,20 @@ docker run --rm --network none --read-only --cap-drop ALL \
 
 最终UID/GID为10001:10001，无源代码工作目录或测试依赖；包代码与数据自然保存在site-packages。Docker运行命令不挂载主机目录，默认stdout输出报告。不要把已有私有文件放进镜像；`.dockerignore`采用输入白名单。镜像基础系统仍有自己的许可证，Python依赖许可证保留在安装元数据中。
 
-| 路径 | 检查范围 | 本次发布前状态 |
+| 路径 | 检查范围 | 当前验证证据 |
 |---|---|---|
 | 现有源码开发环境 | 完整测试、静态检查、6条CLI、3次资源样本 | 实际执行，见验证记录 |
 | 干净hash-locked wheel venv | pip check、6条CLI、3次正式资源样本、安装负对照 | 实际执行 |
-| GitHub CPU source job | 同一runtime锁、完整测试与6条CLI | 待本次精确提交CI |
-| GitHub CPU container job | Docker build、断网/只读/非root的已安装wheel 6条CLI | 本机无Docker/Podman，未执行；待精确提交CI |
+| GitHub CPU source job | 同一runtime锁、完整测试与6条CLI | e162eaf / #37959687015通过784项、Ruff和6条CLI |
+| GitHub CPU container job | Docker build、断网/只读/非root的已安装wheel 6条CLI | e162eaf / #37959687015真实执行通过；本机仍未执行 |
 
-容器job不是完整pytest；全量pytest保留在source job。没有声称跨Python次版本或跨操作系统矩阵。若容器CI失败，必须修复并重新检查精确提交，不能使用旧绿色状态代替。
+容器job不是完整pytest；全量pytest保留在source job。该次CI的image ID为`sha256:51d25af1f3036ce8cf2bc76a322563c593f00f7461270528df89cd4a9e16a59c`，运行UID/GID10001:10001；这是构建产物ID，不是已推送registry的镜像地址。没有声称跨Python次版本或跨操作系统矩阵。若容器CI失败，必须修复并重新检查精确提交，不能使用旧绿色状态代替。
+
+## 实际跨环境边界
+
+跨环境边界也实际观察到了：本地source/wheel六次及远程source两次的科学结果hash为`b7ab96864bf8265cc5ec54c7318cb65bc78cbb0404174ef868a803ce3eb75fc1`，而该次CI容器三次均为`28ce527e3828b3d49a30a4be246ae4c1c19a38f20f4eb561450484a88ba94ab5`。三组都在各自环境内重复一致，但容器科学JSON的canonical字节与本地不同。21个包代码/数据/许可证hash和10个锁定依赖版本相同；本地glibc2.41、source CI的Python3.12.15/glibc2.39、容器Python3.12.14/glibc2.36不同，不能据此断言差异成因。现有容器日志只保存科学hash，未保留完整科学JSON，尚未定位差异字段/量级，也不声称误差低于某个容差。
+
+容器的workload wall中位数2.3505秒、高水位RSS中位数298.0977MiB只属于这次CI观测，不与本地结果推导速度或内存收益。原始本地JSON及产物JSON保持不变；产物JSON明确标注为发布前本地快照，其中CI未观察字段是当时状态。
 
 ## 来源与设计理解
 
@@ -101,4 +107,4 @@ docker run --rm --network none --read-only --cap-drop ALL \
 
 ## 下一步
 
-先闭合容器精确提交CI和用户独立自测。后续可练习受控单因素profiling，显式声明负载/线程/重复顺序后定位真实瓶颈；或加入依赖/基础镜像更新的兼容性回归。没有个人独立解释证据时不自动升级能力，也不为加仓库数量跳到大型模型/Agent。
+feature容器精确提交CI已完成，当前文档提交也要单独检查CI。下一步先做用户独立自测，以及跨环境完整输出留存/差异定位。后续可练习受控单因素profiling，显式声明负载/线程/重复顺序后定位真实瓶颈；或加入依赖/基础镜像更新的兼容性回归。没有个人独立解释证据时不自动升级能力，也不为加仓库数量跳到大型模型/Agent。

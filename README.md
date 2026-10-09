@@ -8,9 +8,9 @@
 
 ## 2026-10-10：CPU运行时与资源证据
 
-新增[运行时协议](docs/runtime-reproducibility.md)：目标平台限定的10个依赖wheel哈希锁、新建最小环境的已安装wheel检查、六条CLI、原创新进程资源探针和超时/损坏产物负对照。固定Wine协议每次6次拟合，共5,040更新/77,040样本访问；source与wheel各3次实测的科学输出均与前日结果一致。
+新增[运行时协议](docs/runtime-reproducibility.md)：目标平台限定的10个依赖wheel哈希锁、新建最小环境的已安装wheel检查、六条CLI、原创的新进程资源探针和超时/损坏产物负对照。固定Wine协议每次6次拟合，共5,040更新/77,040样本访问；source与wheel各3次实测的科学输出均与前日结果一致。
 
-运行时间、CPU时间和Linux高水位RSS分开记录，不把RSS当张量内存，也不因环境不同的数值差异宣称性能提升。Dockerfile及CPU source/container两路径CI已准备；本机没有Docker/Podman，registry manifest核实不代表容器已运行。实际验证/公开状态见[本次验证记录](results/2026-10-10-runtime-verification.md)。个人理解仍待独立自测。
+运行时间、CPU时间和Linux高水位RSS分开记录，不把RSS当张量内存，也不因环境不同的数值差异宣称性能提升。[修复后工程提交e162eaf](https://github.com/zjDing1024/pytorch-from-zero/commit/e162eafd654e44bfea3473c391491fa071b443d0)的[CPU checks #37959687015](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37959687015)已成功：source job通过784项测试（243.42秒，1条可选NumPy警告）、Ruff/格式和6条CLI；container job实际构建并以非root、只读文件系统和断网方式完成6条已安装wheel CLI。本机仍无容器引擎，容器执行证据来自上述GitHub CI。跨环境科学hash出现差异，重复性结论限定为各环境内部，详见协议。实际验证/公开状态见[本次验证记录](results/2026-10-10-runtime-verification.md)。个人理解仍待独立自测。
 
 ```bash
 # 先按运行时文档安装hash-locked wheel；本命令不会覆盖已有结果。
@@ -58,7 +58,7 @@ results/          已执行的原始结果和检查日志
 
 ## 环境配置
 
-已验证：Linux x86_64、Python 3.12.14、PyTorch 2.14.1+cpu、pytest 9.1.1、ruff 0.16.10。项目声明 Python >=3.11，但其他 Python/操作系统组合尚未验证。无需数据下载、GPU、付费 API 或账户密钥。
+已验证：Linux x86_64；本地Python3.12.14/glibc2.41、source CI的Python3.12.15/glibc2.39、容器Python3.12.14/glibc2.36，均使用PyTorch2.14.1+cpu。全量测试使用pytest9.1.1、ruff0.16.10，容器路径只运行已安装wheel的6条CLI。项目声明Python>=3.11，其余Python/操作系统组合尚未验证。无需数据下载、GPU、付费 API 或账户密钥。
 
 ```bash
 python3 -m venv .venv
@@ -145,7 +145,7 @@ ruff format --check .
 - [后续工程计划](docs/next-increments.md)
 - [贡献与证据规范](CONTRIBUTING.md)
 
-`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。手写momentum SGD等价对照与StepLR顺序/状态实验已完成；2026-10-09继续完成UCI Wine真实数据评估。2026-10-10已在本地完成依赖/wheel复现与资源实测；当前先闭合容器CI与个人独立自测，再设计受控profiling。混合精度和分布式仍属后续计划。
+`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。手写momentum SGD等价对照与StepLR顺序/状态实验已完成；2026-10-09继续完成UCI Wine真实数据评估。2026-10-10已在本地完成依赖/wheel复现与资源实测；feature容器CI已通过，当前验证文档补记提交的精确CI，继续个人独立自测及跨环境完整输出差异定位，再设计受控profiling。混合精度和分布式仍属后续计划。
 
 2026-10-08 本地验证：首轮52项测试与独立隔离安装检查通过；新增量合计152项测试、lint、格式和两条CLI通过，详见[本次验证记录](results/2026-10-08-minibatch-verification.md)。远程 CI 的最新状态请查看 [Actions](https://github.com/zjDing1024/pytorch-from-zero/actions)，本地结果不替代远程运行证据。未选择开源许可证，不应将公开可读等同于已授予再分发许可。
 

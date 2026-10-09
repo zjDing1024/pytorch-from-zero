@@ -35,6 +35,8 @@
 
 ## 2026-10-10 第六增量与后续
 
-已经补齐CPU依赖wheel哈希闭包、干净wheel安装、六条CLI、新进程资源测量及实际失败路径检查，详见[运行时协议](runtime-reproducibility.md)与[验证记录](../results/2026-10-10-runtime-verification.md)。资源范围严格区分wall/CPU/RSS；本机无容器引擎，Docker build/run与精确提交CI状态另行记录，不宣称未运行的结果。
+已经补齐CPU依赖wheel哈希闭包、干净wheel安装、六条CLI、新进程资源测量及实际失败路径检查，详见[运行时协议](runtime-reproducibility.md)与[验证记录](../results/2026-10-10-runtime-verification.md)。资源范围严格区分wall/CPU/RSS；[修复后工程提交e162eaf](https://github.com/zjDing1024/pytorch-from-zero/commit/e162eafd654e44bfea3473c391491fa071b443d0)的[CPU checks #37959687015](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37959687015)已成功：source job通过784项测试（243.42秒，1条可选NumPy警告）、Ruff/格式和6条CLI；container job实际构建并以非root、只读文件系统和断网方式完成6条已安装wheel CLI。本机没有执行容器，已运行证据来自远程CI。
 
-下一步优先闭合容器CI，完成学习者独立自测：解释为何hash-lock不保证数值逐位或构建字节相同，为什么进程高水位RSS不是训练分配量，以及如何正确清理超时子进程。随后可设计受控单因素profiling或依赖/基础镜像更新兼容性实验。未有个人证据前不升级技能，不重复Wine调参，也不跳到大型Agent系统。
+容器feature CI已闭合；文档补记提交还须重验自己的精确SHA。下一步完成学习者独立自测：解释为何hash-lock不保证数值逐位或构建字节相同，为什么进程高水位RSS不是训练分配量，以及如何正确清理超时子进程。随后可设计受控单因素profiling或依赖/基础镜像更新兼容性实验。未有个人证据前不升级技能，不重复Wine调参，也不跳到大型Agent系统。
+
+下一实验入口新增一个实际问题：本地/source CI与容器的科学hash不同。先保留跨环境完整科学JSON并定位差异字段/量级，再预声明可接受的数值容差；目前不猜测原因，也不通过放松检查掩盖差异。
