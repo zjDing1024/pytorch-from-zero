@@ -1,5 +1,6 @@
 """Exercise process-group ownership at the installed-wheel smoke boundary."""
 
+import errno
 import os
 import runpy
 import subprocess
@@ -41,19 +42,75 @@ def test_timeout_terminates_real_descendant(tmp_path):
         run_checked([sys.executable, "-c", parent], timeout=1)
     assert pid_path.exists(), "test must actually start a descendant before timeout"
     pid = int(pid_path.read_text())
+
+    assert_descendant_terminated(pid)
+
+
+def assert_descendant_terminated(pid):
     stat = Path(f"/proc/{pid}/stat")
     # The system's reaper may not have collected a dead child yet; Z is terminated.
     for _ in range(50):
         try:
             state = stat.read_text().split()[2]
-        except FileNotFoundError:
-            break  # The system reaped it between observations.
+        except (FileNotFoundError, ProcessLookupError):
+            break  # It may disappear before open (ENOENT) or during read (ESRCH).
         if state == "Z":
             break
         time.sleep(0.01)
     else:
         os.kill(pid, 9)
         pytest.fail("timed-out command left a running descendant")
+
+
+def test_descendant_observation_accepts_gone_or_zombie(monkeypatch):
+    for observation in (
+        FileNotFoundError(errno.ENOENT, "gone before open"),
+        ProcessLookupError(errno.ESRCH, "gone during read"),
+        "123 (worker) Z",
+    ):
+        reads = []
+
+        def read_stat(path, reads=reads, observation=observation):
+            reads.append(path)
+            if isinstance(observation, OSError):
+                raise observation
+            return observation
+
+        monkeypatch.setattr(Path, "read_text", read_stat)
+        assert_descendant_terminated(123)
+        assert reads == [Path("/proc/123/stat")]
+
+
+def test_descendant_observation_propagates_unrelated_errors(monkeypatch):
+    for error in (
+        PermissionError(errno.EACCES, "not readable"),
+        OSError(errno.EIO, "read failure"),
+    ):
+
+        def read_stat(_path, error=error):
+            raise error
+
+        monkeypatch.setattr(Path, "read_text", read_stat)
+        with pytest.raises(type(error)) as caught:
+            assert_descendant_terminated(123)
+        assert caught.value is error
+
+
+def test_descendant_observation_rejects_still_running(monkeypatch):
+    reads, sleeps, kills = [], [], []
+
+    def read_stat(path):
+        reads.append(path)
+        return "123 (worker) S"
+
+    monkeypatch.setattr(Path, "read_text", read_stat)
+    monkeypatch.setattr(time, "sleep", sleeps.append)
+    monkeypatch.setattr(os, "kill", lambda pid, signal: kills.append((pid, signal)))
+    with pytest.raises(pytest.fail.Exception, match="left a running descendant"):
+        assert_descendant_terminated(123)
+    assert reads == [Path("/proc/123/stat")] * 50
+    assert sleeps == [0.01] * 50
+    assert kills == [(123, 9)]
 
 
 def test_explicit_linux_scope(monkeypatch):
