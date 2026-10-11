@@ -47,6 +47,8 @@ src/pytorch_lab/
   scheduler_cli.py / scheduler_experiment.py 调度顺序、等预算、跨进程对照
   wine.py / wine_cli.py 真实数据分类、无泄漏预处理、验证选择与误差分析
   runtime_probe.py Linux新进程资源测量、科学输出/包文件hash与重复性检查
+  numerical_probe.py 完整科学JSON、CPU/dispatch证据与受控新进程捕获
+  scientific_compare.py 独立的严格hash、精确字段与8步binary64诊断
   data/           固定Wine数据、来源/许可、完整划分行ID
 tests/            数学正确性、坏输入、重复运行、CLI 集成测试
 examples/         独立运行入口
@@ -58,7 +60,7 @@ results/          已执行的原始结果和检查日志
 
 ## 环境配置
 
-已验证：Linux x86_64；本地Python3.12.14/glibc2.41、source CI的Python3.12.15/glibc2.39、容器Python3.12.14/glibc2.36，均使用PyTorch2.14.1+cpu。全量测试使用pytest9.1.1、ruff0.16.10，容器路径只运行已安装wheel的6条CLI。项目声明Python>=3.11，其余Python/操作系统组合尚未验证。无需数据下载、GPU、付费 API 或账户密钥。
+已验证：Linux x86_64；本地Python3.12.14/glibc2.41、source CI的Python3.12.15/glibc2.39、容器Python3.12.14/glibc2.36，均使用PyTorch2.14.1+cpu。全量测试使用pytest9.1.1、ruff0.16.10，第七增量的容器路径运行已安装wheel的7条CLI，最新精确提交证据见下文。项目声明Python>=3.11，其余Python/操作系统组合尚未验证。无需数据下载、GPU、付费 API 或账户密钥。
 
 ```bash
 python3 -m venv .venv
@@ -145,7 +147,7 @@ ruff format --check .
 - [后续工程计划](docs/next-increments.md)
 - [贡献与证据规范](CONTRIBUTING.md)
 
-`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。手写momentum SGD等价对照与StepLR顺序/状态实验已完成；2026-10-09继续完成UCI Wine真实数据评估。2026-10-10已在本地完成依赖/wheel复现与资源实测；feature容器CI已通过，当前验证文档补记提交的精确CI，继续个人独立自测及跨环境完整输出差异定位，再设计受控profiling。混合精度和分布式仍属后续计划。
+`nn.Module`、`Dataset/DataLoader`、小批次SGD及epoch边界checkpoint都已有本地验证。手写momentum SGD等价对照与StepLR顺序/状态实验已完成；2026-10-09继续完成UCI Wine真实数据评估。2026-10-10完成依赖/wheel复现与资源实测；2026-10-11继续完成完整科学输出、CPU证据和固定数值诊断，并通过最新831项source测试及7条容器CLI。下一步继续个人独立自测和预声明的逐阶段差异定位，再设计受控profiling。混合精度和分布式仍属后续计划。
 
 2026-10-08 本地验证：首轮52项测试与独立隔离安装检查通过；新增量合计152项测试、lint、格式和两条CLI通过，详见[本次验证记录](results/2026-10-08-minibatch-verification.md)。远程 CI 的最新状态请查看 [Actions](https://github.com/zjDing1024/pytorch-from-zero/actions)，本地结果不替代远程运行证据。未选择开源许可证，不应将公开可读等同于已授予再分发许可。
 
@@ -166,4 +168,4 @@ ruff format --check .
 
 第七增量保留每次Wine完整JSON，新增CPU型号/特征、dispatch与运行库证据，以及原创严格类型/结构比较器。原runtime严格hash门保持不变；另行预声明的8相邻binary64步诊断门不会按实测放宽。历史两输出最大75 ULP，有932项超过该门，虽预测/选择不变仍保留失败。
 
-同主机A-B-B-A仅改变ATEN_CPU_CAPABILITY：AVX512与DEFAULT各自重复一致但彼此不同；不能由此解释历史CI的两个hash。完整计划、复现命令、数值与推断边界见[数值回归协议](docs/numerical-regression.md)及[本次验证](results/2026-10-11-numerical-verification.md)。安装检查器新增第七条CLI；CI配置保留source/container完整产物。发布与本次精确提交CI状态以验证记录为准，旧绿灯不替代新运行。助理实现仍不等于个人掌握。
+同主机A-B-B-A仅改变ATEN_CPU_CAPABILITY：AVX512与DEFAULT各自重复一致但彼此不同；不能由此解释历史CI的两个hash。完整计划、复现命令、数值与推断边界见[数值回归协议](docs/numerical-regression.md)及[本次验证](results/2026-10-11-numerical-verification.md)。[修复后工程提交025a1d7](https://github.com/zjDing1024/pytorch-from-zero/commit/025a1d7da1b68ccd1965b9bfb355eba643ee7505)的[CPU checks #38132126861](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132126861)已成功：source job通过831项测试（186.64秒、1条可选NumPy警告）、Ruff/格式和7条CLI；container job实际完成Linux amd64镜像构建及非root、只读、断网的7条已安装wheel CLI，两路完整数值artifact均已上传并下载核验。首次source CI的进程观测竞态及测试修复也保留在验证记录中。科学诊断未通过的结果仍然保留，软件CI通过没有改写该结论。助理实现仍不等于个人掌握。

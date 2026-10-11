@@ -1,10 +1,10 @@
 # 2026-10-11 数值回归验证记录
 
-日期：Asia/Kuala_Lumpur。本文记录本地冻结阶段，远程发布/CI必须在精确提交执行后单独补记。
+日期：2026-10-11，Asia/Kuala_Lumpur。本文保留本地冻结与失败历史，并补记实际公开提交及精确SHA远程CI。
 
 ## 起点与不变项
 
-工程基线`17aed9e5ea934807477652cabbc35a4de8c86a7e`，成长基线`b2fe45be071883791d15fea6b9c5020a2f9547ff`。开工逐一核对远端80/13个文件，先同步过期本地副本，再实现本增量。原Wine协议、33个旧测试/结果文件、旧数据/许可和原训练源码字节保留。原runtime唯一生产源码变化为_worker可选返回完整Wine对象，默认输出、result_digest和严格重复检查逻辑未变。唯一旧测试文件例外是test_runtime_probe.py的CLI外层监督预算公式；原784个测试case和全部科学断言保留，原版本可由基线commit复查。
+工程基线`17aed9e5ea934807477652cabbc35a4de8c86a7e`，成长基线`b2fe45be071883791d15fea6b9c5020a2f9547ff`。开工逐一核对远端80/13个文件，先同步过期本地副本，再实现本增量。原Wine协议、32个旧测试/结果文件、旧数据/许可和原训练源码字节保留。原runtime唯一生产源码变化为_worker可选返回完整Wine对象，默认输出、result_digest和严格重复检查逻辑未变。两处旧测试文件例外为test_runtime_probe.py的CLI外层监督预算公式，以及test_installed_checker.py对已消失进程的/proc观测竞态修复；原784个测试case和全部科学断言保留，原版本可由基线commit复查。
 
 ## 冻结前协议
 
@@ -48,7 +48,7 @@ python -m pip install --no-index --no-deps --force-reinstall dist/pytorch_from_z
 python -I scripts/check_installed.py --output results/2026-10-11-installed-reviewed.json
 ```
 
-- 聚焦测试48项通过（45.44秒）：42个新增测试 + 6个旧安装检查器测试。该聚焦结果发生在监督预算修复前；后续唯一旧测试文件改动限于CLI helper预算，见后文。
+- 聚焦测试48项通过（45.44秒）：42个新增测试 + 6个旧安装检查器测试。该聚焦结果发生在监督预算修复前；首次发布前的旧测试改动限于CLI helper预算，发布后另修复/proc观测竞态，均见后文。
 - Ruff通过；全部39个拟发布Python文件格式检查通过（排除本地wheel构建副本）；compileall与两个环境pip check通过。
 - 最终已安装wheel的7条检查器CLI实际通过：baseline、minibatch、checkpoint、scheduler、wine、runtime、numerical。外部临时目录、`-I`、noneditable与distribution导入位置检查都执行。
 - 安装报告中3个runtime样本及2个完整数值样本的全部包hash均等于最终源码，科学hash均28ce…；不是仅看版本号相同。
@@ -73,8 +73,22 @@ python -I scripts/check_installed.py --output results/2026-10-11-installed-revie
 
 ## 尚未验证
 
-本机无Docker/Podman等容器引擎；本增量Docker build/run与artifact上传尚待发布后精确SHA的GitHub CI执行。先前第六增量绿灯不证明新提交。未验证GPU、分布式、跨硬件一般误差界、性能收益、动态原生库完整身份或个人独立掌握。
+本机仍无Docker/Podman等容器引擎；本增量的Docker build/run与artifact上传已在下述精确SHA的GitHub CI执行，本机不另作容器执行声明。未验证GPU、分布式、跨硬件一般误差界、性能收益、动态原生库完整身份或个人独立掌握。
 
 ## 发布状态
 
-本次仍是本地冻结/独立审查阶段，尚未向远端提交。监督预算修复前完整本地测试并非全绿；修复后828项完整重跑已全部通过（906.70秒），先前825/1失败记录完整保留，不以单项重跑覆盖它。发布时必须用基线HEAD保护、核对完整远端Git blob清单，并跟踪该精确工程SHA的source与container CI；失败先诊断修复，不把数值调查未通过的结果删掉或改称成功。
+本地监督预算修复后的828项完整测试通过（906.70秒），先前825/1失败记录保留。公开feature提交为[`6765eac6ddbf00bb13d89f02e15810c20b4f1a1e`](https://github.com/zjDing1024/pytorch-from-zero/commit/6765eac6ddbf00bb13d89f02e15810c20b4f1a1e)。其[首轮CI #38131487107](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38131487107)实际失败：source为827 passed / 1 failed（167.96秒），container构建、7条已安装CLI及artifact上传成功。失败为旧`test_timeout_terminates_real_descendant`读取`/proc/<pid>/stat`时进程消失，引发`ProcessLookupError`（ESRCH）；source后续7条CLI被跳过，always-upload因没有文件也失败。没有把成功的container当作整个run成功。
+
+修复仅修改`tests/test_installed_checker.py`的观测辅助函数：在原有ENOENT之外接受ESRCH，仍拒绝持续存活的后代并传播权限/I/O等无关错误；生产清理逻辑、所有deadline和科学门保持不变。新增3个针对性回归用例，本地独立11项检查通过（1.07秒），另有9项独立探针；恢复旧处理器的内存变异确实被新用例拒绝，真实“先打开/proc、再终止/回收、最后读取”也复现ESRCH。它们不累加到pytest计数。
+
+[修复后工程提交025a1d7](https://github.com/zjDing1024/pytorch-from-zero/commit/025a1d7da1b68ccd1965b9bfb355eba643ee7505)的[CPU checks #38132126861](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132126861)已成功：source job通过831项测试（186.64秒、1条可选NumPy警告）、Ruff/格式和7条CLI；container job实际完成Linux amd64镜像构建及非root、只读、断网的7条已安装wheel CLI，两路完整数值artifact均已上传并下载核验。完整修复SHA：`025a1d7da1b68ccd1965b9bfb355eba643ee7505`。这是独立于本地828项和失败feature run的完整831项运行；没有拼接局部结果。首次失败commit/run仍可追溯。
+
+两次公开更新均使用expected-SHA及非强制快进；逐一核对工程98个远端Git blob，零删除。feature为27个修改/新增（18新增），随后仅上述1个旧测试文件修复；52个其余受保护旧源码/测试/结果保持原字节。生产源代码、固定计划及已提交的所有原始JSON在后续修复和文档补记中不变。
+
+### 完整产物核验
+
+修复run的[source artifact](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132126861/artifacts/11698719921)和[container artifact](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132126861/artifacts/11699980377)已下载。ZIP SHA-256分别为`823269ce601b30b5b35831c43af6c2f5594441c0f89767253c37e5d76b673455`、`abc7a8fd1de46d61b03bd5b79d70622512e559444a11c1dd308ee5049860c9f0`，与GitHub元数据一致。source包含6个匹配local-ci-*的JSON（baseline的local-ci.json没有包含在此匹配中）；container包含完整installed报告。实际7条CLI是否执行以各job步骤为准。
+
+source的2个runtime + 2个numerical样本、container的3个runtime + 2个numerical样本共9份，每份23个包代码/数据/许可hash全部与冻结源码相同。该run两路科学hash均为b7ab9686…；数值捕获记录AMD EPYC 9V74、AVX512。相比本地Intel Xeon/AVX512的28ce527e…，这再次表明capability标签单独不足以解释输出差异，不能据此给历史run归因，也不把本次相同hash升级为跨平台保证。首轮成功container另记录AMD EPYC 7763/AVX2与b7ab9686…。
+
+artifact配置保留30天，本次到期时间为2026-11-10 UTC；永久实验材料仍是仓库results中的正式JSON与失败快照。未把带机器路径的整份CI日志复制进仓库。后续文档补记提交须单独验证自己的source/container CI，最终精确SHA与结果同步到成长仓库2026-10-11日报。

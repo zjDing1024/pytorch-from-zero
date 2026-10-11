@@ -43,4 +43,6 @@
 
 ## 2026-10-11之后
 
+[修复后工程提交025a1d7](https://github.com/zjDing1024/pytorch-from-zero/commit/025a1d7da1b68ccd1965b9bfb355eba643ee7505)的[CPU checks #38132126861](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132126861)已成功：source job通过831项测试（186.64秒、1条可选NumPy警告）、Ruff/格式和7条CLI；container job实际完成Linux amd64镜像构建及非root、只读、断网的7条已安装wheel CLI，两路完整数值artifact均已上传并下载核验。首次CI的827通过/1失败来自旧测试读取已退出进程的/proc竞态；只修复观测器并增加3个回归用例，未修改生产进程清理、时间预算或科学比较阈值。失败与修复证据见[本次验证](../results/2026-10-11-numerical-verification.md)。
+
 完整输出、CPU记录和预声明数值比较已实现；固定8步预算的真实失败保留，不把它当作模型质量下降。下一步先独立自测，再以保留的两个完整输出定位最早发生差异的计算阶段。可预先设计固定输入、逐算子/固定logits的softmax等小对照，区分训练参数变化与评估运算变化；先声明可证伪假设及范围，不因当前dispatch对照变化就断言历史CI原因。此阶段结束前不切换大型模型/Agent，也不对Wine测试集调参。依赖/镜像升级是后续单独的兼容性任务，不能同时引入干预。
