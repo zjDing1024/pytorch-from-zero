@@ -1,4 +1,4 @@
-"""Exercise six CLIs from a wheel installed in this interpreter, outside the source tree."""
+"""Exercise seven CLIs from a wheel installed in this interpreter, outside the source tree."""
 
 import argparse
 import json
@@ -16,6 +16,7 @@ COMMANDS = (
     ("scheduler", "pytorch_lab.scheduler_cli", ["verify"]),
     ("wine", "pytorch_lab.wine_cli", []),
     ("runtime", "pytorch_lab.runtime_probe", ["--repeats", "3", "--timeout", "60"]),
+    ("numerical", "pytorch_lab.numerical_probe", ["--repeats", "2", "--timeout", "60"]),
 )
 
 
@@ -71,17 +72,38 @@ def check_installed() -> dict:
     with tempfile.TemporaryDirectory(prefix="pytorch-lab-check-") as temp:
         for name, module, extra in COMMANDS:
             output = Path(temp) / f"{name}.json"
-            run = run_checked(
-                [sys.executable, "-I", "-m", module, *extra, "--output", str(output)],
-                cwd=temp,
-                timeout=300,
-            )
-            evidence = json.loads(output.read_text())
-            if evidence != json.loads(run.stdout) or evidence.get("all_checks_passed") is not True:
-                raise RuntimeError(f"{name} did not produce matching successful evidence")
-            results[name] = {"exit_code": run.returncode, "all_checks_passed": True}
-            if name == "runtime":
-                results[name]["report"] = evidence
+            try:
+                run = run_checked(
+                    [sys.executable, "-I", "-m", module, *extra, "--output", str(output)],
+                    cwd=temp,
+                    timeout=300,
+                )
+                evidence = json.loads(output.read_text())
+                if (
+                    evidence != json.loads(run.stdout)
+                    or evidence.get("all_checks_passed") is not True
+                ):
+                    raise RuntimeError(f"{name} did not produce matching successful evidence")
+                results[name] = {"exit_code": run.returncode, "all_checks_passed": True}
+                if name in {"runtime", "numerical"}:
+                    results[name]["report"] = evidence
+            except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
+                failure = {
+                    "all_checks_passed": False,
+                    "error_type": type(error).__name__,
+                    "exit_code": error.returncode
+                    if isinstance(error, subprocess.CalledProcessError)
+                    else None,
+                }
+                # Preserve bounded structured evidence from our own child, never raw stderr.
+                if name in {"runtime", "numerical"} and output.is_file():
+                    try:
+                        if output.stat().st_size <= 16 * 1024 * 1024:
+                            failure["report"] = json.loads(output.read_text())
+                    except (OSError, ValueError):
+                        failure["report_unreadable"] = True
+                results[name] = failure
+                break
     return {
         "installation": json.loads(installation.stdout),
         "checks": results,
@@ -103,6 +125,8 @@ def main() -> None:
             with args.output.open("x", encoding="utf-8") as f:
                 f.write(encoded)
         print(encoded, end="")
+        if not result["all_checks_passed"]:
+            parser.exit(1, "Installed-wheel check failed; partial evidence retained.\n")
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
         parser.exit(2, "Installed-wheel check failed; no success report written.\n")
 

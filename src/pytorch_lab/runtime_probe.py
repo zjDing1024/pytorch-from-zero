@@ -59,7 +59,7 @@ def package_file_hashes() -> dict[str, str]:
     }
 
 
-def _worker(epochs: int) -> dict:
+def _worker(epochs: int, *, retain_scientific: bool = False) -> dict:
     if sys.platform != "linux":
         raise RuntimeError("resource measurement currently supports Linux only")
     import resource
@@ -80,7 +80,7 @@ def _worker(epochs: int) -> dict:
     rss_kib = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     if not result["all_checks_passed"]:
         raise RuntimeError("Wine protocol checks failed")
-    return {
+    measurement = {
         "workload_wall_seconds": wall_seconds,
         "workload_process_cpu_seconds": cpu_seconds,
         "process_high_water_rss_kib": rss_kib,
@@ -117,6 +117,10 @@ def _worker(epochs: int) -> dict:
         },
         "package_files_sha256": package_file_hashes(),
     }
+
+    if retain_scientific:
+        measurement["wine_result"] = result
+    return measurement
 
 
 def _validate_measurement(value: dict, epochs: int) -> None:

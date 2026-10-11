@@ -108,3 +108,8 @@ docker run --rm --network none --read-only --cap-drop ALL \
 ## 下一步
 
 feature容器精确提交CI已完成，当前文档提交也要单独检查CI。下一步先做用户独立自测，以及跨环境完整输出留存/差异定位。后续可练习受控单因素profiling，显式声明负载/线程/重复顺序后定位真实瓶颈；或加入依赖/基础镜像更新的兼容性回归。没有个人独立解释证据时不自动升级能力，也不为加仓库数量跳到大型模型/Agent。
+
+
+## 2026-10-11 后续说明
+
+本页保留第六增量当时的记录。后续完整科学JSON留存、CPU/dispatch元数据、历史两输出的ULP诊断和单因素实验见[数值回归协议](numerical-regression.md)。原runtime CLI仍保持原严格hash检查，不用新诊断容差替换。

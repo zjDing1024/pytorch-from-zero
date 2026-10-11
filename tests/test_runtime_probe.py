@@ -215,11 +215,19 @@ def test_unsupported_platform_is_explicit(monkeypatch):
 
 
 def cli(*args):
+    # This parent supervises sequential workers, each with its own deadline.
+    # Keep the child CLI's limits unchanged; reserve the sum plus startup/report time.
+    arguments = list(map(str, args))
+    repeats = int(arguments[arguments.index("--repeats") + 1]) if "--repeats" in arguments else 3
+    child_timeout = (
+        float(arguments[arguments.index("--timeout") + 1]) if "--timeout" in arguments else 300
+    )
+    outer_timeout = repeats * child_timeout + 60
     return subprocess.run(
         [sys.executable, "-I", "-m", "pytorch_lab.runtime_probe", *map(str, args)],
         capture_output=True,
         text=True,
-        timeout=60,
+        timeout=outer_timeout,
     )
 
 

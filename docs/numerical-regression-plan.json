@@ -1,0 +1,55 @@
+{
+  "plan_id": "wine-float64-lastbits-v1",
+  "declared_at_utc": "2026-10-10T16:08:10Z",
+  "declared_before_new_experiments": true,
+  "prior_information": "Two previously published scientific hashes differ; published comparison reports 1299 float differences with maximum absolute difference 3.608224830031759e-16. This is known prior evidence, not a blind study.",
+  "workload": {
+    "epochs": 120,
+    "repeats_per_condition": 2,
+    "fits_per_sample": 6,
+    "intraop_threads": 1,
+    "interop_threads": 1
+  },
+  "factor": {
+    "name": "ATEN_CPU_CAPABILITY",
+    "A": null,
+    "B": "default",
+    "order": [
+      "A",
+      "B",
+      "B",
+      "A"
+    ],
+    "purpose": "Test whether changing ATen CPU dispatch alone changes the complete scientific output on this host. This does not control all BLAS or oneDNN dispatch."
+  },
+  "controls": [
+    "same interpreter and installed code/data",
+    "same fixed Wine config/seeds/split",
+    "same host and CPU affinity",
+    "OMP_NUM_THREADS=MKL_NUM_THREADS=OPENBLAS_NUM_THREADS=1",
+    "fresh isolated interpreter for every sample",
+    "same allow-listed environment controls except ATEN_CPU_CAPABILITY"
+  ],
+  "acceptance": {
+    "strict_scientific_hash": "Report SHA-256 equality independently. Never redefine or round scientific output.",
+    "exact": "JSON types, keys, array length/order; schema, data identity, protocol and all config floats; strings/bools/null/integers; predictions, row IDs, confusion matrices, selected architecture, checks; count-derived accuracy, precision, recall, f1, macro_f1 and their summaries; every float outside the explicit continuous-output allowlist. Training priors are count-derived and exact.",
+    "continuous_allowlist": [
+      "preprocessing mean and scale",
+      "cross-entropy metrics and summaries",
+      "training cross-entropy histories",
+      "probabilities and error probabilities"
+    ],
+    "numeric": "Finite IEEE-754 binary64 only. At most 8 representable steps (ULP distance) for allow-listed continuous floats; no nonzero absolute floor. Signed zeros numeric-equal, strict hash still distinguishes their JSON encoding.",
+    "rationale": "Eight adjacent finite binary64 representable steps is an explicitly chosen tight diagnostic budget. ULP distance counts representable numbers, not differing mantissa bits. It is intentionally stringent and is not a derived error guarantee for matrix products, transcendental functions or iterative training. No threshold will be changed after outcomes are observed. Numeric failure remains failure and a subject for further investigation.",
+    "invalid": "Nonfinite numbers, duplicate object keys, malformed Wine schema/identity or failed protocol checks reject comparison.",
+    "outcome": "Preserve exact hash status, exact-field status, numeric status, counts/maxima/paths, full raw outputs and failures separately. No probability rounding or model/seed/test tuning."
+  },
+  "stop": "Four successful full-workload captures; fail with preserved evidence on worker/config errors or changed controls. If dispatch is not observably different, mark intervention ineffective rather than infer no numerical effect. No search for a passing factor or threshold.",
+  "limits": [
+    "Shared-host timing is descriptive only; no speed claim",
+    "No inference about earlier CI hosts without their CPU metadata",
+    "No attribution of individual kernel or earlier cross-run mismatch cause",
+    "No cross-platform or general error-bound claim",
+    "No learner mastery claim"
+  ]
+}

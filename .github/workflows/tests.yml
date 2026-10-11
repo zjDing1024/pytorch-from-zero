@@ -28,6 +28,15 @@ jobs:
       - run: python -m pytorch_lab.scheduler_cli verify --output results/local-ci-scheduler.json
       - run: python -m pytorch_lab.wine_cli --output results/local-ci-wine.json
       - run: python -m pytorch_lab.runtime_probe --repeats 2 --output results/local-ci-runtime.json
+      - run: python -m pytorch_lab.numerical_probe --repeats 2 --output results/local-ci-numerical.json
+      - name: Retain full scientific outputs and CPU evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-numerical-evidence
+          path: results/local-ci-*.json
+          if-no-files-found: error
+          retention-days: 30
   installed-cpu-container:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -41,4 +50,13 @@ jobs:
           docker run --rm --network none --read-only --cap-drop ALL \
             --security-opt no-new-privileges --pids-limit 128 --memory 1g --cpus 2 \
             --tmpfs /tmp:rw,noexec,nosuid,size=64m \
-            pytorch-lab:cpu /checks/check_installed.py
+            pytorch-lab:cpu /checks/check_installed.py > container-installed.json
+          cat container-installed.json
+      - name: Retain container scientific outputs and CPU evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: container-numerical-evidence
+          path: container-installed.json
+          if-no-files-found: error
+          retention-days: 30

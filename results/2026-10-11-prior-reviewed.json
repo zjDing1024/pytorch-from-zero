@@ -1,0 +1,494 @@
+{
+  "schema_version": 1,
+  "policy": {
+    "name": "wine-float64-lastbits-v1",
+    "max_ulps": 8,
+    "absolute_tolerance": 0.0,
+    "continuous_paths": [
+      "preprocessing.{mean,scale}[*]",
+      "training_prior_baseline.test.{cross_entropy,probabilities[*][*]}",
+      "training_prior_baseline.test.errors[*].{true_probability,predicted_probability}",
+      "models.{linear,mlp16}.runs[*].{train,validation,test}.cross_entropy",
+      "models.{linear,mlp16}.runs[*].{train,validation,test}.probabilities[*][*]",
+      "models.{linear,mlp16}.runs[*].{train,validation,test}.errors[*].{true_probability,predicted_probability}",
+      "models.{linear,mlp16}.runs[*].history[*].{online_cross_entropy,final_train_cross_entropy}",
+      "models.{linear,mlp16}.{validation,test}.cross_entropy.{mean,sample_std,values[*]}"
+    ],
+    "default": "Exact types, structure, nonfloats and all unlisted floats; priors and count-derived metrics/summaries are exact. Object key order is irrelevant; array order is significant. Signed zeros are numerically equal only on allow-listed continuous paths; all unlisted floats retain encoding equality.",
+    "strict_digest": "Unmodified runtime_probe.result_digest; excludes only root created_at_utc and environment; signed zero encodings differ.",
+    "excluded_root_fields": [
+      "created_at_utc",
+      "environment"
+    ],
+    "max_examples_per_outcome": 20,
+    "limits": "At most 8 adjacent finite binary64 representable steps is a predeclared diagnostic budget, not a derived error bound for iterative training, a count of differing mantissa bits, or a general platform guarantee. Validation checks the Wine schema and reported checks, not metric truth."
+  },
+  "exact": {
+    "passed": false,
+    "left_result_sha256": "b7ab96864bf8265cc5ec54c7318cb65bc78cbb0404174ef868a803ce3eb75fc1",
+    "right_result_sha256": "28ce527e3828b3d49a30a4be246ae4c1c19a38f20f4eb561450484a88ba94ab5",
+    "mismatch_count": 1299,
+    "mismatch_categories": {
+      "continuous_float": 1299
+    },
+    "examples": [
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"history\"][1][\"final_train_cross_entropy\"]",
+        "category": "continuous_float",
+        "left": 0.014121828977609148,
+        "right": 0.014121828977609151,
+        "ulp_distance": 2,
+        "absolute_difference": 3.469446951953614e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"history\"][1][\"online_cross_entropy\"]",
+        "category": "continuous_float",
+        "left": 0.014599109213294438,
+        "right": 0.01459910921329444,
+        "ulp_distance": 1,
+        "absolute_difference": 1.734723475976807e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"history\"][2][\"final_train_cross_entropy\"]",
+        "category": "continuous_float",
+        "left": 0.008937529072102247,
+        "right": 0.008937529072102249,
+        "ulp_distance": 1,
+        "absolute_difference": 1.734723475976807e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"history\"][2][\"online_cross_entropy\"]",
+        "category": "continuous_float",
+        "left": 0.009059744850160091,
+        "right": 0.009059744850160088,
+        "ulp_distance": 2,
+        "absolute_difference": 3.469446951953614e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"history\"][3][\"online_cross_entropy\"]",
+        "category": "continuous_float",
+        "left": 0.0067448622553605425,
+        "right": 0.006744862255360549,
+        "ulp_distance": 7,
+        "absolute_difference": 6.071532165918825e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"history\"][4][\"final_train_cross_entropy\"]",
+        "category": "continuous_float",
+        "left": 0.005387630147310296,
+        "right": 0.005387630147310294,
+        "ulp_distance": 2,
+        "absolute_difference": 1.734723475976807e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"history\"][4][\"online_cross_entropy\"]",
+        "category": "continuous_float",
+        "left": 0.005429114362352513,
+        "right": 0.0054291143623525166,
+        "ulp_distance": 4,
+        "absolute_difference": 3.469446951953614e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"history\"][5][\"final_train_cross_entropy\"]",
+        "category": "continuous_float",
+        "left": 0.004550569128091169,
+        "right": 0.004550569128091167,
+        "ulp_distance": 2,
+        "absolute_difference": 1.734723475976807e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"history\"][5][\"online_cross_entropy\"]",
+        "category": "continuous_float",
+        "left": 0.0045852261217334,
+        "right": 0.004585226121733402,
+        "ulp_distance": 3,
+        "absolute_difference": 2.6020852139652106e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"history\"][6][\"online_cross_entropy\"]",
+        "category": "continuous_float",
+        "left": 0.00398637621548888,
+        "right": 0.003986376215488882,
+        "ulp_distance": 2,
+        "absolute_difference": 1.734723475976807e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][1][1]",
+        "category": "continuous_float",
+        "left": 5.600957837151984e-07,
+        "right": 5.600957837151994e-07,
+        "ulp_distance": 9,
+        "absolute_difference": 9.529120656610879e-22,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][3][2]",
+        "category": "continuous_float",
+        "left": 0.0006703560174212606,
+        "right": 0.00067035601742126,
+        "ulp_distance": 6,
+        "absolute_difference": 6.505213034913027e-19,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][4][2]",
+        "category": "continuous_float",
+        "left": 0.0007635401475903252,
+        "right": 0.0007635401475903239,
+        "ulp_distance": 12,
+        "absolute_difference": 1.3010426069826053e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][5][2]",
+        "category": "continuous_float",
+        "left": 2.218250135577756e-06,
+        "right": 2.2182501355777604e-06,
+        "ulp_distance": 10,
+        "absolute_difference": 4.235164736271502e-21,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][6][1]",
+        "category": "continuous_float",
+        "left": 1.060313338641351e-07,
+        "right": 1.0603133386413546e-07,
+        "ulp_distance": 28,
+        "absolute_difference": 3.705769144237564e-22,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][6][2]",
+        "category": "continuous_float",
+        "left": 2.1136949764777933e-06,
+        "right": 2.1136949764777966e-06,
+        "ulp_distance": 8,
+        "absolute_difference": 3.3881317890172014e-21,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][7][1]",
+        "category": "continuous_float",
+        "left": 0.026781249368106108,
+        "right": 0.026781249368106084,
+        "ulp_distance": 7,
+        "absolute_difference": 2.42861286636753e-17,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][7][2]",
+        "category": "continuous_float",
+        "left": 0.003502499295848327,
+        "right": 0.0035024992958483233,
+        "ulp_distance": 8,
+        "absolute_difference": 3.469446951953614e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][8][1]",
+        "category": "continuous_float",
+        "left": 0.03252048639192471,
+        "right": 0.03252048639192469,
+        "ulp_distance": 3,
+        "absolute_difference": 2.0816681711721685e-17,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][9][1]",
+        "category": "continuous_float",
+        "left": 0.0002076701633194962,
+        "right": 0.00020767016331949657,
+        "ulp_distance": 14,
+        "absolute_difference": 3.7947076036992655e-19,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      }
+    ]
+  },
+  "approximate": {
+    "passed": false,
+    "exact_required_mismatch_count": 0,
+    "continuous_ulp_failure_count": 932,
+    "examples": [
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][1][1]",
+        "category": "continuous_float",
+        "left": 5.600957837151984e-07,
+        "right": 5.600957837151994e-07,
+        "ulp_distance": 9,
+        "absolute_difference": 9.529120656610879e-22,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][4][2]",
+        "category": "continuous_float",
+        "left": 0.0007635401475903252,
+        "right": 0.0007635401475903239,
+        "ulp_distance": 12,
+        "absolute_difference": 1.3010426069826053e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][5][2]",
+        "category": "continuous_float",
+        "left": 2.218250135577756e-06,
+        "right": 2.2182501355777604e-06,
+        "ulp_distance": 10,
+        "absolute_difference": 4.235164736271502e-21,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][6][1]",
+        "category": "continuous_float",
+        "left": 1.060313338641351e-07,
+        "right": 1.0603133386413546e-07,
+        "ulp_distance": 28,
+        "absolute_difference": 3.705769144237564e-22,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][9][1]",
+        "category": "continuous_float",
+        "left": 0.0002076701633194962,
+        "right": 0.00020767016331949657,
+        "ulp_distance": 14,
+        "absolute_difference": 3.7947076036992655e-19,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][9][2]",
+        "category": "continuous_float",
+        "left": 1.4247130228219505e-06,
+        "right": 1.424713022821953e-06,
+        "ulp_distance": 12,
+        "absolute_difference": 2.541098841762901e-21,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][14][0]",
+        "category": "continuous_float",
+        "left": 0.0002545563158028717,
+        "right": 0.0002545563158028722,
+        "ulp_distance": 9,
+        "absolute_difference": 4.87890977618477e-19,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][15][0]",
+        "category": "continuous_float",
+        "left": 0.0009452293362716182,
+        "right": 0.0009452293362716165,
+        "ulp_distance": 16,
+        "absolute_difference": 1.734723475976807e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][15][2]",
+        "category": "continuous_float",
+        "left": 2.615031207837529e-05,
+        "right": 2.6150312078375246e-05,
+        "ulp_distance": 13,
+        "absolute_difference": 4.404571325722362e-20,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][17][0]",
+        "category": "continuous_float",
+        "left": 9.415101974810418e-07,
+        "right": 9.415101974810435e-07,
+        "ulp_distance": 16,
+        "absolute_difference": 1.6940658945086007e-21,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][17][2]",
+        "category": "continuous_float",
+        "left": 5.147193344821135e-06,
+        "right": 5.147193344821144e-06,
+        "ulp_distance": 11,
+        "absolute_difference": 9.317362419797304e-21,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][18][0]",
+        "category": "continuous_float",
+        "left": 0.0027859032740143908,
+        "right": 0.002785903274014396,
+        "ulp_distance": 12,
+        "absolute_difference": 5.204170427930421e-18,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][18][2]",
+        "category": "continuous_float",
+        "left": 1.8659542428529423e-05,
+        "right": 1.8659542428529457e-05,
+        "ulp_distance": 10,
+        "absolute_difference": 3.3881317890172014e-20,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][19][2]",
+        "category": "continuous_float",
+        "left": 3.6223530263362125e-05,
+        "right": 3.622353026336206e-05,
+        "ulp_distance": 10,
+        "absolute_difference": 6.776263578034403e-20,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][20][0]",
+        "category": "continuous_float",
+        "left": 0.00010465703555335903,
+        "right": 0.00010465703555335922,
+        "ulp_distance": 14,
+        "absolute_difference": 1.8973538018496328e-19,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][20][2]",
+        "category": "continuous_float",
+        "left": 4.488567346302969e-06,
+        "right": 4.488567346302977e-06,
+        "ulp_distance": 10,
+        "absolute_difference": 8.470329472543003e-21,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][21][0]",
+        "category": "continuous_float",
+        "left": 1.6475542342515116e-05,
+        "right": 1.6475542342515147e-05,
+        "ulp_distance": 9,
+        "absolute_difference": 3.049318610115481e-20,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][22][0]",
+        "category": "continuous_float",
+        "left": 4.066580325079464e-07,
+        "right": 4.0665803250794715e-07,
+        "ulp_distance": 14,
+        "absolute_difference": 7.411538288475128e-22,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][23][2]",
+        "category": "continuous_float",
+        "left": 8.784769396889084e-06,
+        "right": 8.78476939688907e-06,
+        "ulp_distance": 9,
+        "absolute_difference": 1.5246593050577406e-20,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      },
+      {
+        "path": "$[\"models\"][\"linear\"][\"runs\"][0][\"test\"][\"probabilities\"][24][2]",
+        "category": "continuous_float",
+        "left": 4.248704483589764e-05,
+        "right": 4.248704483589757e-05,
+        "ulp_distance": 10,
+        "absolute_difference": 6.776263578034403e-20,
+        "absolute_difference_overflow": false,
+        "allowed_ulps": 8
+      }
+    ],
+    "exact_fields_passed": true,
+    "continuous_floats_passed": false
+  },
+  "statistics": {
+    "compared_numeric_leaves": 6609,
+    "compared_float_leaves": 3769,
+    "continuous_float_leaves": 3514,
+    "float_value_difference_count": 1299,
+    "float_bit_difference_count": 1299,
+    "signed_zero_difference_count": 0,
+    "max_absolute_difference": {
+      "value": 3.608224830031759e-16,
+      "overflow": false,
+      "path": "$[\"models\"][\"mlp16\"][\"runs\"][0][\"validation\"][\"probabilities\"][19][0]",
+      "left": 0.2010863424046507,
+      "right": 0.20108634240465106
+    },
+    "max_ulp_distance": {
+      "value": 75,
+      "path": "$[\"models\"][\"mlp16\"][\"runs\"][0][\"validation\"][\"probabilities\"][23][2]",
+      "left": 6.654940849976339e-14,
+      "right": 6.654940849976433e-14
+    }
+  },
+  "excluded_metadata": {
+    "identical": false,
+    "left": {
+      "created_at_utc": "2026-10-08T16:05:00.524204+00:00",
+      "environment": {
+        "python": "3.12.14",
+        "torch": "2.14.1+cpu",
+        "device": "cpu",
+        "dtype": "float64",
+        "threads": 1
+      }
+    },
+    "right": {
+      "created_at_utc": "2026-10-09T16:47:24.296394+00:00",
+      "environment": {
+        "python": "3.12.15",
+        "torch": "2.14.1+cpu",
+        "device": "cpu",
+        "dtype": "float64",
+        "threads": 1
+      }
+    }
+  },
+  "gate": {
+    "mode": "approximate",
+    "passed": false
+  }
+}

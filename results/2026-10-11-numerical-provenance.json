@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "plan_id": "wine-float64-lastbits-v1",
+  "plan_sha256": "f2e643ebc643406e380b9266e1e52cc7d8ff8bef8e3a578aad9893a1ac1b99c8",
+  "baselines": {
+    "pytorch-from-zero": "17aed9e5ea934807477652cabbc35a4de8c86a7e",
+    "ai-learning-roadmap": "b2fe45be071883791d15fea6b9c5020a2f9547ff"
+  },
+  "historical_source": {
+    "workflow_run": 37961087696,
+    "job_id": 113923794801,
+    "url": "https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37961087696/job/113923794801",
+    "recovery": "Removed only per-line GitHub log timestamp prefix; preserved original JSON number syntax. Scientific digest verified against previous published value. No full job log is redistributed.",
+    "scientific_sha256": "28ce527e3828b3d49a30a4be246ae4c1c19a38f20f4eb561450484a88ba94ab5"
+  },
+  "authoritative_files": {
+    "dispatch": "2026-10-11-dispatch-reviewed.json",
+    "installed": "2026-10-11-installed-reviewed.json",
+    "prior_comparison": "2026-10-11-prior-reviewed.json",
+    "prior_complete_wine": "2026-10-11-prior-ci-wine.json"
+  },
+  "retained_prefreeze_files": {
+    "2026-10-11-dispatch-study.json": "First valid A-B-B-A on comparator pre-refinement snapshot; all within-run code/control checks passed. Final-code confirmation is dispatch-reviewed.",
+    "2026-10-11-dispatch-interrupted.json": "Rerun overlapped review fixes. Scientific repeats stayed consistent but package controls FAILED. Not a valid controlled contrast; preserved unchanged after renaming from dispatch-final.",
+    "2026-10-11-installed-prefreeze.json": "A reinstall overlapped sequential CLI checks. Although child status flags passed, runtime and numerical package hash sets differ; not final installed-wheel evidence.",
+    "2026-10-11-prior-comparison.json": "Initial comparator diagnostic; authoritative final-code reanalysis is prior-reviewed."
+  },
+  "installed_wheel": {
+    "sha256": "4e1d8daabf010d9caca99124e9a20d5821b862bc193da99d415929e3e87b361d",
+    "version": "0.1.0",
+    "environment_reused_from_prior_clean_venv": true,
+    "include_system_site_packages": false,
+    "noneditable_checked": true,
+    "pip_check_passed": true,
+    "seven_checker_clis_passed": true,
+    "all_five_runtime_numerical_samples_package_hashes_match_final_source": true,
+    "scientific_hashes_equal": true,
+    "limits": "This increment reused the pre-existing isolated dependency environment; it does not claim a newly redownloaded full dependency closure or reproducible wheel build bytes."
+  },
+  "historical_result": {
+    "exact_hash_passed": false,
+    "exact_fields_passed": true,
+    "numeric_passed": false,
+    "over_8_ulp": 932
+  },
+  "final_study_result": {
+    "capture_checks": {
+      "all_planned_captures_completed": true,
+      "nonintervention_controls_identical": true,
+      "strict_scientific_hash_equal_within_each_condition": true,
+      "runtime_identical_within_each_condition": true,
+      "dispatch_intervention_observed": true
+    },
+    "cross_condition_exact_hash_passed": false,
+    "cross_condition_numeric_passed": false,
+    "historical_cause_established": false
+  },
+  "verification_limits": {
+    "local_docker_engine_available": false,
+    "current_increment_remote_ci": "not yet run; publication pending independent gate",
+    "artifact_retention_days": 30
+  },
+  "validation": {
+    "focused_tests": {
+      "passed": 48,
+      "seconds": 45.44,
+      "new_test_cases": 42,
+      "existing_checker_cases": 6
+    },
+    "unchanged_failed_test_isolated_rerun": {
+      "passed": 1,
+      "seconds": 29.4,
+      "call_seconds": 29.32,
+      "timeout_seconds": 60,
+      "timeout_or_assertions_changed": false
+    },
+    "full_suite_passed": true,
+    "interrupted_full_attempt": {
+      "completed_dot_markers": 758,
+      "terminal_summary_available": false,
+      "reason": "Executor session recovery interrupted transport; not counted as a full pass"
+    },
+    "ruff_passed": true,
+    "formatted_python_files": 39,
+    "compileall_passed": true,
+    "relative_document_links_checked": 82,
+    "relative_document_links_missing": 0,
+    "raw_junit_or_logs_published": false,
+    "raw_log_exclusion_reason": "May contain machine paths or host identifiers; this summary retains outcomes without those fields.",
+    "harness_revision": {
+      "reason": "Old whole-command test supervisor used60seconds while command permits2sequential children with default300seconds each.",
+      "test_supervisor_formula": "repeats * configured_child_timeout + 60 seconds launch/report allowance",
+      "production_deadlines_changed": false,
+      "explicit_timeout_negative_changed": false,
+      "numeric_thresholds_or_correctness_assertions_changed": false,
+      "old_test_file_exception": "tests/test_runtime_probe.py helper cli only",
+      "new_capture_test_helper": "tests/test_numerical_probe.py helper cli only",
+      "added_budget_test_cases": 2,
+      "new_total_test_cases": 828,
+      "postfix_full_suite": {
+        "passed": 828,
+        "seconds": 906.7,
+        "exit_code": 0,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "focused_checks": {
+        "passed": 6,
+        "seconds": 43.66,
+        "scope": "2 budget checks plus real old runtime/new numerical capture and both original explicit timeout-negative controls"
+      }
+    },
+    "format_scope": "All staged Python source/test/script/example files; local build copies excluded",
+    "pre_harness_full_suite": {
+      "total": 826,
+      "passed": 825,
+      "failed": 1,
+      "skipped": 0,
+      "seconds": 952.45,
+      "exit_code": 1,
+      "frozen_code_unchanged": true,
+      "thread_controls": {
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1"
+      },
+      "sole_failure": {
+        "test": "tests/test_runtime_probe.py::test_real_two_fresh_processes",
+        "exception": "subprocess.TimeoutExpired",
+        "outer_timeout_seconds": 60,
+        "stdout_empty": true,
+        "stderr_empty": true,
+        "measurement_file_created": false
+      }
+    },
+    "independent_full_suite": {
+      "total": 828,
+      "passed": 828,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 906.7,
+      "exit_code": 0,
+      "frozen_code_unchanged": true,
+      "junit_count_verified": true,
+      "thread_controls": {
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1"
+      },
+      "old_runtime_real_test_seconds": 16.33,
+      "new_capture_real_test_seconds": 15.42
+    },
+    "prior_failed_full_suite_preserved": true
+  }
+}

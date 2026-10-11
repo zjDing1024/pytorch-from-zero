@@ -19,3 +19,7 @@ The upstream scikit-learn BSD-3-Clause notice is retained verbatim in src/pytorc
 ## 2026-10-10 runtime source study
 
 Original runtime probe/checker/Dockerfile implementation; no pip or Python Official Image implementation was copied. Source study: PyPA pip (MIT), commit `01857ef79f59a98db592bacb6e7b48f354528c80`; Docker Community Python Official Image source (MIT), commit `688a0b86bb44289df16a363e9f41d90514c1a5f9`. Links and design lessons are in [runtime documentation](docs/runtime-reproducibility.md). Installed third-party wheels and the base image carry their own licenses; their installed license metadata is retained. Existing UCI Wine attribution and dataset/software license files remain unchanged.
+
+## 2026-10-11 数值诊断源码研究
+
+阅读PyTorch固定revision `5c4886908584029761b579af026dcfb627c84070`的`aten/src/ATen/native/DispatchStub.cpp`、`torch/testing/_comparison.py`和根LICENSE。上游根许可证为BSD-3-Clause-style条件，各依赖仍保留各自许可。新增比较器、捕获器和测试均为原创，没有复制上游代码或引用私有比较API。官方来源和学习范围见`docs/numerical-regression.md`。
