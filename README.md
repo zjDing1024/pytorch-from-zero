@@ -1,14 +1,24 @@
 # pytorch-from-zero
 
+## 2026-10-26：四批工程成果发布记录
+
+固定输入诊断、首步定位、saved-forward 探针和交付验证器的发布状态统一以本节为准。下方旧日期中的“未公开”“本地候选”保留为历史事实。
+
+- 工程内容提交：[c57de064e929bd388261e0514dd93015d10d8256](https://github.com/zjDing1024/pytorch-from-zero/commit/c57de064e929bd388261e0514dd93015d10d8256)。
+- 该内容提交的远端 CI：[实际运行记录](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/40322000534)。核验结果：成功。source 作业通过 1,018 项测试（880 + 59 + 45 + 34）、Ruff 检查/格式及 8 个 CLI；installed-cpu-container 作业成功完成实际容器中的 8 个 CLI。主套件 880 项耗时 246.79 秒；可选 NumPy 缺失警告未导致失败。容器没有运行完整测试套件。。
+- 10 月 22 日本地验收的 1,018 项测试及 source / installed-wheel 各 8 个 CLI 是当日证据，不计作 10 月 26 日重跑。新 CI 的 source 与 container 范围分别说明，不把容器 CLI 检查写成容器完整测试套件。
+
+本次补齐已有成果的公开交付及精确提交验证。公开副本的隐私处理范围：仅将两份历史测试日志的本地环境路径替换为中性标记，更新脱敏说明与对应 SHA256 清单，共 4 个文件；原始证据单独保留，科学数据、源码、输入 ZIP 与数值阈值未变。本次对公开副本重新运行的 34 项交付验证测试和两份输入包静态检查均通过。冻结原件单独保留，不新增科学结论或放宽数值阈值。个人独立实现、讲解和排错能力仍待自测。详情见[发布整合记录](docs/release-integration.md)。
+
 ## 2026-10-22：四批工程交付的重新执行验收
 
 固定输入、首步定位、saved-forward 和交付验证器已经合并到本候选，并在新的 CPU 环境重新执行测试。详见[本次原始结果与验证边界](results/2026-10-22-release-verification/README.md)。旧日期段落是历史记录，不代表当前发布状态。
 
 本次保留所有原始科学输入、阈值、失败和源代码快照，没有新增 demo 或改写科学结论。本地执行证据不代替远端精确 commit 的 CI；发布结果须以实际提交和对应 Actions 为准。
 
-## 2026-10-18 本地整合状态与导航
+## 2026-10-18 历史本地整合状态与导航
 
-本地恢复候选已补齐四批工作的入口，仍未作为新提交公开。当前说明优先用于判断整合状态；下面各日期段落保留原时点记录。已核验的公开工程基线仍是 [aa56d5e](https://github.com/zjDing1024/pytorch-from-zero/commit/aa56d5e3ae5ffcee428d1f4c996a04497df7bb7e)。
+本地恢复候选已补齐四批工作的入口，仍未作为新提交公开。此段记录当时整合状态；最新公开状态以顶部 10 月 26 日记录为准。已核验的公开工程基线仍是 [aa56d5e](https://github.com/zjDing1024/pytorch-from-zero/commit/aa56d5e3ae5ffcee428d1f4c996a04497df7bb7e)。
 
 - [整合范围、验证分层与发布阻断](docs/release-integration.md)
 - [固定输入逐阶段诊断](docs/fixed-input-diagnostics.md)
