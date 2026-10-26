@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-27",
+  "verification": "clean noneditable wheel on local CPU, outside source tree, Python isolated mode, PYTHONPATH removed",
+  "installation": {
+    "version": "0.1.0",
+    "noneditable_wheel": true
+  },
+  "cli_count": 9,
+  "checks": {
+    "baseline": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "minibatch": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "checkpoint": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "scheduler": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "wine": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "runtime": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "numerical": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "fixed_input": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    }
+  },
+  "all_checks_passed": true,
+  "stdout_matches_file": true,
+  "source_wheel_hashes": [
+    {
+      "module": "pytorch_lab/accumulation.py",
+      "wheel_sha256": "96f8b5a9c0e18902c9a670f02da3dd6caff14e7e0e6cf541cd2b230be8eb139f",
+      "source_sha256": "96f8b5a9c0e18902c9a670f02da3dd6caff14e7e0e6cf541cd2b230be8eb139f",
+      "match": true
+    },
+    {
+      "module": "pytorch_lab/accumulation_cli.py",
+      "wheel_sha256": "63a2ea8fccd16595284361701c20b3a3ba0e60421a267fe10e53539c885d2dc7",
+      "source_sha256": "63a2ea8fccd16595284361701c20b3a3ba0e60421a267fe10e53539c885d2dc7",
+      "match": true
+    }
+  ],
+  "docker_executed": false,
+  "full_test_suite_in_wheel_environment": false
+}

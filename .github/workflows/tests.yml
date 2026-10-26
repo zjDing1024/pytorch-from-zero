@@ -36,6 +36,7 @@ jobs:
       - run: python -m pytorch_lab.runtime_probe --repeats 2 --output results/local-ci-runtime.json
       - run: python -m pytorch_lab.numerical_probe --repeats 2 --output results/local-ci-numerical.json
       - run: python -m pytorch_lab.fixed_input_probe --repeats 2 --output results/local-ci-fixed-input.json
+      - run: python -m pytorch_lab.accumulation_cli --output results/local-ci-accumulation.json
       - name: Retain full scientific outputs and CPU evidence
         if: always()
         uses: actions/upload-artifact@v4

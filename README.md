@@ -1,5 +1,15 @@
 # pytorch-from-zero
 
+## 2026-10-27：样本加权梯度累积
+
+新增原创 CPU float64 仿射训练循环：逐 microbatch 反向传播，按实际有效批次的目标元素数归一化，只在窗口边界更新 SGD，正确处理尾批和不完整末窗口。每次参数与 momentum 更新对照真实拼接批次，并保留两个错误实现反例。旧训练循环和历史科学证据不变。
+
+- [算法契约、官方来源与边界](docs/gradient-accumulation.md)
+- [9 个固定 case 的实际结果](results/2026-10-27-gradient-accumulation.json)
+- [本次测试与发布状态](results/2026-10-27-gradient-accumulation-verification.md)
+
+本次不声称 GPU/显存/吞吐量收益，不代表学习者本人已掌握。源码和安装 wheel 的 CI 检查新增第九个 CLI。
+
 ## 2026-10-26：四批工程成果发布记录
 
 固定输入诊断、首步定位、saved-forward 探针和交付验证器的发布状态统一以本节为准。下方旧日期中的“未公开”“本地候选”保留为历史事实。

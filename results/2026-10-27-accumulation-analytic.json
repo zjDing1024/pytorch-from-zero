@@ -1,0 +1,9 @@
+{
+  "analytical_oracle_configurations": 96,
+  "epochs_per_configuration": 4,
+  "max_parameter_or_momentum_absolute_gap": 4.440892098500626e-16,
+  "rtol": 1e-12,
+  "atol": 1e-12,
+  "failure_cleanup_passed": true,
+  "scope": "CPU float64 affine; analytic gradients and manually computed SGD including weight_decay/dampening/nesterov/maximize; not a general optimizer proof"
+}

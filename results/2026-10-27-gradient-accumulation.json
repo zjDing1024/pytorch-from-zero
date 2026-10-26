@@ -1,0 +1,1430 @@
+{
+  "schema_version": 1,
+  "experiment": "sample_weighted_gradient_accumulation",
+  "executed_by": "AI assistant; learner mastery is unassessed",
+  "environment": {
+    "python": "3.12.14",
+    "pytorch": "2.14.1+cpu"
+  },
+  "protocol": {
+    "device": "cpu",
+    "dtype": "float64",
+    "loss": "sum squared error per microbatch; divide gradients by actual window N*K",
+    "comparison": "same ordered samples, effective windows, initialization, SGD updates",
+    "optimizer": {
+      "lr": 0.03,
+      "momentum": 0.8,
+      "weight_decay": 0.01
+    },
+    "atol": 1e-12,
+    "rtol": 1e-12,
+    "tolerance_scope": "predeclared bounded affine fixture, not a universal error bound",
+    "excluded": [
+      "BatchNorm",
+      "Dropout",
+      "AMP",
+      "DDP",
+      "GPU",
+      "memory/speed claims"
+    ]
+  },
+  "cases": [
+    {
+      "seed": 42,
+      "samples": 23,
+      "output_width": 2,
+      "microbatch_size": 5,
+      "accumulation_steps": 3,
+      "microbatch_sizes": [
+        5,
+        5,
+        5,
+        5,
+        3
+      ],
+      "effective_batch_sizes": [
+        15,
+        8
+      ],
+      "epochs": 3,
+      "weighted_epoch_reports": [
+        {
+          "online_mse": 0.09331216200521873,
+          "samples_seen": 23,
+          "target_elements": 46,
+          "microbatches": 5,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 15,
+              "target_elements": 30,
+              "microbatches": 3,
+              "pre_update_mse": 0.050975736652904
+            },
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.17269295954080885
+            }
+          ]
+        },
+        {
+          "online_mse": 0.08674220429614517,
+          "samples_seen": 23,
+          "target_elements": 46,
+          "microbatches": 5,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 15,
+              "target_elements": 30,
+              "microbatches": 3,
+              "pre_update_mse": 0.049290653367708444
+            },
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.15696386228696402
+            }
+          ]
+        },
+        {
+          "online_mse": 0.0777116810677014,
+          "samples_seen": 23,
+          "target_elements": 46,
+          "microbatches": 5,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 15,
+              "target_elements": 30,
+              "microbatches": 3,
+              "pre_update_mse": 0.04694536562514799
+            },
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.13539852252248905
+            }
+          ]
+        }
+      ],
+      "weighted_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 2.7755575615628914e-17,
+        "updates": [
+          {
+            "parameters": 2.168404344971009e-19,
+            "momentum": 6.938893903907228e-18
+          },
+          {
+            "parameters": 4.336808689942018e-19,
+            "momentum": 3.469446951953614e-18
+          },
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 1.734723475976807e-18,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 2.7755575615628914e-17
+          }
+        ]
+      },
+      "naive_mean_of_means_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.07185308273272722,
+        "updates": [
+          {
+            "parameters": 5.421010862427522e-20,
+            "momentum": 1.734723475976807e-18
+          },
+          {
+            "parameters": 0.001147074201842721,
+            "momentum": 0.03823580672809071
+          },
+          {
+            "parameters": 0.0020580064803662427,
+            "momentum": 0.030364409284117377
+          },
+          {
+            "parameters": 0.0038787998353315145,
+            "momentum": 0.06069311183217574
+          },
+          {
+            "parameters": 0.005312897478243785,
+            "momentum": 0.047803254763742475
+          },
+          {
+            "parameters": 0.007468489960225602,
+            "momentum": 0.07185308273272722
+          }
+        ]
+      },
+      "naive_fixed_divisor_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.18539178702023817,
+        "updates": [
+          {
+            "parameters": 5.421010862427522e-20,
+            "momentum": 1.734723475976807e-18
+          },
+          {
+            "parameters": 0.0034748361547039842,
+            "momentum": 0.11582787182346616
+          },
+          {
+            "parameters": 0.006149565605915317,
+            "momentum": 0.08915764837371115
+          },
+          {
+            "parameters": 0.011370590465915459,
+            "momentum": 0.17403416200000477
+          },
+          {
+            "parameters": 0.015203499006104952,
+            "momentum": 0.12776361800631647
+          },
+          {
+            "parameters": 0.020765252616712096,
+            "momentum": 0.18539178702023817
+          }
+        ]
+      }
+    },
+    {
+      "seed": 42,
+      "samples": 11,
+      "output_width": 2,
+      "microbatch_size": 4,
+      "accumulation_steps": 2,
+      "microbatch_sizes": [
+        4,
+        4,
+        3
+      ],
+      "effective_batch_sizes": [
+        8,
+        3
+      ],
+      "epochs": 3,
+      "weighted_epoch_reports": [
+        {
+          "online_mse": 0.10775976501539902,
+          "samples_seen": 11,
+          "target_elements": 22,
+          "microbatches": 3,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.10255879767167093
+            },
+            {
+              "samples": 3,
+              "target_elements": 6,
+              "microbatches": 1,
+              "pre_update_mse": 0.12162901126534065
+            }
+          ]
+        },
+        {
+          "online_mse": 0.09982161704900396,
+          "samples_seen": 11,
+          "target_elements": 22,
+          "microbatches": 3,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.09568304212776099
+            },
+            {
+              "samples": 3,
+              "target_elements": 6,
+              "microbatches": 1,
+              "pre_update_mse": 0.11085781683898514
+            }
+          ]
+        },
+        {
+          "online_mse": 0.08838744811165977,
+          "samples_seen": 11,
+          "target_elements": 22,
+          "microbatches": 3,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.08513535987855356
+            },
+            {
+              "samples": 3,
+              "target_elements": 6,
+              "microbatches": 1,
+              "pre_update_mse": 0.09705968339994302
+            }
+          ]
+        }
+      ],
+      "weighted_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 2.220446049250313e-16,
+        "updates": [
+          {
+            "parameters": 4.336808689942018e-19,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 5.551115123125783e-17
+          },
+          {
+            "parameters": 6.938893903907228e-18,
+            "momentum": 1.1102230246251565e-16
+          },
+          {
+            "parameters": 1.3877787807814457e-17,
+            "momentum": 2.220446049250313e-16
+          },
+          {
+            "parameters": 2.7755575615628914e-17,
+            "momentum": 2.220446049250313e-16
+          },
+          {
+            "parameters": 2.7755575615628914e-17,
+            "momentum": 1.1102230246251565e-16
+          }
+        ]
+      },
+      "naive_mean_of_means_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 1.3877787807814457e-17,
+        "updates": [
+          {
+            "parameters": 4.336808689942018e-19,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 3.469446951953614e-18
+          },
+          {
+            "parameters": 4.87890977618477e-19,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 6.505213034913027e-19,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 1.0842021724855044e-18,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 1.3010426069826053e-18,
+            "momentum": 1.3877787807814457e-17
+          }
+        ]
+      },
+      "naive_fixed_divisor_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.20897788319200955,
+        "updates": [
+          {
+            "parameters": 4.336808689942018e-19,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 0.003727760906220883,
+            "momentum": 0.12425869687402943
+          },
+          {
+            "parameters": 0.0066132347570172344,
+            "momentum": 0.09618246169321176
+          },
+          {
+            "parameters": 0.01231073331928546,
+            "momentum": 0.18991661874227422
+          },
+          {
+            "parameters": 0.016551128963980862,
+            "momentum": 0.14134652148984667
+          },
+          {
+            "parameters": 0.022820465459741146,
+            "momentum": 0.20897788319200955
+          }
+        ]
+      }
+    },
+    {
+      "seed": 42,
+      "samples": 10,
+      "output_width": 2,
+      "microbatch_size": 4,
+      "accumulation_steps": 3,
+      "microbatch_sizes": [
+        4,
+        4,
+        2
+      ],
+      "effective_batch_sizes": [
+        10
+      ],
+      "epochs": 3,
+      "weighted_epoch_reports": [
+        {
+          "online_mse": 0.09590516894874287,
+          "samples_seen": 10,
+          "target_elements": 20,
+          "microbatches": 3,
+          "optimizer_steps": 1,
+          "updates": [
+            {
+              "samples": 10,
+              "target_elements": 20,
+              "microbatches": 3,
+              "pre_update_mse": 0.09590516894874287
+            }
+          ]
+        },
+        {
+          "online_mse": 0.09381508704120668,
+          "samples_seen": 10,
+          "target_elements": 20,
+          "microbatches": 3,
+          "optimizer_steps": 1,
+          "updates": [
+            {
+              "samples": 10,
+              "target_elements": 20,
+              "microbatches": 3,
+              "pre_update_mse": 0.09381508704120668
+            }
+          ]
+        },
+        {
+          "online_mse": 0.09027285462937426,
+          "samples_seen": 10,
+          "target_elements": 20,
+          "microbatches": 3,
+          "optimizer_steps": 1,
+          "updates": [
+            {
+              "samples": 10,
+              "target_elements": 20,
+              "microbatches": 3,
+              "pre_update_mse": 0.09027285462937426
+            }
+          ]
+        }
+      ],
+      "weighted_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 2.7755575615628914e-17,
+        "updates": [
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 4.336808689942018e-19,
+            "momentum": 1.0408340855860843e-17
+          },
+          {
+            "parameters": 1.734723475976807e-18,
+            "momentum": 2.7755575615628914e-17
+          }
+        ]
+      },
+      "naive_mean_of_means_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.13306258616048874,
+        "updates": [
+          {
+            "parameters": 0.0017103981048110207,
+            "momentum": 0.05701327016036736
+          },
+          {
+            "parameters": 0.004738270915186514,
+            "momentum": 0.1009290936791831
+          },
+          {
+            "parameters": 0.008730148500001176,
+            "momentum": 0.13306258616048874
+          }
+        ]
+      },
+      "naive_fixed_divisor_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.13306258616048874,
+        "updates": [
+          {
+            "parameters": 0.0017103981048110207,
+            "momentum": 0.05701327016036736
+          },
+          {
+            "parameters": 0.004738270915186514,
+            "momentum": 0.1009290936791831
+          },
+          {
+            "parameters": 0.008730148500001176,
+            "momentum": 0.13306258616048874
+          }
+        ]
+      }
+    },
+    {
+      "seed": 7,
+      "samples": 23,
+      "output_width": 2,
+      "microbatch_size": 5,
+      "accumulation_steps": 3,
+      "microbatch_sizes": [
+        5,
+        5,
+        5,
+        5,
+        3
+      ],
+      "effective_batch_sizes": [
+        15,
+        8
+      ],
+      "epochs": 3,
+      "weighted_epoch_reports": [
+        {
+          "online_mse": 0.14407855829382943,
+          "samples_seen": 23,
+          "target_elements": 46,
+          "microbatches": 5,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 15,
+              "target_elements": 30,
+              "microbatches": 3,
+              "pre_update_mse": 0.10592296159897578
+            },
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.21562030209668004
+            }
+          ]
+        },
+        {
+          "online_mse": 0.13534068967015747,
+          "samples_seen": 23,
+          "target_elements": 46,
+          "microbatches": 5,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 15,
+              "target_elements": 30,
+              "microbatches": 3,
+              "pre_update_mse": 0.10321279585875397
+            },
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.1955804905665391
+            }
+          ]
+        },
+        {
+          "online_mse": 0.12322718181500245,
+          "samples_seen": 23,
+          "target_elements": 46,
+          "microbatches": 5,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 15,
+              "target_elements": 30,
+              "microbatches": 3,
+              "pre_update_mse": 0.09955948108619651
+            },
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.1676041206815136
+            }
+          ]
+        }
+      ],
+      "weighted_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 1.1102230246251565e-16,
+        "updates": [
+          {
+            "parameters": 4.336808689942018e-19,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 1.1102230246251565e-16
+          },
+          {
+            "parameters": 6.938893903907228e-18,
+            "momentum": 1.1102230246251565e-16
+          },
+          {
+            "parameters": 6.938893903907228e-18,
+            "momentum": 1.1102230246251565e-16
+          },
+          {
+            "parameters": 1.3877787807814457e-17,
+            "momentum": 1.1102230246251565e-16
+          },
+          {
+            "parameters": 1.3877787807814457e-17,
+            "momentum": 5.551115123125783e-17
+          }
+        ]
+      },
+      "naive_mean_of_means_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.04773729961319051,
+        "updates": [
+          {
+            "parameters": 2.168404344971009e-19,
+            "momentum": 6.938893903907228e-18
+          },
+          {
+            "parameters": 0.0007614937602437337,
+            "momentum": 0.025383125341457785
+          },
+          {
+            "parameters": 0.0013670142149320007,
+            "momentum": 0.020184015156275575
+          },
+          {
+            "parameters": 0.0025757742156447896,
+            "momentum": 0.04029200002375957
+          },
+          {
+            "parameters": 0.0035304587781268618,
+            "momentum": 0.03182281874940235
+          },
+          {
+            "parameters": 0.00496257776652257,
+            "momentum": 0.04773729961319051
+          }
+        ]
+      },
+      "naive_fixed_divisor_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.22345966965599007,
+        "updates": [
+          {
+            "parameters": 2.168404344971009e-19,
+            "momentum": 6.938893903907228e-18
+          },
+          {
+            "parameters": 0.004096482019331181,
+            "momentum": 0.1365494006443727
+          },
+          {
+            "parameters": 0.007245343719884386,
+            "momentum": 0.10496205668510689
+          },
+          {
+            "parameters": 0.013448766713219856,
+            "momentum": 0.2067807664445157
+          },
+          {
+            "parameters": 0.017989950732154043,
+            "momentum": 0.15137280063113967
+          },
+          {
+            "parameters": 0.02469374082183374,
+            "momentum": 0.22345966965599007
+          }
+        ]
+      }
+    },
+    {
+      "seed": 7,
+      "samples": 11,
+      "output_width": 2,
+      "microbatch_size": 4,
+      "accumulation_steps": 2,
+      "microbatch_sizes": [
+        4,
+        4,
+        3
+      ],
+      "effective_batch_sizes": [
+        8,
+        3
+      ],
+      "epochs": 3,
+      "weighted_epoch_reports": [
+        {
+          "online_mse": 0.07823261460539077,
+          "samples_seen": 11,
+          "target_elements": 22,
+          "microbatches": 3,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.05358275714656269
+            },
+            {
+              "samples": 3,
+              "target_elements": 6,
+              "microbatches": 1,
+              "pre_update_mse": 0.14396556782893233
+            }
+          ]
+        },
+        {
+          "online_mse": 0.07022468375367086,
+          "samples_seen": 11,
+          "target_elements": 22,
+          "microbatches": 3,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.0497136891031187
+            },
+            {
+              "samples": 3,
+              "target_elements": 6,
+              "microbatches": 1,
+              "pre_update_mse": 0.12492066948847662
+            }
+          ]
+        },
+        {
+          "online_mse": 0.05914491853196633,
+          "samples_seen": 11,
+          "target_elements": 22,
+          "microbatches": 3,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.043811030274870405
+            },
+            {
+              "samples": 3,
+              "target_elements": 6,
+              "microbatches": 1,
+              "pre_update_mse": 0.10003528721755546
+            }
+          ]
+        }
+      ],
+      "weighted_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 2.220446049250313e-16,
+        "updates": [
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 2.168404344971009e-19,
+            "momentum": 6.938893903907228e-18
+          },
+          {
+            "parameters": 4.336808689942018e-19,
+            "momentum": 6.938893903907228e-18
+          },
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 1.1102230246251565e-16
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 1.1102230246251565e-16
+          },
+          {
+            "parameters": 6.938893903907228e-18,
+            "momentum": 2.220446049250313e-16
+          }
+        ]
+      },
+      "naive_mean_of_means_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 2.7755575615628914e-17,
+        "updates": [
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 0.0,
+            "momentum": 0.0
+          },
+          {
+            "parameters": 0.0,
+            "momentum": 0.0
+          },
+          {
+            "parameters": 0.0,
+            "momentum": 0.0
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 0.0
+          }
+        ]
+      },
+      "naive_fixed_divisor_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.3698390034325897,
+        "updates": [
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 0.006918948291228922,
+            "momentum": 0.23063160970763075
+          },
+          {
+            "parameters": 0.012244461395651433,
+            "momentum": 0.17751710348075023
+          },
+          {
+            "parameters": 0.022637824837067708,
+            "momentum": 0.3464454480472091
+          },
+          {
+            "parameters": 0.03026730958127511,
+            "momentum": 0.2543161581402469
+          },
+          {
+            "parameters": 0.0413624796842528,
+            "momentum": 0.3698390034325897
+          }
+        ]
+      }
+    },
+    {
+      "seed": 7,
+      "samples": 10,
+      "output_width": 2,
+      "microbatch_size": 4,
+      "accumulation_steps": 3,
+      "microbatch_sizes": [
+        4,
+        4,
+        2
+      ],
+      "effective_batch_sizes": [
+        10
+      ],
+      "epochs": 3,
+      "weighted_epoch_reports": [
+        {
+          "online_mse": 0.12853285234288475,
+          "samples_seen": 10,
+          "target_elements": 20,
+          "microbatches": 3,
+          "optimizer_steps": 1,
+          "updates": [
+            {
+              "samples": 10,
+              "target_elements": 20,
+              "microbatches": 3,
+              "pre_update_mse": 0.12853285234288475
+            }
+          ]
+        },
+        {
+          "online_mse": 0.12529688556723145,
+          "samples_seen": 10,
+          "target_elements": 20,
+          "microbatches": 3,
+          "optimizer_steps": 1,
+          "updates": [
+            {
+              "samples": 10,
+              "target_elements": 20,
+              "microbatches": 3,
+              "pre_update_mse": 0.12529688556723145
+            }
+          ]
+        },
+        {
+          "online_mse": 0.11980433942016258,
+          "samples_seen": 10,
+          "target_elements": 20,
+          "microbatches": 3,
+          "optimizer_steps": 1,
+          "updates": [
+            {
+              "samples": 10,
+              "target_elements": 20,
+              "microbatches": 3,
+              "pre_update_mse": 0.11980433942016258
+            }
+          ]
+        }
+      ],
+      "weighted_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 5.551115123125783e-17,
+        "updates": [
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 1.734723475976807e-18,
+            "momentum": 5.551115123125783e-17
+          }
+        ]
+      },
+      "naive_mean_of_means_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.1169208253308881,
+        "updates": [
+          {
+            "parameters": 0.001508860377999634,
+            "momentum": 0.050295345933321134
+          },
+          {
+            "parameters": 0.004176046797065309,
+            "momentum": 0.08890621396885579
+          },
+          {
+            "parameters": 0.007683671556991956,
+            "momentum": 0.1169208253308881
+          }
+        ]
+      },
+      "naive_fixed_divisor_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.1169208253308881,
+        "updates": [
+          {
+            "parameters": 0.001508860377999634,
+            "momentum": 0.050295345933321134
+          },
+          {
+            "parameters": 0.004176046797065309,
+            "momentum": 0.08890621396885579
+          },
+          {
+            "parameters": 0.007683671556991956,
+            "momentum": 0.1169208253308881
+          }
+        ]
+      }
+    },
+    {
+      "seed": 123,
+      "samples": 23,
+      "output_width": 2,
+      "microbatch_size": 5,
+      "accumulation_steps": 3,
+      "microbatch_sizes": [
+        5,
+        5,
+        5,
+        5,
+        3
+      ],
+      "effective_batch_sizes": [
+        15,
+        8
+      ],
+      "epochs": 3,
+      "weighted_epoch_reports": [
+        {
+          "online_mse": 0.09582608693022261,
+          "samples_seen": 23,
+          "target_elements": 46,
+          "microbatches": 5,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 15,
+              "target_elements": 30,
+              "microbatches": 3,
+              "pre_update_mse": 0.05411619407669013
+            },
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.17403213603059603
+            }
+          ]
+        },
+        {
+          "online_mse": 0.09006193173067538,
+          "samples_seen": 23,
+          "target_elements": 46,
+          "microbatches": 5,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 15,
+              "target_elements": 30,
+              "microbatches": 3,
+              "pre_update_mse": 0.052906066732639444
+            },
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.1597291786019927
+            }
+          ]
+        },
+        {
+          "online_mse": 0.08220903669388403,
+          "samples_seen": 23,
+          "target_elements": 46,
+          "microbatches": 5,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 15,
+              "target_elements": 30,
+              "microbatches": 3,
+              "pre_update_mse": 0.05148264286998119
+            },
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.13982102511370184
+            }
+          ]
+        }
+      ],
+      "weighted_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 1.1102230246251565e-16,
+        "updates": [
+          {
+            "parameters": 2.168404344971009e-19,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 1.734723475976807e-18,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 1.3877787807814457e-17,
+            "momentum": 1.1102230246251565e-16
+          }
+        ]
+      },
+      "naive_mean_of_means_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.05639350299181545,
+        "updates": [
+          {
+            "parameters": 4.336808689942018e-19,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 0.0009611951086947474,
+            "momentum": 0.03203983695649154
+          },
+          {
+            "parameters": 0.0017006763796499312,
+            "momentum": 0.024649375698506115
+          },
+          {
+            "parameters": 0.0031949499484428337,
+            "momentum": 0.049809118959763476
+          },
+          {
+            "parameters": 0.0042924014109599964,
+            "momentum": 0.03658171541723887
+          },
+          {
+            "parameters": 0.005984206500714448,
+            "momentum": 0.05639350299181545
+          }
+        ]
+      },
+      "naive_fixed_divisor_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.16725170404043066,
+        "updates": [
+          {
+            "parameters": 4.336808689942018e-19,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 0.0031424149785902345,
+            "momentum": 0.10474716595300781
+          },
+          {
+            "parameters": 0.005559300155424208,
+            "momentum": 0.08056283922779911
+          },
+          {
+            "parameters": 0.010276793237365703,
+            "momentum": 0.1572497693980497
+          },
+          {
+            "parameters": 0.013733192699399294,
+            "momentum": 0.1152133154011199
+          },
+          {
+            "parameters": 0.018750743820612217,
+            "momentum": 0.16725170404043066
+          }
+        ]
+      }
+    },
+    {
+      "seed": 123,
+      "samples": 11,
+      "output_width": 2,
+      "microbatch_size": 4,
+      "accumulation_steps": 2,
+      "microbatch_sizes": [
+        4,
+        4,
+        3
+      ],
+      "effective_batch_sizes": [
+        8,
+        3
+      ],
+      "epochs": 3,
+      "weighted_epoch_reports": [
+        {
+          "online_mse": 0.07659151366556843,
+          "samples_seen": 11,
+          "target_elements": 22,
+          "microbatches": 3,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.07087745169595318
+            },
+            {
+              "samples": 3,
+              "target_elements": 6,
+              "microbatches": 1,
+              "pre_update_mse": 0.0918290122512091
+            }
+          ]
+        },
+        {
+          "online_mse": 0.06912786141450118,
+          "samples_seen": 11,
+          "target_elements": 22,
+          "microbatches": 3,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.06555044061546271
+            },
+            {
+              "samples": 3,
+              "target_elements": 6,
+              "microbatches": 1,
+              "pre_update_mse": 0.07866765021193713
+            }
+          ]
+        },
+        {
+          "online_mse": 0.058630652542618684,
+          "samples_seen": 11,
+          "target_elements": 22,
+          "microbatches": 3,
+          "optimizer_steps": 2,
+          "updates": [
+            {
+              "samples": 8,
+              "target_elements": 16,
+              "microbatches": 2,
+              "pre_update_mse": 0.05720237293083599
+            },
+            {
+              "samples": 3,
+              "target_elements": 6,
+              "microbatches": 1,
+              "pre_update_mse": 0.062439398174039214
+            }
+          ]
+        }
+      ],
+      "weighted_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 2.7755575615628914e-17,
+        "updates": [
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 6.938893903907228e-18,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 1.3877787807814457e-17,
+            "momentum": 1.3877787807814457e-17
+          },
+          {
+            "parameters": 1.3877787807814457e-17,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 1.3877787807814457e-17,
+            "momentum": 2.7755575615628914e-17
+          }
+        ]
+      },
+      "naive_mean_of_means_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 2.7755575615628914e-17,
+        "updates": [
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 0.0
+          },
+          {
+            "parameters": 6.938893903907228e-18,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 1.3877787807814457e-17,
+            "momentum": 0.0
+          },
+          {
+            "parameters": 1.3877787807814457e-17,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 1.3877787807814457e-17,
+            "momentum": 1.3877787807814457e-17
+          }
+        ]
+      },
+      "naive_fixed_divisor_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.25392102190112453,
+        "updates": [
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 0.005052601879366264,
+            "momentum": 0.16842006264554205
+          },
+          {
+            "parameters": 0.008928299641259317,
+            "momentum": 0.12918992539643515
+          },
+          {
+            "parameters": 0.016354574808133723,
+            "momentum": 0.24754250556248014
+          },
+          {
+            "parameters": 0.021755897406331007,
+            "momentum": 0.18004408660657634
+          },
+          {
+            "parameters": 0.029373528063364754,
+            "momentum": 0.25392102190112453
+          }
+        ]
+      }
+    },
+    {
+      "seed": 123,
+      "samples": 10,
+      "output_width": 2,
+      "microbatch_size": 4,
+      "accumulation_steps": 3,
+      "microbatch_sizes": [
+        4,
+        4,
+        2
+      ],
+      "effective_batch_sizes": [
+        10
+      ],
+      "epochs": 3,
+      "weighted_epoch_reports": [
+        {
+          "online_mse": 0.07011090372543034,
+          "samples_seen": 10,
+          "target_elements": 20,
+          "microbatches": 3,
+          "optimizer_steps": 1,
+          "updates": [
+            {
+              "samples": 10,
+              "target_elements": 20,
+              "microbatches": 3,
+              "pre_update_mse": 0.07011090372543034
+            }
+          ]
+        },
+        {
+          "online_mse": 0.0688633454541571,
+          "samples_seen": 10,
+          "target_elements": 20,
+          "microbatches": 3,
+          "optimizer_steps": 1,
+          "updates": [
+            {
+              "samples": 10,
+              "target_elements": 20,
+              "microbatches": 3,
+              "pre_update_mse": 0.0688633454541571
+            }
+          ]
+        },
+        {
+          "online_mse": 0.06673663047683184,
+          "samples_seen": 10,
+          "target_elements": 20,
+          "microbatches": 3,
+          "optimizer_steps": 1,
+          "updates": [
+            {
+              "samples": 10,
+              "target_elements": 20,
+              "microbatches": 3,
+              "pre_update_mse": 0.06673663047683184
+            }
+          ]
+        }
+      ],
+      "weighted_vs_effective": {
+        "all_close": true,
+        "max_absolute_gap": 2.7755575615628914e-17,
+        "updates": [
+          {
+            "parameters": 8.673617379884035e-19,
+            "momentum": 2.7755575615628914e-17
+          },
+          {
+            "parameters": 1.734723475976807e-18,
+            "momentum": 6.938893903907228e-18
+          },
+          {
+            "parameters": 3.469446951953614e-18,
+            "momentum": 6.938893903907228e-18
+          }
+        ]
+      },
+      "naive_mean_of_means_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.10368301848333722,
+        "updates": [
+          {
+            "parameters": 0.001336386493798463,
+            "momentum": 0.044546216459948766
+          },
+          {
+            "parameters": 0.003699777189951664,
+            "momentum": 0.07877968987177336
+          },
+          {
+            "parameters": 0.006810267744451781,
+            "momentum": 0.10368301848333722
+          }
+        ]
+      },
+      "naive_fixed_divisor_vs_effective": {
+        "all_close": false,
+        "max_absolute_gap": 0.10368301848333722,
+        "updates": [
+          {
+            "parameters": 0.001336386493798463,
+            "momentum": 0.044546216459948766
+          },
+          {
+            "parameters": 0.003699777189951664,
+            "momentum": 0.07877968987177336
+          },
+          {
+            "parameters": 0.006810267744451781,
+            "momentum": 0.10368301848333722
+          }
+        ]
+      }
+    }
+  ],
+  "checks": {
+    "every_weighted_parameter_and_momentum_update_matches": true,
+    "all_samples_seen_each_epoch": true,
+    "optimizer_step_count_matches_effective_windows": true,
+    "naive_unequal_microbatch_control_detected": true,
+    "naive_fixed_divisor_short_window_control_detected": true
+  },
+  "all_checks_passed": true
+}
