@@ -1,4 +1,4 @@
-"""Exercise seven CLIs from a wheel installed in this interpreter, outside the source tree."""
+"""Exercise eight CLIs from a wheel installed in this interpreter, outside the source tree."""
 
 import argparse
 import json
@@ -17,6 +17,7 @@ COMMANDS = (
     ("wine", "pytorch_lab.wine_cli", []),
     ("runtime", "pytorch_lab.runtime_probe", ["--repeats", "3", "--timeout", "60"]),
     ("numerical", "pytorch_lab.numerical_probe", ["--repeats", "2", "--timeout", "60"]),
+    ("fixed_input", "pytorch_lab.fixed_input_probe", ["--repeats", "2", "--timeout", "60"]),
 )
 
 
@@ -85,7 +86,7 @@ def check_installed() -> dict:
                 ):
                     raise RuntimeError(f"{name} did not produce matching successful evidence")
                 results[name] = {"exit_code": run.returncode, "all_checks_passed": True}
-                if name in {"runtime", "numerical"}:
+                if name in {"runtime", "numerical", "fixed_input"}:
                     results[name]["report"] = evidence
             except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
                 failure = {
@@ -96,7 +97,7 @@ def check_installed() -> dict:
                     else None,
                 }
                 # Preserve bounded structured evidence from our own child, never raw stderr.
-                if name in {"runtime", "numerical"} and output.is_file():
+                if name in {"runtime", "numerical", "fixed_input"} and output.is_file():
                     try:
                         if output.stat().st_size <= 16 * 1024 * 1024:
                             failure["report"] = json.loads(output.read_text())

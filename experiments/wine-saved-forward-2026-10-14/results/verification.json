@@ -1,0 +1,43 @@
+{
+  "primary_capture_valid": true,
+  "verification_capture_valid": true,
+  "scientific_hashes_identical_by_worker": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "source_sha256": "3362f69e70217fd2c48359dda01a8e1166d39b74201c75ad0ce6370f8e9f0426",
+  "test_source_sha256": "cde7c37e26f5a842b477d677de2a37f882f2f713c6dd7261242df2e6355dcfb3",
+  "initial_report_sha256": "9ba695659919b12c3807be985f06b819803cccc84e8d909d57461567f51ab96c",
+  "reviewed_report_sha256": "32d6fbf9c39412e1e9ab744a6379edf17f551336942391571da5f0eb1d3e623d",
+  "unit_tests": 45,
+  "pytest": "passed",
+  "ruff": "passed",
+  "ruff_format": "passed",
+  "compileall": "passed",
+  "pip_check": "No broken requirements found.",
+  "no_new_install_performed": true,
+  "reference_files_unchanged": true,
+  "independent_review": {
+    "status": "passed",
+    "reviewed_source_sha256": "3362f69e70217fd2c48359dda01a8e1166d39b74201c75ad0ce6370f8e9f0426",
+    "scope": [
+      "All recorded tensor hashes, six pairwise comparisons, exact ULP/count/absolute differences",
+      "Initial versus hardened scientific records and comparisons",
+      "Exact-type validation and bounded failure-byte evidence",
+      "Pinned official source and selected installed-source identity"
+    ],
+    "tests_reported_separately": true,
+    "independently_authored_tests_passed": 46,
+    "count_caveat": "Reported separately from 45 primary tests; scenarios overlap. Counts are not independent scientific samples."
+  },
+  "original_reference_files_still_unchanged": {
+    "probe.py": true,
+    "docs/plan.json": true,
+    "docs/freeze.json": true,
+    "data/frozen_fixture.json": true,
+    "data/wine_provenance.json": true,
+    "data/LICENSE.scikit-learn": true
+  }
+}

@@ -1,0 +1,3 @@
+Self-contained local experiment: runnable code, frozen inputs, tests, source notes, daily report and complete scientific outputs. Remote repositories were not changed.
+JUnit hostname metadata is removed from exported XML; test cases, counts, outcomes and timings are preserved.
+Validation scope is summarized in results/verification.json.

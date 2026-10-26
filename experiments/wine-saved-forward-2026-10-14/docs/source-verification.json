@@ -1,0 +1,57 @@
+{
+  "checked_at_utc": "2026-10-13T16:13:00Z",
+  "revision": "5c4886908584029761b579af026dcfb627c84070",
+  "installed_version": "2.14.1+cpu",
+  "sources": [
+    {
+      "path": "torch/autograd/graph.py",
+      "git_blob": "3e1a3323cc09aa927bd3fbef5beb3d910fc47c31",
+      "url": "https://github.com/pytorch/pytorch/blob/5c4886908584029761b579af026dcfb627c84070/torch/autograd/graph.py"
+    },
+    {
+      "path": "torch/nn/functional.py",
+      "git_blob": "4f2de23fa56294c5071c557012bf7f71f1f1494b",
+      "url": "https://github.com/pytorch/pytorch/blob/5c4886908584029761b579af026dcfb627c84070/torch/nn/functional.py"
+    },
+    {
+      "path": "tools/autograd/derivatives.yaml",
+      "git_blob": "55e0f644ce4334068e734cca1b48e66a959da425",
+      "url": "https://github.com/pytorch/pytorch/blob/5c4886908584029761b579af026dcfb627c84070/tools/autograd/derivatives.yaml"
+    },
+    {
+      "path": "aten/src/ATen/native/LossNLL.cpp",
+      "git_blob": "fe6e3de895081a3fe001ee2bb85e8973bfe30c5c",
+      "url": "https://github.com/pytorch/pytorch/blob/5c4886908584029761b579af026dcfb627c84070/aten/src/ATen/native/LossNLL.cpp"
+    },
+    {
+      "path": "aten/src/ATen/native/SoftMax.cpp",
+      "git_blob": "7fc0b9f98feb1ce7793760f620e17a472a1f3dc4",
+      "url": "https://github.com/pytorch/pytorch/blob/5c4886908584029761b579af026dcfb627c84070/aten/src/ATen/native/SoftMax.cpp"
+    },
+    {
+      "path": "aten/src/ATen/native/cpu/SoftMaxKernel.cpp",
+      "git_blob": "5423bef3211d806cd99be23866708afae7fcdd5e",
+      "url": "https://github.com/pytorch/pytorch/blob/5c4886908584029761b579af026dcfb627c84070/aten/src/ATen/native/cpu/SoftMaxKernel.cpp"
+    },
+    {
+      "path": "aten/src/ATen/native/cpu/LogSoftmaxKernelImpl.h",
+      "git_blob": "b8af353e8866cf41561bfe9f888ce7fcacd85e2a",
+      "url": "https://github.com/pytorch/pytorch/blob/5c4886908584029761b579af026dcfb627c84070/aten/src/ATen/native/cpu/LogSoftmaxKernelImpl.h"
+    },
+    {
+      "path": "torch/csrc/autograd/saved_variable.cpp",
+      "git_blob": "ac5027e4686139f8c8b8f962253961d6cdd1e1b6",
+      "url": "https://github.com/pytorch/pytorch/blob/5c4886908584029761b579af026dcfb627c84070/torch/csrc/autograd/saved_variable.cpp"
+    },
+    {
+      "path": "LICENSE",
+      "git_blob": "c23172f7aff0254e4f0f163fb2e6e355cbaec5f4",
+      "url": "https://github.com/pytorch/pytorch/blob/5c4886908584029761b579af026dcfb627c84070/LICENSE"
+    }
+  ],
+  "installed_checks": {
+    "graph_py": "Exact Git blob hash match: 3e1a3323cc09aa927bd3fbef5beb3d910fc47c31",
+    "functional_py": "Exact Git blob hash match: 4f2de23fa56294c5071c557012bf7f71f1f1494b",
+    "LogSoftmaxKernelImpl_h": "Installed header has TORCH_STABLE_ONLY / TORCH_TARGET_VERSION packaging guard around otherwise identical pinned-source body. Installed blob 64c68e9f263bdb816f39bafdff54ea9d3b3a8ef3; pinned source blob b8af353e8866cf41561bfe9f888ce7fcacd85e2a."
+  }
+}

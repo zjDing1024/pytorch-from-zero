@@ -1,0 +1,303 @@
+E501 Line too long (104 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:119:101
+    |
+117 |     for name, tensor in params.items():
+118 |         result.append(
+119 |             {"name": f"{name}_momentum", **reference.record(optimizer.state[tensor]["momentum_buffer"])}
+    |                                                                                                     ^^^^
+120 |         )
+121 |     result.extend(
+    |
+
+E501 Line too long (104 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:127:101
+    |
+125 |         "optimizer_state_empty_before": empty_before,
+126 |         "four_momentum_buffers_after": len(optimizer.state) == 4,
+127 |         "inputs_unchanged": all(reference.record(v) == fixture["inputs"][k] for k, v in inputs.items()),
+    |                                                                                                     ^^^^
+128 |     }
+    |
+
+E501 Line too long (104 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:199:101
+    |
+197 |         "packs_nonempty_all_consumed_once": bool(packs)
+198 |         and sorted(event["index"] for event in unpacks) == list(range(len(packs))),
+199 |         "unpacked_values_unchanged": all(event["tensor"] == packs[event["index"]] for event in unpacks),
+    |                                                                                                     ^^^^
+200 |         "decomposition_input_exact": scientific["decomposed"]["logits"] == named(raw, "logits"),
+201 |         "matched_input_exact": scientific["matched"]["logits"] == named(raw, "logits"),
+    |
+
+E501 Line too long (110 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:208:101
+    |
+206 | def observed_relations(scientific):
+207 |     """Relations are outcomes, never required assumptions for capture validity."""
+208 |     raw, decomp, matched = scientific["raw_before"]["stages"], scientific["decomposed"], scientific["matched"]
+    |                                                                                                     ^^^^^^^^^^
+209 |     return {
+210 |         "saved_pack_indices_equal_decomposed_log_probs": [
+    |
+
+E501 Line too long (107 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:215:101
+    |
+213 |         ],
+214 |         "decomposed_loss_matches_original": decomp["loss"] == named(raw, "loss"),
+215 |         "decomposed_gradient_matches_original": decomp["logits_gradient"] == named(raw, "logits_gradient"),
+    |                                                                                                     ^^^^^^^
+216 |         "decomposed_upstream_matches_fixed": decomp["upstream"] == scientific["fixed_upstream"],
+217 |         "matched_log_probs_equal_decomposed": matched["log_probs"] == decomp["log_probs"],
+    |
+
+E501 Line too long (105 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:218:101
+    |
+216 |         "decomposed_upstream_matches_fixed": decomp["upstream"] == scientific["fixed_upstream"],
+217 |         "matched_log_probs_equal_decomposed": matched["log_probs"] == decomp["log_probs"],
+218 |         "matched_gradient_matches_original": matched["logits_gradient"] == named(raw, "logits_gradient"),
+    |                                                                                                     ^^^^^
+219 |     }
+    |
+
+E501 Line too long (103 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:274:101
+    |
+272 |     _, manifest = reference.load_fixture()
+273 |     expected = {"plan_id": PLAN_ID, "plan_sha256": PLAN_SHA,
+274 |                 "fixture_sha256": manifest["fixture_sha256"], "input_hashes": manifest["input_hashes"]}
+    |                                                                                                     ^^^
+275 |     for key, value in expected.items():
+276 |         if science[key] != value:
+    |
+
+E501 Line too long (109 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:294:101
+    |
+292 |         raise ValueError("observer schema")
+293 |     packs, unpacks = observer["packs"], observer["unpacks"]
+294 |     if type(packs) is not list or not 1 <= len(packs) <= 8 or type(unpacks) is not list or len(unpacks) > 16:
+    |                                                                                                     ^^^^^^^^^
+295 |         raise ValueError("observer count")
+296 |     for record in packs:
+    |
+
+E501 Line too long (107 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:313:101
+    |
+311 |         reference.validate_record(event["tensor"], packs[index]["shape"], packs[index]["dtype"])
+312 |     for name in ("decomposed", "matched"):
+313 |         shapes = {"logits": [16, 3], "log_probs": [16, 3], "upstream": [16, 3], "logits_gradient": [16, 3]}
+    |                                                                                                     ^^^^^^^
+314 |         if name == "decomposed":
+315 |             shapes["loss"] = []
+    |
+
+E501 Line too long (164 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:325:101
+    |
+323 | …
+324 | …
+325 | … science["fixed_upstream"]["sha256_be"] != reference.sha(struct.pack(">48d", *expected_upstream)):
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+326 | …
+327 | …nical(science)):
+    |
+
+E501 Line too long (112 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:329:101
+    |
+327 |     if sample["scientific_sha256"] != reference.sha(reference.canonical(science)):
+328 |         raise ValueError("scientific hash")
+329 |     if sample["checks"] != local_checks(science) or any(type(v) is not bool for v in sample["checks"].values()):
+    |                                                                                                     ^^^^^^^^^^^^
+330 |         raise ValueError("inconsistent checks")
+331 |     if sample["relations"] != observed_relations(science):
+    |
+
+E501 Line too long (102 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:339:101
+    |
+337 |     for mode in ("raw_before", "observed", "raw_after"):
+338 |         values.update({f"{mode}/{s['name']}": tensor_part(s) for s in scientific[mode]["stages"]})
+339 |     values.update({f"saved_pack/{i}": v for i, v in enumerate(scientific["saved_observer"]["packs"])})
+    |                                                                                                     ^^
+340 |     for mode in ("decomposed", "matched"):
+341 |         values.update({f"{mode}/{k}": v for k, v in scientific[mode].items()})
+    |
+
+E501 Line too long (110 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:353:101
+    |
+351 |     result = {"count": len(pairs), "strict_equal": not changed}
+352 |     if left["dtype"] == "int64":
+353 |         return {**result, "changed_values": sum(x != y for x, y in pairs), "exact_integer_equal": not changed}
+    |                                                                                                     ^^^^^^^^^^
+354 |     distances = [reference.ulps(x, y) for x, y in pairs]
+355 |     return {**result, "changed_values": sum(struct.pack(">d", x) != struct.pack(">d", y) for x, y in pairs),
+    |
+
+E501 Line too long (108 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:355:101
+    |
+353 |         return {**result, "changed_values": sum(x != y for x, y in pairs), "exact_integer_equal": not changed}
+354 |     distances = [reference.ulps(x, y) for x, y in pairs]
+355 |     return {**result, "changed_values": sum(struct.pack(">d", x) != struct.pack(">d", y) for x, y in pairs),
+    |                                                                                                     ^^^^^^^^
+356 |             "max_ulps": max(distances), "over_budget": sum(d > MAX_ULPS for d in distances),
+357 |             "max_abs_diff": max(abs(x - y) for x, y in pairs)}
+    |
+
+E501 Line too long (104 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:368:101
+    |
+366 |     except ValueError:
+367 |         return {"comparable": False, "reason": "record shape/dtype differs"}
+368 |     return {"comparable": True, "strict_equal": left["scientific_sha256"] == right["scientific_sha256"],
+    |                                                                                                     ^^^^
+369 |             "within_8_ulps_and_exact_integers": all(v.get("over_budget", 0) == 0 and v.get("exact_integer_equal", True) for v in resu…
+370 |             "records": result}
+    |
+
+E501 Line too long (146 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:369:101
+    |
+367 | …ape/dtype differs"}
+368 | …entific_sha256"] == right["scientific_sha256"],
+369 | …("over_budget", 0) == 0 and v.get("exact_integer_equal", True) for v in result.values()),
+    |                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+370 | …
+    |
+
+E501 Line too long (187 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:377:101
+    |
+375 | …
+376 | …) for s in samples),
+377 | …CPU_CAPABILITY"] == (None if label == "A" else "default") for s, label in zip(samples, ORDER, strict=False)),
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+378 | …alized_runtime(s["runtime"]) == reference.normalized_runtime(samples[0]["runtime"]) and s["source_sha256"] == samples[0]["source_sha…
+379 | …"capability"] == samples[3]["runtime"]["capability"] != "DEFAULT" and samples[1]["runtime"]["capability"] == samples[2]["runtime"]["…
+    |
+
+E501 Line too long (234 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:378:101
+    |
+376 | …s),
+377 | …== (None if label == "A" else "default") for s, label in zip(samples, ORDER, strict=False)),
+378 | …"runtime"]) == reference.normalized_runtime(samples[0]["runtime"]) and s["source_sha256"] == samples[0]["source_sha256"] for s in samples),
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+379 | …samples[3]["runtime"]["capability"] != "DEFAULT" and samples[1]["runtime"]["capability"] == samples[2]["runtime"]["capability"] == "DEFAULT",
+380 | …"scientific_sha256"],
+    |
+
+E501 Line too long (236 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:379:101
+    |
+377 | …== (None if label == "A" else "default") for s, label in zip(samples, ORDER, strict=False)),
+378 | …"runtime"]) == reference.normalized_runtime(samples[0]["runtime"]) and s["source_sha256"] == samples[0]["source_sha256"] for s in samples),
+379 | …samples[3]["runtime"]["capability"] != "DEFAULT" and samples[1]["runtime"]["capability"] == samples[2]["runtime"]["capability"] == "DEFAULT",
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+380 | …"scientific_sha256"],
+381 | …"scientific_sha256"],
+    |
+
+E501 Line too long (116 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:380:101
+    |
+378 |         "nonintervention_controls_equal": bool(samples) and all(reference.normalized_runtime(s["runtime"]) == reference.normalized_ru…
+379 |         "effective_intervention": len(samples) == 4 and samples[0]["runtime"]["capability"] == samples[3]["runtime"]["capability"] !=…
+380 |         "A_strict_repeat": len(samples) == 4 and samples[0]["scientific_sha256"] == samples[3]["scientific_sha256"],
+    |                                                                                                     ^^^^^^^^^^^^^^^^
+381 |         "B_strict_repeat": len(samples) >= 3 and samples[1]["scientific_sha256"] == samples[2]["scientific_sha256"],
+382 |     }
+    |
+
+E501 Line too long (116 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:381:101
+    |
+379 |         "effective_intervention": len(samples) == 4 and samples[0]["runtime"]["capability"] == samples[3]["runtime"]["capability"] !=…
+380 |         "A_strict_repeat": len(samples) == 4 and samples[0]["scientific_sha256"] == samples[3]["scientific_sha256"],
+381 |         "B_strict_repeat": len(samples) >= 3 and samples[1]["scientific_sha256"] == samples[2]["scientific_sha256"],
+    |                                                                                                     ^^^^^^^^^^^^^^^^
+382 |     }
+383 |     return {"checks": checks, "capture_valid": all(checks.values()),
+    |
+
+E501 Line too long (151 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:400:101
+    |
+398 | …
+399 | …
+400 | …file__).resolve()), "--worker"], env=env, capture_output=True, check=True, timeout=timeout)
+    |                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+401 | …
+402 | …
+    |
+
+E501 Line too long (140 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:404:101
+    |
+402 | …
+403 | …
+404 | …CalledProcessError, ValueError, KeyError, TypeError, OSError, OverflowError) as error:
+    |                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+405 | …workers": len(samples), "category": type(error).__name__}
+406 | …
+    |
+
+E501 Line too long (111 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:405:101
+    |
+403 |             samples.append(sample)
+404 |         except (subprocess.TimeoutExpired, subprocess.CalledProcessError, ValueError, KeyError, TypeError, OSError, OverflowError) as…
+405 |             failure = {"condition": label, "completed_workers": len(samples), "category": type(error).__name__}
+    |                                                                                                     ^^^^^^^^^^^
+406 |             break
+407 |     return {"plan_id": PLAN_ID, "started_at_utc": started, "completed_at_utc": datetime.now(UTC).isoformat(),
+    |
+
+E501 Line too long (109 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:407:101
+    |
+405 |             failure = {"condition": label, "completed_workers": len(samples), "category": type(error).__name__}
+406 |             break
+407 |     return {"plan_id": PLAN_ID, "started_at_utc": started, "completed_at_utc": datetime.now(UTC).isoformat(),
+    |                                                                                                     ^^^^^^^^^
+408 |             "elapsed_seconds": time.monotonic() - start, "order": ORDER, "samples": samples,
+409 |             "failure": failure, **summarize(samples), "meaning": "Capture validity is separate from strict and 8-ULP outcomes."}
+    |
+
+E501 Line too long (128 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:409:101
+    |
+407 |     return {"plan_id": PLAN_ID, "started_at_utc": started, "completed_at_utc": datetime.now(UTC).isoformat(),
+408 |             "elapsed_seconds": time.monotonic() - start, "order": ORDER, "samples": samples,
+409 |             "failure": failure, **summarize(samples), "meaning": "Capture validity is separate from strict and 8-ULP outcomes."}
+    |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+E501 Line too long (118 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:422:101
+    |
+420 |             print(json.dumps(worker(), allow_nan=False))
+421 |             return 0
+422 |         if args.output is None or args.output.exists() or args.output.is_symlink() or not args.output.parent.is_dir():
+    |                                                                                                     ^^^^^^^^^^^^^^^^^^
+423 |             raise ValueError("provide new output path in existing directory")
+424 |         value = capture(args.timeout)
+    |
+
+E501 Line too long (102 > 100)
+   --> wine-saved-forward-2026-10-14/docs/source-before-first-capture.py:426:101
+    |
+424 |         value = capture(args.timeout)
+425 |         reference.write_new(args.output, value)
+426 |         print(json.dumps({"capture_valid": value["capture_valid"], "workers": len(value["samples"])}))
+    |                                                                                                     ^^
+427 |         return 0 if value["capture_valid"] else 1
+428 |     except (ValueError, OSError, KeyError, OverflowError, TypeError) as error:
+    |
+
+Found 28 errors.

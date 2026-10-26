@@ -1,5 +1,23 @@
 # pytorch-from-zero
 
+## 2026-10-22：四批工程交付的重新执行验收
+
+固定输入、首步定位、saved-forward 和交付验证器已经合并到本候选，并在新的 CPU 环境重新执行测试。详见[本次原始结果与验证边界](results/2026-10-22-release-verification/README.md)。旧日期段落是历史记录，不代表当前发布状态。
+
+本次保留所有原始科学输入、阈值、失败和源代码快照，没有新增 demo 或改写科学结论。本地执行证据不代替远端精确 commit 的 CI；发布结果须以实际提交和对应 Actions 为准。
+
+## 2026-10-18 本地整合状态与导航
+
+本地恢复候选已补齐四批工作的入口，仍未作为新提交公开。当前说明优先用于判断整合状态；下面各日期段落保留原时点记录。已核验的公开工程基线仍是 [aa56d5e](https://github.com/zjDing1024/pytorch-from-zero/commit/aa56d5e3ae5ffcee428d1f4c996a04497df7bb7e)。
+
+- [整合范围、验证分层与发布阻断](docs/release-integration.md)
+- [固定输入逐阶段诊断](docs/fixed-input-diagnostics.md)
+- [首个训练更新定位：原始交付](experiments/wine-first-step-2026-10-13/README.md)
+- [保存前向的交叉熵反向探针：原始交付](experiments/wine-saved-forward-2026-10-14/README.md)
+- [交付验证工具：原始交付](tools/wine-delivery/README.md)
+
+2026-10-17恢复验收的1,018项测试和source/wheel各8条主项目CLI属于当天证据。今天没有重跑整套训练/数值实验，没有更新阈值或覆盖历史失败。新增的是路线整合和独立只读发布检查；这不代表新的精确commit CI已经通过。
+
 **A CPU-first lab connecting PyTorch behavior, mathematical derivations, and executable tests.**
 
 当前内容：Tensor 布局、Autograd、三路梯度校验、独立留出集回归、nn.Module、Dataset/DataLoader 和小批次 SGD。2026-10-08 同日第三增量加入 epoch 边界 checkpoint 与 momentum SGD 恢复，第四增量加入手写 momentum 与 StepLR 等预算/恢复验证，最终状态见下文。2026-10-09新增公开授权UCI Wine真实数据分类、固定划分、训练集归一化、验证选择与误差分析。代码原创编写，官方源码只用于阅读与核对；随包数据有单独署名和许可。
@@ -49,6 +67,7 @@ src/pytorch_lab/
   runtime_probe.py Linux新进程资源测量、科学输出/包文件hash与重复性检查
   numerical_probe.py 完整科学JSON、CPU/dispatch证据与受控新进程捕获
   scientific_compare.py 独立的严格hash、精确字段与8步binary64诊断
+  fixed_input_probe.py 冻结logits、显式算子边界和独立捕获/数值诊断
   data/           固定Wine数据、来源/许可、完整划分行ID
 tests/            数学正确性、坏输入、重复运行、CLI 集成测试
 examples/         独立运行入口
@@ -169,3 +188,15 @@ ruff format --check .
 第七增量保留每次Wine完整JSON，新增CPU型号/特征、dispatch与运行库证据，以及原创严格类型/结构比较器。原runtime严格hash门保持不变；另行预声明的8相邻binary64步诊断门不会按实测放宽。历史两输出最大75 ULP，有932项超过该门，虽预测/选择不变仍保留失败。
 
 同主机A-B-B-A仅改变ATEN_CPU_CAPABILITY：AVX512与DEFAULT各自重复一致但彼此不同；不能由此解释历史CI的两个hash。完整计划、复现命令、数值与推断边界见[数值回归协议](docs/numerical-regression.md)及[本次验证](results/2026-10-11-numerical-verification.md)。[修复后工程提交025a1d7](https://github.com/zjDing1024/pytorch-from-zero/commit/025a1d7da1b68ccd1965b9bfb355eba643ee7505)的[CPU checks #38132126861](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132126861)已成功：source job通过831项测试（186.64秒、1条可选NumPy警告）、Ruff/格式和7条CLI；container job实际完成Linux amd64镜像构建及非root、只读、断网的7条已安装wheel CLI，两路完整数值artifact均已上传并下载核验。首次source CI的进程观测竞态及测试修复也保留在验证记录中。科学诊断未通过的结果仍然保留，软件CI通过没有改写该结论。助理实现仍不等于个人掌握。
+
+
+## 2026-10-12：固定输入的数值定位
+
+新增[固定logits协议](docs/fixed-input-diagnostics.md)和第八条source/wheel CLI：原创16×3 dyadic fixture、softmax/log-softmax/CE及logits梯度、显式max→shift→exp→sum→normalize中间记录。零训练更新，原Wine协议、严格hash与8 ULP诊断不变。
+
+预声明A-B-B-A在本次AMD EPYC 9V74观察到AVX512/DEFAULT切换，但14个阶段、465个值全部逐位相同，所有捕获/控制检查通过。前次Wine干预位于另一Intel主机；原计划背景误写同一主机，现保留原文并附[事后更正](docs/fixed-input-plan-erratum.json)。保留这个负结果，不改fixture寻找差异；它只说明该固定输入下未见差异，Wine训练路径及历史CI原因仍未定位。首次捕获与最终冻结代码[四样本原始证据](results/2026-10-12-fixed-input-reviewed.json)均保留。完整检查/公开状态见[本次验证](results/2026-10-12-fixed-input-verification.md)，个人能力仍待独立自测。
+
+```bash
+python -I -m pytorch_lab.fixed_input_probe --output results/local-fixed-input.json
+python -I -m pytorch_lab.fixed_input_probe --dispatch-study --output results/local-fixed-dispatch.json
+```

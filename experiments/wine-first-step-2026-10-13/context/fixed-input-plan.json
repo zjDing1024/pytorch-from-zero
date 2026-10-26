@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "plan_id": "fixed-logits-dispatch-v1",
+  "declared_at_utc": "2026-10-11T16:01:00+00:00",
+  "local_date": "2026-10-12",
+  "timezone": "Asia/Kuala_Lumpur",
+  "baseline_engineering_commit": "aa56d5e3ae5ffcee428d1f4c996a04497df7bb7e",
+  "prior_knowledge": "Full Wine output is dispatch-sensitive on this host; this is prospective localization, not a blind experiment.",
+  "fixture": {
+    "path": "src/pytorch_lab/data/fixed_logits_v1.json",
+    "sha256": "ea3b9d24cb7466c19fced9c85413f53137238fb36e5d4268d20e81686d299f94",
+    "origin": "Original hand-authored dyadic float64 logits and class labels; not model outputs or Wine test data.",
+    "shape": [
+      16,
+      3
+    ],
+    "dtype": "float64",
+    "layout": "CPU contiguous stride [3, 1]",
+    "labels_shape": [
+      16
+    ],
+    "labels_dtype": "int64"
+  },
+  "hypotheses": [
+    "Identical fixed logits can produce different evaluation outputs under the ATen capability intervention; any repeatable difference supports evaluation-only sensitivity on this fixture.",
+    "The first unequal recorded boundary in the explicit max -> shifted -> exp -> sum -> normalize chain localizes that alternate computation only; fused kernel internals and historical CI cause remain unknown."
+  ],
+  "conditions": {
+    "A": "ATEN_CPU_CAPABILITY unset",
+    "B": "ATEN_CPU_CAPABILITY=default",
+    "order": [
+      "A",
+      "B",
+      "B",
+      "A"
+    ],
+    "same_condition_smoke_order": [
+      "A",
+      "A"
+    ],
+    "threads": 1,
+    "fresh_isolated_processes": true,
+    "max_worker_timeout_seconds": 300,
+    "training_updates": 0,
+    "retraining": false
+  },
+  "capture": [
+    "input byte hashes and full values",
+    "full outputs for identity, row_max, shifted, exp, denominator, log_denominator, decomposed_softmax, decomposed_log_softmax, softmax, log_softmax, cross_entropy_none, cross_entropy_mean, logits_gradient, predictions",
+    "CPU/runtime and package hash controls"
+  ],
+  "comparison": {
+    "strict": "Canonical output SHA256 and tensor binary hashes; no rounding or truncation.",
+    "numeric": "All 13 float stages compared at <=8 adjacent binary64 steps using the existing ULP primitive; no absolute floor. Predictions, shapes/types/order and input bytes remain exact.",
+    "max_ulps": 8,
+    "failure_policy": "Retain strict and 8-ULP failures; do not change thresholds after observing outputs.",
+    "separation": "Capture/control integrity is separate from both numerical outcomes; old Wine strict and 8-ULP contracts are unchanged."
+  },
+  "controls": [
+    "exact pinned fixture bytes",
+    "cloned logits retain input bit patterns including signed zero",
+    "equal-logit rows yield symmetric probabilities and class-zero tie prediction",
+    "A and B repeats exactly equal within condition",
+    "all observed nonintervention runtime/package controls equal",
+    "requested and observed capability differ for valid intervention"
+  ],
+  "limits": [
+    "No training-path localization, Wine parameter attribution, general error bound, ground-truth oracle or performance claim.",
+    "Explicit decomposition is a separate algorithm and is not a trace of fused torch kernels.",
+    "Same capability label does not prove same microkernel or native library path.",
+    "No dependency upgrade, private data, paid compute or test-set tuning."
+  ],
+  "planned_checks": [
+    "unit contract and 8/9 ULP boundary tests",
+    "changed input, stage reorder, nonfinite/type/hash rejection",
+    "partial worker failure retention and invalid-intervention checks",
+    "real CLI no-overwrite and timeout tests",
+    "full pytest, Ruff, compileall, pip check",
+    "all eight source and installed wheel CLIs",
+    "exact-commit CI remains pending until publication"
+  ]
+}

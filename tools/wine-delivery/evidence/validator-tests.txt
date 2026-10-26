@@ -1,0 +1,39 @@
+test_archive_symlink_input (test_delivery.DeliveryTests.test_archive_symlink_input) ... ok
+test_case_collision (test_delivery.DeliveryTests.test_case_collision) ... ok
+test_cli_keeps_missing_input_failure_receipt (test_delivery.DeliveryTests.test_cli_keeps_missing_input_failure_receipt) ... ok
+test_command_nonzero (test_delivery.DeliveryTests.test_command_nonzero) ... ok
+test_command_timeout (test_delivery.DeliveryTests.test_command_timeout) ... ok
+test_count_and_size_limits (test_delivery.DeliveryTests.test_count_and_size_limits) ... ok
+test_cross_plan_comparison_rejected (test_delivery.DeliveryTests.test_cross_plan_comparison_rejected) ... ok
+test_cross_report_hash_difference_is_reported (test_delivery.DeliveryTests.test_cross_report_hash_difference_is_reported) ... ok
+test_delivered_archives_and_manifests (test_delivery.DeliveryTests.test_delivered_archives_and_manifests) ... ok
+test_duplicate_archive_member (test_delivery.DeliveryTests.test_duplicate_archive_member) ... ok
+test_environment_drops_injection (test_delivery.DeliveryTests.test_environment_drops_injection) ... ok
+test_extract_refuses_existing_directory (test_delivery.DeliveryTests.test_extract_refuses_existing_directory) ... ok
+test_failed_controls_not_scientific_success (test_delivery.DeliveryTests.test_failed_controls_not_scientific_success) ... ok
+test_file_prefix_collision (test_delivery.DeliveryTests.test_file_prefix_collision) ... ok
+test_filename_nul_normalization_rejected (test_delivery.DeliveryTests.test_filename_nul_normalization_rejected) ... ok
+test_invalid_hash (test_delivery.DeliveryTests.test_invalid_hash) ... ok
+test_json_duplicate_and_nonfinite (test_delivery.DeliveryTests.test_json_duplicate_and_nonfinite) ... ok
+test_manifest_extra_member (test_delivery.DeliveryTests.test_manifest_extra_member) ... ok
+test_manifest_missing_member (test_delivery.DeliveryTests.test_manifest_missing_member) ... ok
+test_member_tamper (test_delivery.DeliveryTests.test_member_tamper) ... ok
+test_missing_controls_cannot_pass_vacuously (test_delivery.DeliveryTests.test_missing_controls_cannot_pass_vacuously) ... ok
+test_original_modification_detected (test_delivery.DeliveryTests.test_original_modification_detected) ... ok
+test_python_syntax_checked (test_delivery.DeliveryTests.test_python_syntax_checked) ... ok
+test_schema_plan_and_control_types_rejected (test_delivery.DeliveryTests.test_schema_plan_and_control_types_rejected) ... ok
+test_scientific_failure_is_preserved (test_delivery.DeliveryTests.test_scientific_failure_is_preserved) ... ok
+test_scientific_incomplete_order (test_delivery.DeliveryTests.test_scientific_incomplete_order) ... ok
+test_scientific_tamper (test_delivery.DeliveryTests.test_scientific_tamper) ... ok
+test_sha_mismatch (test_delivery.DeliveryTests.test_sha_mismatch) ... ok
+test_static_cli_and_output_no_overwrite (test_delivery.DeliveryTests.test_static_cli_and_output_no_overwrite) ... ok
+test_symlink_member (test_delivery.DeliveryTests.test_symlink_member) ... ok
+test_text_and_json_manifest (test_delivery.DeliveryTests.test_text_and_json_manifest) ... ok
+test_traversal_and_noncanonical_names (test_delivery.DeliveryTests.test_traversal_and_noncanonical_names) ... ok
+test_unsupported_compression_rejected (test_delivery.DeliveryTests.test_unsupported_compression_rejected) ... ok
+test_wrong_archive_root (test_delivery.DeliveryTests.test_wrong_archive_root) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 1.350s
+
+OK

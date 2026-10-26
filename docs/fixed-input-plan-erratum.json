@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "plan_id": "fixed-logits-dispatch-v1",
+  "recorded_at_utc": "2026-10-11T16:17:14.805409+00:00",
+  "original_plan_sha256": "d444bef6fbbc9a401881262cae13913038855ac1885e2a02d8fe9076ba1e4a6c",
+  "field": "prior_knowledge",
+  "original_text": "Full Wine output is dispatch-sensitive on this host; this is prospective localization, not a blind experiment.",
+  "correction": "Prior Wine dispatch sensitivity was observed on the previously recorded Intel Xeon Platinum 8573C host. This fixed-input study ran on AMD EPYC 9V74. Prior evidence does not establish current-host full-Wine dispatch sensitivity.",
+  "discovered_after_fixed_input_outputs": true,
+  "current_host_evidence": "results/2026-10-12-fixed-input-reviewed.json samples[*].cpu_runtime.cpu_models_and_features",
+  "prior_host_evidence": "results/2026-10-11-dispatch-reviewed.json samples[*].cpu_runtime.cpu_models_and_features",
+  "impact": "The four current captures are still same-host controlled. The negative result cannot resolve the prior-host Wine intervention; neither input fixture nor numeric policy nor operation plan is changed. Original plan retained verbatim."
+}

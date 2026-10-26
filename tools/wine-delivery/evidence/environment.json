@@ -1,0 +1,1 @@
+{"python": "3.12.14", "platform": "Linux x86_64", "versions": {"torch": "2.14.1+cpu", "pytest": "9.1.1", "ruff": "0.16.10"}, "probe_not_installed": true, "saved_probe_not_installed": true, "pytorch_lab_installed": true, "numpy_installed": false}

@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "plan_id": "wine-first-step-dispatch-v1",
+  "declared_at_utc": "2026-10-12T16:00:17+00:00",
+  "report_date": "2026-10-13",
+  "timezone": "Asia/Kuala_Lumpur",
+  "baseline_engineering_commit": "aa56d5e3ae5ffcee428d1f4c996a04497df7bb7e",
+  "baseline_roadmap_commit": "a5cc07e1931b8ad2f118c3d83018b02323d3ba4b",
+  "preregistration_status": "Local prospective protocol before freezing inputs and before any new forward/loss/backward/update. Not externally timestamped or a blind study.",
+  "prior_knowledge": [
+    "Historical full-Wine ATen intervention showed differences on Intel Xeon Platinum 8573C.",
+    "Previous hand-authored 16x3 fixed-logits fixture produced no differences on AMD EPYC 9V74. Current host sensitivity is unknown.",
+    "Host must be measured for this run; neither result establishes a historical CI cause."
+  ],
+  "fixture_recipe": {
+    "raw_data_sha256": "10e8a802908b34f86e5da8ce962f3c806694bc98450a18f61851af59f324bede",
+    "split_sha256": "33dcf02efa811b544300d1dfc55e07d48b53b66717550f4a900fa651fd5c46d5",
+    "partition": "train only, 107 rows",
+    "normalization": "Once under A: training-only mean and population std, zero scale to 1; freeze normalized tensor bytes. Never repeat preprocessing under each intervention.",
+    "batch": "First batch of 16 from DataLoader(TensorDataset(train_x,train_y,row_ids), shuffle=True, num_workers=0, drop_last=False, generator seed42). Selection before any model outputs.",
+    "architecture": "mlp16: F.linear 13->16, F.relu, F.linear 16->3",
+    "initialization": "Local torch.Generator seed42; uniform[-1/sqrt(fan_in),+1/sqrt(fan_in)] float64 weights, zero biases; same layer draw order as existing Wine mlp16; freeze before forward.",
+    "storage": "JSON retains full float64 values plus canonical big-endian tensor byte SHA256; fixture file byte SHA256 pinned in separate freeze manifest before capture.",
+    "no_search": "No alternative fixture, architecture, seed, batch size, learning rate, or tolerance search after outputs."
+  },
+  "compute": {
+    "device": "cpu",
+    "dtype": "float64",
+    "threads": 1,
+    "loss": "F.cross_entropy(logits,labels,reduction=mean); no smoothing/weights",
+    "updates_per_worker": 1,
+    "samples_per_worker": 16,
+    "optimizer": {
+      "name": "torch.optim.SGD",
+      "lr": 0.05,
+      "momentum": 0.9,
+      "weight_decay": 0.0001,
+      "dampening": 0.0,
+      "nesterov": false,
+      "maximize": false,
+      "foreach": false,
+      "fused": false
+    },
+    "optimizer_initial_state": "empty; first momentum buffer is adjusted gradient, not mu*gradient. Pin single-tensor public optimizer options. No full fit, validation or test evaluation."
+  },
+  "stage_order": [
+    "hidden_pre",
+    "hidden_relu",
+    "logits",
+    "loss",
+    "logits_gradient",
+    "hidden_relu_gradient",
+    "hidden_pre_gradient",
+    "weight1_gradient",
+    "bias1_gradient",
+    "weight2_gradient",
+    "bias2_gradient",
+    "weight1_momentum",
+    "bias1_momentum",
+    "weight2_momentum",
+    "bias2_momentum",
+    "weight1_updated",
+    "bias1_updated",
+    "weight2_updated",
+    "bias2_updated"
+  ],
+  "hypothesis": "On this host and fixed training-step fixture, effective ATen capability may change at least one captured float64 boundary. Null/negative outcomes remain valid and will be retained.",
+  "conditions": {
+    "A": "ATEN_CPU_CAPABILITY unset",
+    "B": "ATEN_CPU_CAPABILITY=default",
+    "order": [
+      "A",
+      "B",
+      "B",
+      "A"
+    ],
+    "fresh_processes": true,
+    "timeout_seconds_per_worker": 60,
+    "thread_env": {
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "deterministic_algorithms": true
+  },
+  "comparison": {
+    "strict": "Full scientific canonical SHA256 and each tensor byte SHA256; no rounding",
+    "numeric": "All 19 floating stages <=8 adjacent finite binary64 steps, signed zeros equal numerically but distinct strictly, no absolute floor",
+    "max_ulps": 8,
+    "exact": "schema, order, names, shapes,dtypes,input/weight bytes,protocol and all nonintervention controls",
+    "failure_policy": "Report strict and numeric failures independently of capture validity; never relax 8 after seeing outputs. Same-condition repeats must remain strict."
+  },
+  "controls": [
+    "fixture file and input tensors match frozen byte hashes",
+    "same host/affinity/runtime and normalized build config; requested A/B values are separately recorded",
+    "observed capability differs between A and B",
+    "A1=A2 and B1=B2 strict",
+    "immutable input tensors",
+    "empty optimizer state before one update; four momentum buffers afterward"
+  ],
+  "checks": [
+    "fixed schema/shapes/types/finite values and hash validation",
+    "8/9 ULP and signed-zero boundary tests",
+    "analytic gradient/first-step SGD sanity tests; not the cross-condition comparison oracle",
+    "changed input, tampered hash, stage reorder rejection",
+    "same-condition drift and ineffective intervention rejection",
+    "real CLI no-overwrite/invalid timeout and partial worker failure retention",
+    "focused pytest, Ruff, compileall; no new dependencies"
+  ],
+  "limits": [
+    "No general bound, performance claim, historical cause, convergence or model quality claim.",
+    "First unequal boundary localizes this recorded dependency graph, not a native microkernel or hidden fused internal operation.",
+    "ATen capability does not fully control BLAS/MKL dispatch; record environment but do not infer those microkernels.",
+    "Frozen preprocessing and RNG remove those paths from the intervention. One first step cannot expose all later training differences.",
+    "Standalone local preparation only. Prior staged increment and its publication approval are not modified or bypassed. Package integration, full suite and exact-commit remote CI remain later work."
+  ]
+}

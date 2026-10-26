@@ -1,0 +1,42 @@
+{
+  "baseline": {
+    "exit_code": 0,
+    "all_checks_passed": true,
+    "stdout_matches_file": true
+  },
+  "minibatch": {
+    "exit_code": 0,
+    "all_checks_passed": true,
+    "stdout_matches_file": true
+  },
+  "checkpoint": {
+    "exit_code": 0,
+    "all_checks_passed": true,
+    "stdout_matches_file": true
+  },
+  "scheduler": {
+    "exit_code": 0,
+    "all_checks_passed": true,
+    "stdout_matches_file": true
+  },
+  "wine": {
+    "exit_code": 0,
+    "all_checks_passed": true,
+    "stdout_matches_file": true
+  },
+  "runtime": {
+    "exit_code": 0,
+    "all_checks_passed": true,
+    "stdout_matches_file": true
+  },
+  "numerical": {
+    "exit_code": 0,
+    "all_checks_passed": true,
+    "stdout_matches_file": true
+  },
+  "fixed_input": {
+    "exit_code": 0,
+    "all_checks_passed": true,
+    "stdout_matches_file": true
+  }
+}

@@ -23,3 +23,7 @@ Original runtime probe/checker/Dockerfile implementation; no pip or Python Offic
 ## 2026-10-11 数值诊断源码研究
 
 阅读PyTorch固定revision `5c4886908584029761b579af026dcfb627c84070`的`aten/src/ATen/native/DispatchStub.cpp`、`torch/testing/_comparison.py`和根LICENSE。上游根许可证为BSD-3-Clause-style条件，各依赖仍保留各自许可。新增比较器、捕获器和测试均为原创，没有复制上游代码或引用私有比较API。官方来源和学习范围见`docs/numerical-regression.md`。
+
+## 2026-10-12 固定输入源码研究
+
+阅读同一PyTorch revision `5c4886908584029761b579af026dcfb627c84070` 的CPU SoftMaxKernel、LogSoftmaxKernelImpl、LossNLL和double向量exp/log入口；参考链接与明确边界见[固定输入文档](docs/fixed-input-diagnostics.md)。代码、dyadic logits fixture和测试为原创，无上游代码复制。PyTorch根BSD-3-Clause-style条件与依赖各自许可不变；本次未重新分发上游实现，也未改变Wine署名/许可。

@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "plan_id": "wine-ce-saved-forward-v1",
+  "declared_at_utc": "2026-10-13T16:06:37.804901+00:00",
+  "report_date": "2026-10-14",
+  "timezone": "Asia/Kuala_Lumpur",
+  "preregistration": "Local prospective protocol before any new numerical forward/backward, not external timestamping or blinded research.",
+  "prior_knowledge": [
+    "Oct 13 AMD fixture: recorded forward/logits/loss exact; first observed difference dL/dlogits 5/48 at 1 ULP. Saved CE forward values unobserved.",
+    "Oct 12 synthetic fixture null result retained; earlier full Wine Intel result and historical CI not explained."
+  ],
+  "baseline_engineering_commit": "aa56d5e3ae5ffcee428d1f4c996a04497df7bb7e",
+  "baseline_roadmap_commit": "a5cc07e1931b8ad2f118c3d83018b02323d3ba4b",
+  "inputs": {
+    "fixture_sha256": "4db70a0c4f889e1a0adb5d3ed8c4c17e0eb36871b4c85e82885672e77fcfddf7",
+    "reference_source_sha256": "1918f6462fb00feb2844eeb9946bbf11e17358577cbb270f10a55977b165063e",
+    "reference_files_sha256": {
+      "probe.py": "1918f6462fb00feb2844eeb9946bbf11e17358577cbb270f10a55977b165063e",
+      "docs/plan.json": "5b79ea625d6693b4203a18bddd424cb01e04f3e8e1f14459d5bbefe9afcad951",
+      "docs/freeze.json": "30fc4e8700dbdd24e2da61fb918b7e4fdaae644f395f2843327982b32ed06dfb",
+      "data/frozen_fixture.json": "4db70a0c4f889e1a0adb5d3ed8c4c17e0eb36871b4c85e82885672e77fcfddf7",
+      "data/wine_provenance.json": "879e1280193eba8d029a9d6e0dc433a3b1a95d039fae4f95bb43b78ea59b662a",
+      "data/LICENSE.scikit-learn": "50d6a9d340f19ab355609917993114daf5f47e3161067bcf34955bbd05cd9cb0"
+    },
+    "recipe": "Unchanged Oct 13 first 16 Wine TRAIN rows and seed42 initialized MLP16. Load bytes; no preprocessing, RNG, refreeze, validation/test evaluation."
+  },
+  "conditions": {
+    "order": [
+      "A",
+      "B",
+      "B",
+      "A"
+    ],
+    "A": "ATEN_CPU_CAPABILITY unset",
+    "B": "ATEN_CPU_CAPABILITY=default",
+    "fresh_process": true,
+    "timeout_seconds": 60,
+    "cpu_float64": true,
+    "threads": 1,
+    "thread_env": [
+      "OMP_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "OPENBLAS_NUM_THREADS"
+    ],
+    "deterministic_algorithms": true
+  },
+  "worker_protocol": [
+    "Configure controls once, verify fixture/reference hashes.",
+    "Run unchanged original first-step function with no hooks (raw_before).",
+    "Run equivalent original first-step sequence with public saved_tensors_hooks active only during F.cross_entropy. Pack records detached values immediately, returns detached tensor without value changes; unpack returns tensor; log pack/unpack IDs and exact value integrity.",
+    "Run unchanged original first-step function without hooks again (raw_after). Compare all 19 boundaries before/observed/after strictly.",
+    "Using logits loaded from raw_before result as fresh leaf, explicitly call F.log_softmax(dim=1) then F.nll_loss(mean). Retain log-prob gradient; record loss, log-probs, upstream and dlogits. This is a separate decomposition, not claimed to trace fused execution.",
+    "Using another identical logits leaf, call F.log_softmax(dim=1) and torch.autograd.grad with fixed upstream -1/16 on target class, +0 elsewhere. Record exact upstream, saved log-probs, and dlogits. No private backward operator.",
+    "Record runtime, all input/output values and hashes, observed save/unpack events, and original-step controls."
+  ],
+  "budget": {
+    "workers": 4,
+    "independent_full_first_steps_per_worker": 3,
+    "training_updates_in_sequence": 0,
+    "ce_decomposition_per_worker": 1,
+    "matched_logsoftmax_vjp_per_worker": 1,
+    "model_selection_or_full_fit": false,
+    "new_dependencies": false
+  },
+  "comparisons": {
+    "strict": "Full canonical scientific hashes and canonical big-endian tensor bytes. Exact input/metadata/order/integer values.",
+    "max_ulps": 8,
+    "numeric": "Finite binary64 ordered-step distance; signed zeros equal numerically but distinct strictly; no absolute floor. Retain all failures.",
+    "upstream": "NLL mean with 16 unweighted nonignored labels: selected entries exactly -0.0625, all other entries +0.0. Compare actual decomposition upstream to fixed values numerically and bytewise; signed-zero mismatch is disclosed, not silently normalized.",
+    "saved": "Record every CE pack tensor with index, dtype, shape and bytes before backward. Compare by ordered schema, not guessed semantic name. Relate 16x3 saves to explicit log-probs only after checking exact equality."
+  },
+  "controls": [
+    "All four workers valid and capability actually differs.",
+    "Same nonintervention host/build/native files/affinity/environment controls.",
+    "A repeats and B repeats exact for all scientific records.",
+    "raw_before, observed, raw_after 19 stages exact; original optimizer/input checks true.",
+    "Every packed tensor unchanged when unpacked; valid pack IDs/count, all expected tensors consumed.",
+    "Explicit decomposition and matched VJP inputs equal recorded original logits exactly.",
+    "All tensor payload hashes, finite values, dtype, shape, fixed original fixture and source checks enforce."
+  ],
+  "interpretation": [
+    "A saved forward mismatch predates backward at an observed saved boundary; scalar loss equality cannot exclude it.",
+    "If saved CE values and explicit upstream/log-probs are equal across A/B while matched-input public log-softmax VJP differs and matches CE dlogits, the divergence is narrowed to that public backward operation for this fixture/build, not a specific microkernel defect.",
+    "If observer changes any baseline stage, do not use hook result to locate original path.",
+    "Do not infer exact original CE graph from decomposition alone. No historical CI cause, general numerical bound, performance, model quality or learner mastery claim."
+  ],
+  "publication": "Standalone preparation only. Do not modify prior frozen work or remote repositories; original pending publication approval remains separate."
+}
