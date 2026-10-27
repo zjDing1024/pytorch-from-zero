@@ -1,0 +1,16 @@
+{
+  "all_checks_passed": true,
+  "configurations": 36,
+  "safe_point_roundtrips": 412,
+  "malformed_snapshots_rejected": 25,
+  "invalid_files_or_expected_config_rejected": 4,
+  "reference": "prior stateless accumulation function",
+  "exact_full_state_replay": true,
+  "fresh_process_tail_window_replay": true,
+  "zero_gradient_negative_control_detected": true,
+  "snapshot_isolation": true,
+  "failure_invalidation": true,
+  "global_rng_unchanged": true,
+  "no_clobber_save": true,
+  "scope": "same CPU float64 fixed ordered affine fixture; trusted own checkpoints only"
+}

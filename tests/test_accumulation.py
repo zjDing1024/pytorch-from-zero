@@ -180,7 +180,7 @@ def test_cli_matches_stdout_and_does_not_overwrite(tmp_path):
     assert out.read_bytes() == before
 
 
-def test_ninth_installed_cli_keeps_prior_eight_entries():
+def test_tenth_installed_cli_keeps_prior_nine_entries():
     import runpy
     from pathlib import Path
 
@@ -197,5 +197,7 @@ def test_ninth_installed_cli_keeps_prior_eight_entries():
         "numerical",
         "fixed_input",
         "accumulation",
+        "accumulation_recovery",
     ]
-    assert commands[-1] == ("accumulation", "pytorch_lab.accumulation_cli", [])
+    assert commands[-2] == ("accumulation", "pytorch_lab.accumulation_cli", [])
+    assert commands[-1] == ("accumulation_recovery", "pytorch_lab.accumulation_recovery_cli", [])

@@ -220,3 +220,17 @@ ruff format --check .
 python -I -m pytorch_lab.fixed_input_probe --output results/local-fixed-input.json
 python -I -m pytorch_lab.fixed_input_probe --dispatch-study --output results/local-fixed-dispatch.json
 ```
+
+## 2026-10-28：未完成梯度累积窗口的恢复
+
+新增原创 [窗口内恢复合同](docs/accumulation-window-recovery.md)：在完整 microbatch 安全点保存
+未归一化 pending gradients、实际分母、cursor、模型和 SGD momentum，异常后对象失效，
+可信文件严格校验且不覆盖。固定顺序 CPU float64 fixture，无 live RNG、无 shuffled loader。
+[原始实验](results/2026-10-28-accumulation-recovery.json)比较 3 seeds × 7 interruption cuts
+的每个剩余安全点完整状态，并以错误梯度/momentum 反证仅存模型不够。
+代码、46 项新增单元测试、独立配置网格审查和第十条 source/wheel CLI 组成可复核工程证据，
+不等同于本人已掌握；完整结果和限制见 [验证记录](results/2026-10-28-accumulation-recovery-verification.md)。
+
+```bash
+python -I -m pytorch_lab.accumulation_recovery_cli --output results/local-recovery.json
+```

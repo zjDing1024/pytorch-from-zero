@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "report_kind": "compact installed-wheel verification summary; not raw scientific output",
+  "executed_by": "AI assistant; learner mastery unassessed",
+  "installation": {
+    "version": "0.1.0",
+    "noneditable_wheel": true
+  },
+  "execution_context": {
+    "separate_venv": true,
+    "noneditable_wheel": true,
+    "isolated_python_flag": "-I",
+    "working_directory": "temporary directory outside source tree",
+    "runtime_install": "offline hash-locked CPU runtime",
+    "pip_check_passed": true,
+    "actual_docker_execution": false
+  },
+  "wheel": {
+    "filename": "pytorch_from_zero_lab-0.1.0-py3-none-any.whl",
+    "sha256": "d9ff45be037adc2ec366d2c9e8e6afa9e6223666131f91c89ea51604f1f2a287"
+  },
+  "full_result_provenance": {
+    "sha256": "d487cd890cb4d6c79ca813eabfb934bc74a65026a48b7f8ed6fae3926a9e2b93",
+    "bytes": 839715,
+    "retention": "original full JSON preserved unchanged in private run evidence; not included in public repository",
+    "summary_method": "copy installation and each CLI exit_code/all_checks_passed from full checker JSON; no result recomputation or omitted failing CLI"
+  },
+  "checks": {
+    "baseline": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "minibatch": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "checkpoint": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "scheduler": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "wine": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "runtime": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "numerical": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "fixed_input": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation_recovery": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    }
+  },
+  "all_checks_passed": true,
+  "reproduce": "Run python scripts/check_installed.py using the clean noneditable wheel interpreter; the script launches all 10 CLIs with -I outside the source tree.",
+  "limits": [
+    "This is an execution-status summary, not a substitute for underlying scientific JSON.",
+    "Old scientific diagnostics and thresholds are unchanged; passing software checks does not reverse historical numerical findings.",
+    "Local wheel validation does not prove Docker isolation or remote CI; verify exact-commit Actions separately."
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "experiment": "accumulation_window_recovery",
+  "executed_by": "AI assistant; learner mastery unassessed",
+  "environment": {
+    "python": "3.12.14",
+    "pytorch": "2.14.1+cpu"
+  },
+  "protocol": {
+    "seeds": [
+      42,
+      7,
+      123
+    ],
+    "epochs": 3,
+    "samples": 23,
+    "microbatch_size": 5,
+    "accumulation_steps": 3,
+    "input_output_width": [
+      3,
+      2
+    ],
+    "order": "fixed-sequential",
+    "safe_point": "after a fully completed microbatch operation",
+    "comparison": "exact typed state digest at every remaining safe point",
+    "training_rng": "none; isolated seed regenerates fingerprinted fixture",
+    "excluded": [
+      "shuffled loaders",
+      "workers",
+      "AMP",
+      "DDP",
+      "GPU",
+      "mid-operation crash recovery",
+      "power-loss durability"
+    ]
+  },
+  "cases": [
+    {
+      "seed": 42,
+      "completed_microbatches_at_save": 0,
+      "epoch_at_save": 0,
+      "cursor_at_save": 0,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 16,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "d6e59abd7926684ee15eaaeb24bdaa0f0edcd34ce9079afc6dea5d3971ba564a"
+    },
+    {
+      "seed": 42,
+      "completed_microbatches_at_save": 1,
+      "epoch_at_save": 0,
+      "cursor_at_save": 5,
+      "pending_samples_at_save": 5,
+      "pending_target_elements_at_save": 10,
+      "compared_safe_points": 15,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "d6e59abd7926684ee15eaaeb24bdaa0f0edcd34ce9079afc6dea5d3971ba564a"
+    },
+    {
+      "seed": 42,
+      "completed_microbatches_at_save": 3,
+      "epoch_at_save": 0,
+      "cursor_at_save": 15,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 13,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "d6e59abd7926684ee15eaaeb24bdaa0f0edcd34ce9079afc6dea5d3971ba564a"
+    },
+    {
+      "seed": 42,
+      "completed_microbatches_at_save": 4,
+      "epoch_at_save": 0,
+      "cursor_at_save": 20,
+      "pending_samples_at_save": 5,
+      "pending_target_elements_at_save": 10,
+      "compared_safe_points": 12,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "d6e59abd7926684ee15eaaeb24bdaa0f0edcd34ce9079afc6dea5d3971ba564a"
+    },
+    {
+      "seed": 42,
+      "completed_microbatches_at_save": 5,
+      "epoch_at_save": 1,
+      "cursor_at_save": 0,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 11,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "d6e59abd7926684ee15eaaeb24bdaa0f0edcd34ce9079afc6dea5d3971ba564a"
+    },
+    {
+      "seed": 42,
+      "completed_microbatches_at_save": 6,
+      "epoch_at_save": 1,
+      "cursor_at_save": 5,
+      "pending_samples_at_save": 5,
+      "pending_target_elements_at_save": 10,
+      "compared_safe_points": 10,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "d6e59abd7926684ee15eaaeb24bdaa0f0edcd34ce9079afc6dea5d3971ba564a"
+    },
+    {
+      "seed": 42,
+      "completed_microbatches_at_save": 15,
+      "epoch_at_save": 3,
+      "cursor_at_save": 0,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 1,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "d6e59abd7926684ee15eaaeb24bdaa0f0edcd34ce9079afc6dea5d3971ba564a"
+    },
+    {
+      "seed": 7,
+      "completed_microbatches_at_save": 0,
+      "epoch_at_save": 0,
+      "cursor_at_save": 0,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 16,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "2c3e50ad2446bab9c0393f51d7a0fd9a00d8c3315ed53807959dde70d4f26691"
+    },
+    {
+      "seed": 7,
+      "completed_microbatches_at_save": 1,
+      "epoch_at_save": 0,
+      "cursor_at_save": 5,
+      "pending_samples_at_save": 5,
+      "pending_target_elements_at_save": 10,
+      "compared_safe_points": 15,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "2c3e50ad2446bab9c0393f51d7a0fd9a00d8c3315ed53807959dde70d4f26691"
+    },
+    {
+      "seed": 7,
+      "completed_microbatches_at_save": 3,
+      "epoch_at_save": 0,
+      "cursor_at_save": 15,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 13,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "2c3e50ad2446bab9c0393f51d7a0fd9a00d8c3315ed53807959dde70d4f26691"
+    },
+    {
+      "seed": 7,
+      "completed_microbatches_at_save": 4,
+      "epoch_at_save": 0,
+      "cursor_at_save": 20,
+      "pending_samples_at_save": 5,
+      "pending_target_elements_at_save": 10,
+      "compared_safe_points": 12,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "2c3e50ad2446bab9c0393f51d7a0fd9a00d8c3315ed53807959dde70d4f26691"
+    },
+    {
+      "seed": 7,
+      "completed_microbatches_at_save": 5,
+      "epoch_at_save": 1,
+      "cursor_at_save": 0,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 11,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "2c3e50ad2446bab9c0393f51d7a0fd9a00d8c3315ed53807959dde70d4f26691"
+    },
+    {
+      "seed": 7,
+      "completed_microbatches_at_save": 6,
+      "epoch_at_save": 1,
+      "cursor_at_save": 5,
+      "pending_samples_at_save": 5,
+      "pending_target_elements_at_save": 10,
+      "compared_safe_points": 10,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "2c3e50ad2446bab9c0393f51d7a0fd9a00d8c3315ed53807959dde70d4f26691"
+    },
+    {
+      "seed": 7,
+      "completed_microbatches_at_save": 15,
+      "epoch_at_save": 3,
+      "cursor_at_save": 0,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 1,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "2c3e50ad2446bab9c0393f51d7a0fd9a00d8c3315ed53807959dde70d4f26691"
+    },
+    {
+      "seed": 123,
+      "completed_microbatches_at_save": 0,
+      "epoch_at_save": 0,
+      "cursor_at_save": 0,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 16,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "9dda3d9fb5930399d726fadaf9d1ab08ef4b81b38dcbbc5ca2328471be9599c4"
+    },
+    {
+      "seed": 123,
+      "completed_microbatches_at_save": 1,
+      "epoch_at_save": 0,
+      "cursor_at_save": 5,
+      "pending_samples_at_save": 5,
+      "pending_target_elements_at_save": 10,
+      "compared_safe_points": 15,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "9dda3d9fb5930399d726fadaf9d1ab08ef4b81b38dcbbc5ca2328471be9599c4"
+    },
+    {
+      "seed": 123,
+      "completed_microbatches_at_save": 3,
+      "epoch_at_save": 0,
+      "cursor_at_save": 15,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 13,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "9dda3d9fb5930399d726fadaf9d1ab08ef4b81b38dcbbc5ca2328471be9599c4"
+    },
+    {
+      "seed": 123,
+      "completed_microbatches_at_save": 4,
+      "epoch_at_save": 0,
+      "cursor_at_save": 20,
+      "pending_samples_at_save": 5,
+      "pending_target_elements_at_save": 10,
+      "compared_safe_points": 12,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "9dda3d9fb5930399d726fadaf9d1ab08ef4b81b38dcbbc5ca2328471be9599c4"
+    },
+    {
+      "seed": 123,
+      "completed_microbatches_at_save": 5,
+      "epoch_at_save": 1,
+      "cursor_at_save": 0,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 11,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "9dda3d9fb5930399d726fadaf9d1ab08ef4b81b38dcbbc5ca2328471be9599c4"
+    },
+    {
+      "seed": 123,
+      "completed_microbatches_at_save": 6,
+      "epoch_at_save": 1,
+      "cursor_at_save": 5,
+      "pending_samples_at_save": 5,
+      "pending_target_elements_at_save": 10,
+      "compared_safe_points": 10,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "9dda3d9fb5930399d726fadaf9d1ab08ef4b81b38dcbbc5ca2328471be9599c4"
+    },
+    {
+      "seed": 123,
+      "completed_microbatches_at_save": 15,
+      "epoch_at_save": 3,
+      "cursor_at_save": 0,
+      "pending_samples_at_save": 0,
+      "pending_target_elements_at_save": 0,
+      "compared_safe_points": 1,
+      "every_remaining_state_exact": true,
+      "final_state_sha256": "9dda3d9fb5930399d726fadaf9d1ab08ef4b81b38dcbbc5ca2328471be9599c4"
+    }
+  ],
+  "negative_controls": {
+    "invalid_state_rejected": {
+      "missing_pending_gradients": true,
+      "wrong_element_count": true,
+      "wrong_cursor": true
+    },
+    "valid_shape_fault_injection": {
+      "zero_pending_gradients": {
+        "next_parameter_max_absolute_difference": 0.005892547857277126,
+        "detected": true
+      },
+      "zero_momentum": {
+        "next_parameter_max_absolute_difference": 0.0014589620113064899,
+        "detected": true
+      }
+    },
+    "boundary": "checksum is not authentication; valid-shape forged values may load"
+  },
+  "checks": {
+    "all_21_fresh_process_resume_cases_exact": true,
+    "malformed_state_controls_rejected": true,
+    "omitted_gradient_and_momentum_effect_detected": true
+  },
+  "all_checks_passed": true
+}
