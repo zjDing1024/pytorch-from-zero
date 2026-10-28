@@ -27,3 +27,15 @@ Original runtime probe/checker/Dockerfile implementation; no pip or Python Offic
 ## 2026-10-12 固定输入源码研究
 
 阅读同一PyTorch revision `5c4886908584029761b579af026dcfb627c84070` 的CPU SoftMaxKernel、LogSoftmaxKernelImpl、LossNLL和double向量exp/log入口；参考链接与明确边界见[固定输入文档](docs/fixed-input-diagnostics.md)。代码、dyadic logits fixture和测试为原创，无上游代码复制。PyTorch根BSD-3-Clause-style条件与依赖各自许可不变；本次未重新分发上游实现，也未改变Wine署名/许可。
+
+
+## TorchData stateful iterator study (2026-10-29)
+
+Read-only design study of Meta/PyTorch TorchData v0.11.0, revision
+`377e64c1be69a9be6649d14c9e3664070323e464`:
+[stateful sampler source](https://github.com/meta-pytorch/data/blob/377e64c1be69a9be6649d14c9e3664070323e464/torchdata/stateful_dataloader/sampler.py),
+[StatefulDataLoader](https://github.com/meta-pytorch/data/blob/377e64c1be69a9be6649d14c9e3664070323e464/torchdata/stateful_dataloader/stateful_dataloader.py),
+and [BSD-3-Clause LICENSE](https://github.com/meta-pytorch/data/blob/377e64c1be69a9be6649d14c9e3664070323e464/LICENSE).
+No source, comments, or snippets copied; no torchdata runtime dependency added.
+The original bounded index-stream design and its limits are in
+[the study note](docs/shuffled-index-recovery.md). This reference does not license this repository.

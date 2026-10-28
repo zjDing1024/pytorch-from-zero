@@ -1,4 +1,4 @@
-"""Exercise ten CLIs from a wheel installed in this interpreter, outside the source tree."""
+"""Exercise eleven CLIs from a wheel installed in this interpreter, outside the source tree."""
 
 import argparse
 import json
@@ -20,6 +20,7 @@ COMMANDS = (
     ("fixed_input", "pytorch_lab.fixed_input_probe", ["--repeats", "2", "--timeout", "60"]),
     ("accumulation", "pytorch_lab.accumulation_cli", []),
     ("accumulation_recovery", "pytorch_lab.accumulation_recovery_cli", []),
+    ("shuffle_stream", "pytorch_lab.shuffle_stream_cli", []),
 )
 
 

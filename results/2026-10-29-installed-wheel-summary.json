@@ -1,0 +1,73 @@
+{
+  "all_checks_passed": true,
+  "installation": {
+    "version": "0.1.0",
+    "noneditable_wheel": true
+  },
+  "cli_count": 11,
+  "checks": {
+    "baseline": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "minibatch": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "checkpoint": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "scheduler": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "wine": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "runtime": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "numerical": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "fixed_input": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation_recovery": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "shuffle_stream": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    }
+  },
+  "wheel_sha256": "ac958caa3a8f8359f29bd781d6a55983c21aba5004d2062805a8a179b0dfcf22",
+  "runtime_install": "fresh venv; offline official-index runtime wheelhouse; --require-hashes runtime-cpu.lock",
+  "pip_check": "passed",
+  "execution": "outside source tree; noneditable installation; python -I",
+  "new_module_bytes_match_verified_source": true,
+  "source_sha256": {
+    "src/pytorch_lab/shuffle_stream.py": "6c23ca19a3b1fba448edff62285f518d2eb011e07efeb9dd62dee533cdc72e55",
+    "src/pytorch_lab/shuffle_stream_cli.py": "bd2c0f5489b4647cb63563570c68923e2611a2c79e2cd0f967cff8b8b429e2a5",
+    "scripts/check_installed.py": "9a55843c81046ca647ff3bb685ddd7caa6d763140352e2fa7cf5011db1e2e3a5",
+    "tests/test_shuffle_stream.py": "178e0b987d4c001c1d64dee9ef5f72621bcebc039a68976d0cd3580c5320ef9a",
+    "validation/verify_shuffle_stream.py": "08a523f79b9a07ba142769a1453e086ccb70feb8e4a12ab6ee3cd835168e47c9"
+  },
+  "private_full_checker_log_sha256": "58e1f986e039835659c95a944794d44456ff73b5ade3abd546478374175871d1",
+  "not_tested_locally": [
+    "Docker container",
+    "GPU",
+    "workers/prefetch/distributed",
+    "training integration"
+  ]
+}

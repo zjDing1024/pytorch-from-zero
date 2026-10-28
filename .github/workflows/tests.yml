@@ -39,6 +39,8 @@ jobs:
       - run: python -m pytorch_lab.fixed_input_probe --repeats 2 --output results/local-ci-fixed-input.json
       - run: python -m pytorch_lab.accumulation_cli --output results/local-ci-accumulation.json
       - run: python -m pytorch_lab.accumulation_recovery_cli --output results/local-ci-accumulation-recovery.json
+      - run: python -m pytorch_lab.shuffle_stream_cli --output results/local-ci-shuffle-stream.json
+      - run: python validation/verify_shuffle_stream.py > results/local-ci-shuffle-stream-review.json
       - run: python validation/verify_accumulation_recovery.py > results/local-ci-accumulation-recovery-review.json
       - name: Retain full scientific outputs and CPU evidence
         if: always()

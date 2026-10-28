@@ -1,0 +1,30 @@
+{
+  "abandoned_batch_is_still_issued": true,
+  "all_checks_passed": true,
+  "epoch_limit_enforced": true,
+  "exact_expected_retained_index_order": true,
+  "exactly_one_randperm_call_per_explicit_epoch": true,
+  "expected_config_mismatches_rejected": 6,
+  "failed_advance_is_atomic": true,
+  "fresh_process_recovery": true,
+  "future_epoch_comparisons": 3672,
+  "global_rng_unchanged": true,
+  "invalid_files_rejected": 8,
+  "malformed_snapshots_rejected": 51,
+  "no_clobber_save": true,
+  "oracle_configurations": 144,
+  "python_version": "3.12.14",
+  "recovery_cutpoints": 1836,
+  "restore_does_not_draw_rng": true,
+  "scope": "same-runtime CPU index issuance only; no training recovery",
+  "snapshot_isolation": true,
+  "source_sha256": {
+    "src/pytorch_lab/shuffle_stream.py": "6c23ca19a3b1fba448edff62285f518d2eb011e07efeb9dd62dee533cdc72e55",
+    "validation/verify_shuffle_stream.py": "08a523f79b9a07ba142769a1453e086ccb70feb8e4a12ab6ee3cd835168e47c9"
+  },
+  "torch_version": "2.14.1+cpu",
+  "unrelated_global_rng_draws_do_not_change_stream": true,
+  "wrong_cursor_forward_shift_detected": true,
+  "wrong_cursor_reset_detected": true,
+  "wrong_rng_reset_detected_in_future_epoch": true
+}

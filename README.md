@@ -1,5 +1,26 @@
 # pytorch-from-zero
 
+## 2026-10-29：受控打乱索引的恢复合同
+
+新增原创 CPU `ShuffledBatchStream`：局部 RNG、完整排列、已发出游标和显式 epoch 边界分开保存，
+覆盖部分 epoch、尾批/`drop_last`、空轮次及下一轮随机状态。**只恢复 index emission，不恢复训练**；
+`next_batch()` 发出即推进，调用方后续失败不会自动回退。无 workers/prefetch/DDP 或任意 DataLoader 声称。
+
+[状态协议与官方源码研究](docs/shuffled-index-recovery.md) ·
+[实现](src/pytorch_lab/shuffle_stream.py) · [测试](tests/test_shuffle_stream.py) ·
+[紧凑实验报告](results/2026-10-29-shuffle-stream.json) ·
+[独立 oracle 审查](results/2026-10-29-shuffle-stream-independent-review.json) ·
+[实际验证范围](results/2026-10-29-shuffle-stream-verification.md)
+
+```bash
+python -I -m pytorch_lab.shuffle_stream_cli --output results/local-shuffle.json
+```
+
+实验按精确索引序列比较，并通过错误游标/seed/RNG 对照证明检查能发现重复、遗漏和下一轮偏移。
+本轮完整本地验收为 1,062 + 59 + 45 + 34 = **1,200 项测试**，干净非 editable wheel 的 **11 个 CLI** 全部通过。
+旧十个安装 CLI 的顺序保持，追加第十一个；既有 Wine 科学证据与阈值保持不变。本人独立自测仍待完成。
+
+
 ## 2026-10-27：样本加权梯度累积
 
 新增原创 CPU float64 仿射训练循环：逐 microbatch 反向传播，按实际有效批次的目标元素数归一化，只在窗口边界更新 SGD，正确处理尾批和不完整末窗口。每次参数与 momentum 更新对照真实拼接批次，并保留两个错误实现反例。旧训练循环和历史科学证据不变。

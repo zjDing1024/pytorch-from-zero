@@ -1,0 +1,140 @@
+{
+  "protocol": {
+    "scope": "single-owner CPU shuffled index issuance only; no training integration",
+    "processes": "one fresh producer and one distinct fresh consumer for all checkpoints",
+    "epochs": 3,
+    "seeds": [
+      42,
+      7,
+      123
+    ],
+    "cutpoints": "every batch boundary and explicit epoch start/end",
+    "oracle": "independent local torch.randperm calls plus Python list slicing",
+    "comparison": "exact index sequences and final snapshot content digest in same environment",
+    "limits": "no workers/prefetch/distributed; no stock sampler or cross-version parity claim"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu",
+    "device": "cpu"
+  },
+  "cases": [
+    {
+      "config": {
+        "dataset_sha256": "1f7a423d7f5f0d19d80475702a25afd0fd0ce7684ad788da813f6886e0ef5122",
+        "samples": 23,
+        "batch_size": 5,
+        "seed": 42,
+        "drop_last": false
+      },
+      "issued_batches": 15,
+      "resume_checkpoints": 18,
+      "expected_trace_sha256": "e691057b7dd3ff3394da7ef7e83fe728efd610e666eff5fb6d5067779f5f91e3",
+      "uninterrupted_matches_oracle": true,
+      "every_resume_matches_expected_suffix_and_final_state": true,
+      "no_unintended_skips_or_duplicates": true,
+      "intentional_drops_per_epoch": 0
+    },
+    {
+      "config": {
+        "dataset_sha256": "1f7a423d7f5f0d19d80475702a25afd0fd0ce7684ad788da813f6886e0ef5122",
+        "samples": 23,
+        "batch_size": 5,
+        "seed": 42,
+        "drop_last": true
+      },
+      "issued_batches": 12,
+      "resume_checkpoints": 15,
+      "expected_trace_sha256": "c9a98910674d538f68000d501f50982b142d7b3bb446627a4a802c00feecda75",
+      "uninterrupted_matches_oracle": true,
+      "every_resume_matches_expected_suffix_and_final_state": true,
+      "no_unintended_skips_or_duplicates": true,
+      "intentional_drops_per_epoch": 3
+    },
+    {
+      "config": {
+        "dataset_sha256": "1f7a423d7f5f0d19d80475702a25afd0fd0ce7684ad788da813f6886e0ef5122",
+        "samples": 23,
+        "batch_size": 5,
+        "seed": 7,
+        "drop_last": false
+      },
+      "issued_batches": 15,
+      "resume_checkpoints": 18,
+      "expected_trace_sha256": "22e1c4040f34e23246f611a8981c8efebee73c4fd341412e291f76830e72fd74",
+      "uninterrupted_matches_oracle": true,
+      "every_resume_matches_expected_suffix_and_final_state": true,
+      "no_unintended_skips_or_duplicates": true,
+      "intentional_drops_per_epoch": 0
+    },
+    {
+      "config": {
+        "dataset_sha256": "1f7a423d7f5f0d19d80475702a25afd0fd0ce7684ad788da813f6886e0ef5122",
+        "samples": 23,
+        "batch_size": 5,
+        "seed": 7,
+        "drop_last": true
+      },
+      "issued_batches": 12,
+      "resume_checkpoints": 15,
+      "expected_trace_sha256": "d216cfb12a5532f8be40c3fbe50883e76970f8e12827ba7261340920ff218cd2",
+      "uninterrupted_matches_oracle": true,
+      "every_resume_matches_expected_suffix_and_final_state": true,
+      "no_unintended_skips_or_duplicates": true,
+      "intentional_drops_per_epoch": 3
+    },
+    {
+      "config": {
+        "dataset_sha256": "1f7a423d7f5f0d19d80475702a25afd0fd0ce7684ad788da813f6886e0ef5122",
+        "samples": 23,
+        "batch_size": 5,
+        "seed": 123,
+        "drop_last": false
+      },
+      "issued_batches": 15,
+      "resume_checkpoints": 18,
+      "expected_trace_sha256": "1766d83c083ff1ad310859cc7c59f379706a57eb2d6bd04d9f06bb2869765d34",
+      "uninterrupted_matches_oracle": true,
+      "every_resume_matches_expected_suffix_and_final_state": true,
+      "no_unintended_skips_or_duplicates": true,
+      "intentional_drops_per_epoch": 0
+    },
+    {
+      "config": {
+        "dataset_sha256": "1f7a423d7f5f0d19d80475702a25afd0fd0ce7684ad788da813f6886e0ef5122",
+        "samples": 23,
+        "batch_size": 5,
+        "seed": 123,
+        "drop_last": true
+      },
+      "issued_batches": 12,
+      "resume_checkpoints": 15,
+      "expected_trace_sha256": "d1a2c0c541f9f71be91c93706f021eda43a7acd0bad6cff398f55b6faa1e5127",
+      "uninterrupted_matches_oracle": true,
+      "every_resume_matches_expected_suffix_and_final_state": true,
+      "no_unintended_skips_or_duplicates": true,
+      "intentional_drops_per_epoch": 3
+    }
+  ],
+  "resume_checkpoints": 99,
+  "negative_controls": {
+    "rewound_cursor": {
+      "sequence_diverged": true,
+      "duplicate_count": 10,
+      "missing_count": 0
+    },
+    "advanced_cursor": {
+      "sequence_diverged": true,
+      "duplicate_count": 0,
+      "missing_count": 5
+    },
+    "reset_same_seed_rng": {
+      "current_epoch_unchanged": true,
+      "next_epoch_diverged": true
+    },
+    "wrong_expected_seed_rejected": true,
+    "wrong_seed_restart_diverged": true,
+    "all_detected": true
+  },
+  "all_checks_passed": true
+}

@@ -316,7 +316,7 @@ def test_eighth_installed_cli_and_retention():
     checker = runpy.run_path(str(Path(__file__).parents[1] / "scripts/check_installed.py"))
     # Fixed-input stays eighth; accumulation/recovery are ninth/tenth.
     command = checker["COMMANDS"][7]
-    assert len(checker["COMMANDS"]) == 10
+    assert len(checker["COMMANDS"]) == 11
     assert command[0:2] == ("fixed_input", "pytorch_lab.fixed_input_probe")
     assert int(command[2][1]) * int(command[2][3]) < 300
 
