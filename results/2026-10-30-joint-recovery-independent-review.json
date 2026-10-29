@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "review": "independent_adversarial_joint_recovery_review",
+  "reviewer": "AI assistant; learner independent mastery unassessed",
+  "outcome": "No blocking correctness finding in the declared narrow contract.",
+  "environment": {
+    "python": "3.12.14",
+    "pytorch": "2.14.1+cpu",
+    "device": "cpu",
+    "dtype": "float64"
+  },
+  "reproduce": {
+    "independent_tests": "python -m pytest -q tests/test_joint_recovery_independent.py",
+    "all_joint_tests": "python -m pytest -q tests/test_joint_recovery.py tests/test_joint_recovery_cli.py tests/test_joint_recovery_independent.py",
+    "lint": "ruff check src/pytorch_lab/joint_recovery.py src/pytorch_lab/joint_recovery_cli.py tests/test_joint_recovery.py tests/test_joint_recovery_cli.py tests/test_joint_recovery_independent.py",
+    "format": "ruff format --check src/pytorch_lab/joint_recovery.py src/pytorch_lab/joint_recovery_cli.py tests/test_joint_recovery.py tests/test_joint_recovery_cli.py tests/test_joint_recovery_independent.py",
+    "requirement": "Install this source or its corresponding wheel in the hash-locked CPU environment first."
+  },
+  "test_results": {
+    "independent_tests_passed": 30,
+    "all_joint_tests_passed": 121,
+    "all_joint_tests_failed": 0,
+    "ruff_lint": "passed",
+    "ruff_format": "passed",
+    "count_relationship": "The 30 independent tests are included in the 121 joint tests, which are included in the main suite; do not add these totals.",
+    "warning": "PyTorch reported missing NumPy; these tensor-only tests do not use NumPy."
+  },
+  "independent_equation_oracle": {
+    "construction": "Recreates the declared fixture equation, uses independent local randperm, explicit affine gradients, and a handwritten SGD momentum/weight-decay recurrence. Does not call the model, autograd, optimizer, trainer or shuffled-stream implementation as its oracle.",
+    "configuration_cases": 21,
+    "epochs_per_case": 3,
+    "safe_points_checked": 198,
+    "fixture_and_shuffle_seeds": [
+      [
+        42,
+        19
+      ],
+      [
+        7,
+        123
+      ],
+      [
+        123,
+        7
+      ]
+    ],
+    "sample_microbatch_accumulation_cases": [
+      [
+        23,
+        5,
+        3
+      ],
+      [
+        11,
+        4,
+        2
+      ],
+      [
+        10,
+        4,
+        3
+      ],
+      [
+        12,
+        3,
+        2
+      ],
+      [
+        7,
+        9,
+        4
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        9,
+        2,
+        1
+      ]
+    ],
+    "absolute_tolerance": 1e-12,
+    "relative_tolerance": 1e-12,
+    "checked": [
+      "parameters",
+      "momentum buffers",
+      "pending unnormalized SUM gradients",
+      "actual target-element denominator",
+      "pending sample/batch counters",
+      "committed update/batch counters",
+      "epoch/cursor",
+      "permutation",
+      "post-permutation RNG state",
+      "committed index order and exactly one visit per sample per recovered epoch"
+    ],
+    "interpretation": "Tolerance-based independent numerical validation is distinct from exact same-runtime replay."
+  },
+  "recovery_checks": {
+    "every_safe_point_restore": "Exact full snapshot digest equality after each next committed microbatch, separately from the equation comparison.",
+    "real_mutation_then_raise_cases": 6,
+    "mutation_stages": [
+      "completed backward",
+      "completed optimizer step",
+      "completed epoch advance"
+    ],
+    "exception_types": [
+      "RuntimeError",
+      "KeyboardInterrupt"
+    ],
+    "tainted_operations_refused": [
+      "snapshot",
+      "save",
+      "step",
+      "train"
+    ],
+    "fresh_isolated_process_cases": 1,
+    "fresh_process_state": "Disk snapshot after seven committed batches, with a pending two-batch window and existing momentum; restored with independently known expected configuration under Python -I and an unrelated working directory.",
+    "fresh_process_result": "Exact final snapshot digest equals uninterrupted continuation; final numerical state also passes the independent equation oracle."
+  },
+  "split_snapshot_controls": {
+    "stale_stream": "A stale stream paired with newer trainer progress is rejected even after the outer checksum is recomputed.",
+    "stale_model": "An earlier-epoch model with the same within-epoch cursor, newer optimizer/pending state, and a recomputed checksum is structurally accepted but fails the independent equation comparison; final parameter deviation exceeds 1e-6.",
+    "interpretation": "Checksums and structural checks are not signatures or proof of computational history. Numerically plausible edited state is not authenticated."
+  },
+  "limitations": [
+    "Single-owner, single-threaded CPU float64 affine fixture only; no arbitrary model or loader support.",
+    "Recovery discards the failed owner and reloads the last whole safe checkpoint; there is no in-memory rollback.",
+    "Discarded or unsaved computations may execute again; no exactly-once external effect or durable acknowledgement guarantee.",
+    "No guarantee for arbitrary asynchronous interruption at the final commit/return boundary.",
+    "Controlled exception and subsequent recovery tests are not process-kill or power-loss tests.",
+    "Trusted own checkpoint files only; weights_only and size limits are not a hostile-file security sandbox.",
+    "Exact replay is scoped to the tested fixed runtime, not cross-version or cross-device portability.",
+    "This focused review does not itself assert complete repository, wheel, container or remote CI success."
+  ],
+  "reviewed_file_sha256": {
+    "src/pytorch_lab/joint_recovery.py": "2b3cb54657a3b9704ecc7bc559e452a292d3755b8b01213f02faccdb05cb69f2",
+    "src/pytorch_lab/joint_recovery_cli.py": "887d863dfd51f0c9359ad74ccfae6f9120557b786c4bf9b99da2ffccc174a645",
+    "tests/test_joint_recovery.py": "d51e48775ee366a9892012874c7f30e7e004f8d2747f4af8909490ea61d1cd83",
+    "tests/test_joint_recovery_cli.py": "c5c4402d69a98ec5fd3b6679ad09e3c6823a4f7cbeea110ee98e8ed1207ff3b9",
+    "tests/test_joint_recovery_independent.py": "7a815c09892d13abcd1f72ffdb7eec31bca7259453459c3c5c605a75239bb608"
+  }
+}

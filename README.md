@@ -1,5 +1,29 @@
 # pytorch-from-zero
 
+## 2026-10-30：打乱数据与训练状态的联合安全点
+
+新增原创 `JointTrainer`：由同一对象拥有索引流、CPU float64 仿射模型、SGD momentum、待用梯度与提交进度。
+明确区分 fetch、backward/update 和 progress commit；读取后或更新后故障会使对象失效，禁止保存/继续，
+只能从先前完整联合快照创建新对象并回放未保存的工作。尾批按实际目标元素数归一化，完成 epoch 后准备下一排列。
+这不是外部副作用 exactly-once、进程任意时刻强杀或断电持久性保证。
+
+[协议与官方来源研究](docs/joint-training-recovery.md) ·
+[实现](src/pytorch_lab/joint_recovery.py) ·
+[独立数学与故障审查](tests/test_joint_recovery_independent.py) ·
+[紧凑新进程实验](results/2026-10-30-joint-recovery.json) ·
+[实际验收范围](results/2026-10-30-joint-recovery-verification.md)
+
+```bash
+python -I -m pytorch_lab.joint_recovery_cli --output results/local-joint-recovery.json
+```
+
+本轮本地 **1,183 + 59 + 45 + 34 = 1,321 项测试**、新 source CLI 和干净非 editable wheel 的 **12 个 CLI** 通过。
+12 个故障恢复案例的147个剩余安全点状态完全一致，最终参数差均为0；范围与负对照见验收记录。
+
+此前索引流、固定顺序恢复与所有历史科学结果不变。第十二个 CLI 追加在旧十一个之后，
+CI source 15 分钟 / container 20 分钟预算、单 worker 限时与科学阈值不变。
+仅验证单进程固定 CPU 条件，不含 workers/prefetch/GPU/AMP/DDP；学习者独立能力仍待自测。
+
 ## 2026-10-29：受控打乱索引的恢复合同
 
 新增原创 CPU `ShuffledBatchStream`：局部 RNG、完整排列、已发出游标和显式 epoch 边界分开保存，

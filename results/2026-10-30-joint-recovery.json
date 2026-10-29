@@ -1,0 +1,524 @@
+{
+  "schema_version": 1,
+  "experiment": "joint_shuffled_accumulation_recovery",
+  "executed_by": "AI assistant; learner mastery unassessed",
+  "environment": {
+    "python": "3.12.14",
+    "pytorch": "2.14.1+cpu"
+  },
+  "protocol": {
+    "seeds": [
+      42,
+      7,
+      123
+    ],
+    "shuffle_seed": 19,
+    "epochs": 3,
+    "samples": 23,
+    "microbatch_size": 5,
+    "accumulation_steps": 3,
+    "drop_last": false,
+    "dtype": "float64",
+    "device": "cpu",
+    "worker_processes": {
+      "baseline": 3,
+      "fault": 3,
+      "recovery": 3
+    },
+    "fault_worker_expected_exit_code": 23,
+    "fault_mode": "injected Python exceptions followed by controlled nonzero worker exit",
+    "safe_point": "whole microbatch committed; epoch tail flushed and next permutation prepared",
+    "comparison": "exact full typed-state digest and committed batch-index suffix",
+    "recovery": "discard failed object; load the previous whole joint checkpoint",
+    "excluded": [
+      "exactly-once external side effects",
+      "process-kill handling",
+      "power-loss durability",
+      "workers or prefetch",
+      "GPU or AMP or DDP",
+      "cross-runtime snapshot exchange"
+    ]
+  },
+  "recovered_checkpoints": 12,
+  "baseline_coverage": [
+    {
+      "seed": 42,
+      "committed_microbatches": 15,
+      "committed_sample_visits": 69,
+      "each_epoch_all_samples_once": [
+        true,
+        true,
+        true
+      ],
+      "committed_sequence_sha256": "3243fb59a78e59bdf9989632ecdff1646ed57ae48b3b5d3bd2ba84704b73a8bd"
+    },
+    {
+      "seed": 7,
+      "committed_microbatches": 15,
+      "committed_sample_visits": 69,
+      "each_epoch_all_samples_once": [
+        true,
+        true,
+        true
+      ],
+      "committed_sequence_sha256": "3243fb59a78e59bdf9989632ecdff1646ed57ae48b3b5d3bd2ba84704b73a8bd"
+    },
+    {
+      "seed": 123,
+      "committed_microbatches": 15,
+      "committed_sample_visits": 69,
+      "each_epoch_all_samples_once": [
+        true,
+        true,
+        true
+      ],
+      "committed_sequence_sha256": "3243fb59a78e59bdf9989632ecdff1646ed57ae48b3b5d3bd2ba84704b73a8bd"
+    }
+  ],
+  "cases": [
+    {
+      "seed": 42,
+      "fault": "after_fetch",
+      "completed_microbatches_at_save": 1,
+      "epoch_at_save": 0,
+      "cursor_at_save": 5,
+      "pending_samples_at_save": 5,
+      "updates_at_save": 0,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": false,
+        "gradients_changed": false
+      },
+      "compared_safe_points": 15,
+      "replayed_uncommitted_indices": [
+        18,
+        15,
+        17,
+        12,
+        1
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "6d521cd548f39eaf8ea23806f5e2fabe90e3543e9ad239f6caa817df2e8d4ba4",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "fault": "after_backward",
+      "completed_microbatches_at_save": 3,
+      "epoch_at_save": 0,
+      "cursor_at_save": 15,
+      "pending_samples_at_save": 0,
+      "updates_at_save": 1,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": false,
+        "gradients_changed": true
+      },
+      "compared_safe_points": 13,
+      "replayed_uncommitted_indices": [
+        7,
+        8,
+        19,
+        5,
+        10
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "6d521cd548f39eaf8ea23806f5e2fabe90e3543e9ad239f6caa817df2e8d4ba4",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "fault": "after_update",
+      "completed_microbatches_at_save": 4,
+      "epoch_at_save": 0,
+      "cursor_at_save": 20,
+      "pending_samples_at_save": 5,
+      "updates_at_save": 1,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": true,
+        "gradients_changed": true
+      },
+      "compared_safe_points": 12,
+      "replayed_uncommitted_indices": [
+        16,
+        6,
+        9
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "6d521cd548f39eaf8ea23806f5e2fabe90e3543e9ad239f6caa817df2e8d4ba4",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "fault": "before_commit",
+      "completed_microbatches_at_save": 7,
+      "epoch_at_save": 1,
+      "cursor_at_save": 10,
+      "pending_samples_at_save": 10,
+      "updates_at_save": 2,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": true,
+        "gradients_changed": true
+      },
+      "compared_safe_points": 9,
+      "replayed_uncommitted_indices": [
+        5,
+        3,
+        22,
+        21,
+        9
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "6d521cd548f39eaf8ea23806f5e2fabe90e3543e9ad239f6caa817df2e8d4ba4",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 7,
+      "fault": "after_fetch",
+      "completed_microbatches_at_save": 1,
+      "epoch_at_save": 0,
+      "cursor_at_save": 5,
+      "pending_samples_at_save": 5,
+      "updates_at_save": 0,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": false,
+        "gradients_changed": false
+      },
+      "compared_safe_points": 15,
+      "replayed_uncommitted_indices": [
+        18,
+        15,
+        17,
+        12,
+        1
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "c03ad02fd156bffe5a04dcb39f645731e163d6cbc5962c0e7d463b6325a3713a",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 7,
+      "fault": "after_backward",
+      "completed_microbatches_at_save": 3,
+      "epoch_at_save": 0,
+      "cursor_at_save": 15,
+      "pending_samples_at_save": 0,
+      "updates_at_save": 1,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": false,
+        "gradients_changed": true
+      },
+      "compared_safe_points": 13,
+      "replayed_uncommitted_indices": [
+        7,
+        8,
+        19,
+        5,
+        10
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "c03ad02fd156bffe5a04dcb39f645731e163d6cbc5962c0e7d463b6325a3713a",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 7,
+      "fault": "after_update",
+      "completed_microbatches_at_save": 4,
+      "epoch_at_save": 0,
+      "cursor_at_save": 20,
+      "pending_samples_at_save": 5,
+      "updates_at_save": 1,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": true,
+        "gradients_changed": true
+      },
+      "compared_safe_points": 12,
+      "replayed_uncommitted_indices": [
+        16,
+        6,
+        9
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "c03ad02fd156bffe5a04dcb39f645731e163d6cbc5962c0e7d463b6325a3713a",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 7,
+      "fault": "before_commit",
+      "completed_microbatches_at_save": 7,
+      "epoch_at_save": 1,
+      "cursor_at_save": 10,
+      "pending_samples_at_save": 10,
+      "updates_at_save": 2,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": true,
+        "gradients_changed": true
+      },
+      "compared_safe_points": 9,
+      "replayed_uncommitted_indices": [
+        5,
+        3,
+        22,
+        21,
+        9
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "c03ad02fd156bffe5a04dcb39f645731e163d6cbc5962c0e7d463b6325a3713a",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "fault": "after_fetch",
+      "completed_microbatches_at_save": 1,
+      "epoch_at_save": 0,
+      "cursor_at_save": 5,
+      "pending_samples_at_save": 5,
+      "updates_at_save": 0,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": false,
+        "gradients_changed": false
+      },
+      "compared_safe_points": 15,
+      "replayed_uncommitted_indices": [
+        18,
+        15,
+        17,
+        12,
+        1
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "611fbed7db57cd8a9cfbf876f40be2e08396ee4fcd26c3d07d79c3456f7311d1",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "fault": "after_backward",
+      "completed_microbatches_at_save": 3,
+      "epoch_at_save": 0,
+      "cursor_at_save": 15,
+      "pending_samples_at_save": 0,
+      "updates_at_save": 1,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": false,
+        "gradients_changed": true
+      },
+      "compared_safe_points": 13,
+      "replayed_uncommitted_indices": [
+        7,
+        8,
+        19,
+        5,
+        10
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "611fbed7db57cd8a9cfbf876f40be2e08396ee4fcd26c3d07d79c3456f7311d1",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "fault": "after_update",
+      "completed_microbatches_at_save": 4,
+      "epoch_at_save": 0,
+      "cursor_at_save": 20,
+      "pending_samples_at_save": 5,
+      "updates_at_save": 1,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": true,
+        "gradients_changed": true
+      },
+      "compared_safe_points": 12,
+      "replayed_uncommitted_indices": [
+        16,
+        6,
+        9
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "611fbed7db57cd8a9cfbf876f40be2e08396ee4fcd26c3d07d79c3456f7311d1",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "fault": "before_commit",
+      "completed_microbatches_at_save": 7,
+      "epoch_at_save": 1,
+      "cursor_at_save": 10,
+      "pending_samples_at_save": 10,
+      "updates_at_save": 2,
+      "failure_stage_observation": {
+        "stream_issuance_advanced": true,
+        "trainer_progress_not_committed": true,
+        "model_changed": true,
+        "gradients_changed": true
+      },
+      "compared_safe_points": 9,
+      "replayed_uncommitted_indices": [
+        5,
+        3,
+        22,
+        21,
+        9
+      ],
+      "final_parameter_max_absolute_difference": 0.0,
+      "final_state_sha256": "611fbed7db57cd8a9cfbf876f40be2e08396ee4fcd26c3d07d79c3456f7311d1",
+      "checks": {
+        "injected_failure_observed": true,
+        "expected_stage_effect_observed": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true,
+        "every_remaining_state_exact": true,
+        "committed_indices_exact": true,
+        "first_replayed_batch_is_attempted_batch": true,
+        "final_model_exact": true
+      },
+      "all_checks_passed": true
+    }
+  ],
+  "checks": {
+    "all_12_fault_recovery_cases_exact": true,
+    "all_baseline_epochs_cover_every_sample_once": true,
+    "all_baselines_complete_15_microbatches_69_sample_visits": true
+  },
+  "all_checks_passed": true
+}

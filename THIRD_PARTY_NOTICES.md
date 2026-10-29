@@ -39,3 +39,15 @@ and [BSD-3-Clause LICENSE](https://github.com/meta-pytorch/data/blob/377e64c1be6
 No source, comments, or snippets copied; no torchdata runtime dependency added.
 The original bounded index-stream design and its limits are in
 [the study note](docs/shuffled-index-recovery.md). This reference does not license this repository.
+
+
+## Joint training recovery source study (2026-10-30)
+
+Read-only official-source study of TorchData's stateful loader (BSD-3-Clause,
+revision `377e64c1be69a9be6649d14c9e3664070323e464`) and Hugging Face Accelerate's
+`src/accelerate/checkpointing.py` (Apache-2.0,
+revision `90b233c86202a5ded4bf66407e75222c5fb007fc`). Exact source/license links,
+responsibility boundaries and our independent safe-point design are in
+[joint training recovery](docs/joint-training-recovery.md). No upstream code,
+comments or source excerpts copied; no TorchData or Accelerate runtime dependency
+added. Existing UCI data attribution and historical scientific records remain unchanged.

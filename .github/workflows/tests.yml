@@ -5,7 +5,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    # Recovery adds a measured ~69s fresh-process matrix plus independent review.
+    # Joint recovery appends a bounded fault/replay matrix; budgets remain unchanged.
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -40,6 +40,7 @@ jobs:
       - run: python -m pytorch_lab.accumulation_cli --output results/local-ci-accumulation.json
       - run: python -m pytorch_lab.accumulation_recovery_cli --output results/local-ci-accumulation-recovery.json
       - run: python -m pytorch_lab.shuffle_stream_cli --output results/local-ci-shuffle-stream.json
+      - run: python -m pytorch_lab.joint_recovery_cli --output results/local-ci-joint-recovery.json
       - run: python validation/verify_shuffle_stream.py > results/local-ci-shuffle-stream-review.json
       - run: python validation/verify_accumulation_recovery.py > results/local-ci-accumulation-recovery-review.json
       - name: Retain full scientific outputs and CPU evidence

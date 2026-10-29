@@ -1,0 +1,121 @@
+{
+  "all_checks_passed": true,
+  "installation": {
+    "version": "0.1.0",
+    "python": "3.12.14",
+    "pytorch": "2.14.1+cpu",
+    "noneditable_wheel": true,
+    "import_inside_fresh_site_packages": true,
+    "installed_members_match_wheel": true,
+    "installed_package_member_count": 33
+  },
+  "cli_count": 12,
+  "checks": {
+    "baseline": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "minibatch": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "checkpoint": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "scheduler": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "wine": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "runtime": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "numerical": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "fixed_input": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation_recovery": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "shuffle_stream": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "joint_recovery": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    }
+  },
+  "wheel_filename": "pytorch_from_zero_lab-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "f6d39f01a4853ada0f2e0cc20f78682022120b780e84a56355b0ce7fad6ad344",
+  "runtime_install": "fresh venv; offline official-index wheelhouse; --only-binary --require-hashes",
+  "locked_runtime_wheels_verified": 10,
+  "requirements_sha256": {
+    "runtime-cpu.lock": "5efbdf77b41e5d0f2e41201f6ee0510807dd173ab96d553e2be5665741cdfc8c",
+    "runtime-common.lock": "66e8f73d3a5bddd44049119979e3fdf22321e7fe9d33f1f82ebddb64023f45ba",
+    "torch-cpu.lock": "f567ce400482a7ddea72961bb725bd735789df93af730ae19a89ad6d104c7515"
+  },
+  "pip_check": "passed",
+  "execution": "unrelated working directory; noneditable wheel; python -I",
+  "package_member_count": 33,
+  "all_package_members_match_final_source": true,
+  "source_member_sha256": {
+    "src/pytorch_lab/__init__.py": "9157e3e2e2eb75523f6a8d1380c170b32d128baff5f1448134450b98a905b4bf",
+    "src/pytorch_lab/__main__.py": "980f3bcc47c85d84106ee6233b7177d27a6ef49a9ffc152cdf2916492a6b7e51",
+    "src/pytorch_lab/accumulation.py": "96f8b5a9c0e18902c9a670f02da3dd6caff14e7e0e6cf541cd2b230be8eb139f",
+    "src/pytorch_lab/accumulation_cli.py": "63a2ea8fccd16595284361701c20b3a3ba0e60421a267fe10e53539c885d2dc7",
+    "src/pytorch_lab/accumulation_recovery.py": "29a320c2fc5aede6481c982bfdc7bc60555ea1178dab6b3e407e915315b72989",
+    "src/pytorch_lab/accumulation_recovery_cli.py": "96445ca751df1a5cd6285009424689ccb9689babb60cebc6f7b98fd9739d02d5",
+    "src/pytorch_lab/checkpoint.py": "bcc3f3862c760692b7d73219f72075b77d4e9f5d63f4c81fad6f63d271aac960",
+    "src/pytorch_lab/checkpoint_cli.py": "bbe7dcb70c245bdfa1219ae5255e47e22dc8394ca341c8f0f51a2fb73bb74e5f",
+    "src/pytorch_lab/checkpoint_experiment.py": "0a6bc16b246f5f60e99928f720717ddb2eed21cd0620f02b7129dac7327db67e",
+    "src/pytorch_lab/data/LICENSE.scikit-learn": "50d6a9d340f19ab355609917993114daf5f47e3161067bcf34955bbd05cd9cb0",
+    "src/pytorch_lab/data/fixed_logits_v1.json": "ea3b9d24cb7466c19fced9c85413f53137238fb36e5d4268d20e81686d299f94",
+    "src/pytorch_lab/data/wine.csv": "10e8a802908b34f86e5da8ce962f3c806694bc98450a18f61851af59f324bede",
+    "src/pytorch_lab/data/wine_provenance.json": "879e1280193eba8d029a9d6e0dc433a3b1a95d039fae4f95bb43b78ea59b662a",
+    "src/pytorch_lab/data/wine_split.json": "33dcf02efa811b544300d1dfc55e07d48b53b66717550f4a900fa651fd5c46d5",
+    "src/pytorch_lab/experiments.py": "1cbe7662d4612a4273c0fbb217d70b5b72560e836490a9750867a2b3bc4018cb",
+    "src/pytorch_lab/fixed_input_probe.py": "481d1231f6210d334c9f6eb8b6fbb818964820550a131ee86362116538e6e5b9",
+    "src/pytorch_lab/joint_recovery.py": "2b3cb54657a3b9704ecc7bc559e452a292d3755b8b01213f02faccdb05cb69f2",
+    "src/pytorch_lab/joint_recovery_cli.py": "887d863dfd51f0c9359ad74ccfae6f9120557b786c4bf9b99da2ffccc174a645",
+    "src/pytorch_lab/minibatch.py": "60e805d24fe1e4afe1a58c6653d9dbcf28c71f8242d8fc02dc6fe28e253ec8a2",
+    "src/pytorch_lab/minibatch_cli.py": "4194c2157576594d0e08ca2c30fff84cbe80e397ac9835af0af58232b6674ff8",
+    "src/pytorch_lab/momentum.py": "5fce573eb5a1632eebb80c634c81426ff8981150170598ef6ceb12aebed61756",
+    "src/pytorch_lab/numerical_probe.py": "eba030ae1b7bfbcde5e8c00e9ae47cf42b444062ff82f331c41c3586b8df49c7",
+    "src/pytorch_lab/regression.py": "a0503cd4207c9ed11cef4b2b0cce093f1dc7ba38be55de9ad3e275d42ac581da",
+    "src/pytorch_lab/runtime_probe.py": "1b4f77785a9fb5d3abeef6b18735450771be5859066770956c3e2c7806d443cb",
+    "src/pytorch_lab/scheduled_checkpoint.py": "e6bc563f6b4a6e1e732c3edce59db500d5468845275ab4eaa4ccdc0e9a4e18f2",
+    "src/pytorch_lab/scheduler_cli.py": "30731f7d1fbbb793f03f1c1af0af0c32075594e3e603c094bbd7b04851a49221",
+    "src/pytorch_lab/scheduler_experiment.py": "bd8c397d8a93dca2456010950d8933061d9143cc293f0ee136964914858692b7",
+    "src/pytorch_lab/scientific_compare.py": "e683773bbb22a0bdb30e1087d0624cd0580306c7b71bb45e8c974ca00f36b193",
+    "src/pytorch_lab/shuffle_stream.py": "6c23ca19a3b1fba448edff62285f518d2eb011e07efeb9dd62dee533cdc72e55",
+    "src/pytorch_lab/shuffle_stream_cli.py": "bd2c0f5489b4647cb63563570c68923e2611a2c79e2cd0f967cff8b8b429e2a5",
+    "src/pytorch_lab/tensors.py": "0282aa2ecc21f98e4e76c887b35d5cd2edf84c39868486f259b9e1ba7d8b85bf",
+    "src/pytorch_lab/wine.py": "9a13d6827531a46f3869570dff7e073ef76015a793ef223a3b4ae3f3ac0340b4",
+    "src/pytorch_lab/wine_cli.py": "47a5d790af36e1b086f3d9fff24a82c31051fdf2afa4b7355e5daea277e0edf3"
+  },
+  "installed_checker_sha256": "961133d2b7945cb078692c0e222e6f7d9a5b784bb6313dd86b67458152eeec11",
+  "private_full_checker_report_sha256": "4fe08d83d22ffe9e1ccae11c02d1114f9e0bc378321ad62f165fa7bfee9eb9f0",
+  "not_tested_locally": [
+    "Docker container",
+    "GPU or AMP or DDP",
+    "workers or prefetch",
+    "cross-runtime snapshot exchange",
+    "full pytest suite inside installed-wheel environment",
+    "power-loss durability or exactly-once external side effects"
+  ]
+}
