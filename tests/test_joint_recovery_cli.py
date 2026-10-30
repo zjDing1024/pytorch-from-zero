@@ -81,7 +81,9 @@ def test_invoke_rejects_unexpected_exit_even_with_successful_json(
 def test_real_fresh_process_cli_stdout_protocol_and_no_overwrite(tmp_path):
     path = tmp_path / "evidence.json"
     command = [sys.executable, "-I", "-m", "pytorch_lab.joint_recovery_cli", "--output", str(path)]
-    run = subprocess.run(command, check=True, capture_output=True, text=True, timeout=60)
+    # This aggregate launches nine serial workers; each worker retains its 60s limit.
+    # The outer integration deadline is not a numerical or production-latency contract.
+    run = subprocess.run(command, check=True, capture_output=True, text=True, timeout=120)
     report = json.loads(path.read_text())
     assert report == json.loads(run.stdout)
     assert report["all_checks_passed"] and report["recovered_checkpoints"] == 12

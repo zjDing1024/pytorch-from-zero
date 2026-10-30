@@ -5,7 +5,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    # Joint recovery appends a bounded fault/replay matrix; budgets remain unchanged.
+    # CPU Dropout replay appends a bounded matrix; budgets remain unchanged.
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -41,6 +41,7 @@ jobs:
       - run: python -m pytorch_lab.accumulation_recovery_cli --output results/local-ci-accumulation-recovery.json
       - run: python -m pytorch_lab.shuffle_stream_cli --output results/local-ci-shuffle-stream.json
       - run: python -m pytorch_lab.joint_recovery_cli --output results/local-ci-joint-recovery.json
+      - run: python -m pytorch_lab.dropout_rng_cli --output results/local-ci-dropout-rng.json
       - run: python validation/verify_shuffle_stream.py > results/local-ci-shuffle-stream-review.json
       - run: python validation/verify_accumulation_recovery.py > results/local-ci-accumulation-recovery-review.json
       - name: Retain full scientific outputs and CPU evidence
@@ -48,7 +49,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: source-numerical-evidence
-          path: results/local-ci-*.json
+          path: |
+            results/local-ci.json
+            results/local-ci-*.json
           if-no-files-found: error
           retention-days: 30
   installed-cpu-container:

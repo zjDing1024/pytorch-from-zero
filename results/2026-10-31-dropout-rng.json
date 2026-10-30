@@ -1,0 +1,220 @@
+{
+  "protocol": "cpu-dropout-forward-backward-replay-v1",
+  "torch_version": "2.14.1+cpu",
+  "python_version": "3.12.14",
+  "dtype": "float64",
+  "device": "cpu",
+  "optimizer_updates": 0,
+  "worker_processes": 6,
+  "recovery_cases": 9,
+  "compared_steps": 45,
+  "cases": [
+    {
+      "seed": 7,
+      "cut": 1,
+      "compared_steps": 7,
+      "trace_exact": true,
+      "final_snapshot_exact": true,
+      "baseline_trace_sha256": "d3741f7f016e9b571430a605e273aa8f46c6f3f049abdd63a23d2172d7e0af7e",
+      "restored_trace_sha256": "d3741f7f016e9b571430a605e273aa8f46c6f3f049abdd63a23d2172d7e0af7e"
+    },
+    {
+      "seed": 7,
+      "cut": 3,
+      "compared_steps": 5,
+      "trace_exact": true,
+      "final_snapshot_exact": true,
+      "baseline_trace_sha256": "80dd4f573216cebeb1bdaccb2bbdfefedb7facc84752c63694a6a1c7b6129251",
+      "restored_trace_sha256": "80dd4f573216cebeb1bdaccb2bbdfefedb7facc84752c63694a6a1c7b6129251"
+    },
+    {
+      "seed": 7,
+      "cut": 5,
+      "compared_steps": 3,
+      "trace_exact": true,
+      "final_snapshot_exact": true,
+      "baseline_trace_sha256": "f6883862d503d4ec481ded9b01b343334ff6b12ad6bd100c5e542cc7f052a1fb",
+      "restored_trace_sha256": "f6883862d503d4ec481ded9b01b343334ff6b12ad6bd100c5e542cc7f052a1fb"
+    },
+    {
+      "seed": 42,
+      "cut": 1,
+      "compared_steps": 7,
+      "trace_exact": true,
+      "final_snapshot_exact": true,
+      "baseline_trace_sha256": "3ee14881d8589bcad690c762417df857d9e3dd8ca9c6609d1ff75394803ae58a",
+      "restored_trace_sha256": "3ee14881d8589bcad690c762417df857d9e3dd8ca9c6609d1ff75394803ae58a"
+    },
+    {
+      "seed": 42,
+      "cut": 3,
+      "compared_steps": 5,
+      "trace_exact": true,
+      "final_snapshot_exact": true,
+      "baseline_trace_sha256": "dc1e65a94e5db94384bb98dbe39fa8a82da4d5c06452d196a6fcd1b1f0a14a60",
+      "restored_trace_sha256": "dc1e65a94e5db94384bb98dbe39fa8a82da4d5c06452d196a6fcd1b1f0a14a60"
+    },
+    {
+      "seed": 42,
+      "cut": 5,
+      "compared_steps": 3,
+      "trace_exact": true,
+      "final_snapshot_exact": true,
+      "baseline_trace_sha256": "a06ee99a9e0bffe164b4f78528da445bb09f1eaff21d976addb38a3790eb1725",
+      "restored_trace_sha256": "a06ee99a9e0bffe164b4f78528da445bb09f1eaff21d976addb38a3790eb1725"
+    },
+    {
+      "seed": 123,
+      "cut": 1,
+      "compared_steps": 7,
+      "trace_exact": true,
+      "final_snapshot_exact": true,
+      "baseline_trace_sha256": "f48cba5dd2433276afca26f5153312371192fbbf2d6c00c7cec29b0a5ec7cb5e",
+      "restored_trace_sha256": "f48cba5dd2433276afca26f5153312371192fbbf2d6c00c7cec29b0a5ec7cb5e"
+    },
+    {
+      "seed": 123,
+      "cut": 3,
+      "compared_steps": 5,
+      "trace_exact": true,
+      "final_snapshot_exact": true,
+      "baseline_trace_sha256": "82a529bf5f4e909e1452c1e9fdf98cfbc29851b1e517a63f22b1309c02e6619a",
+      "restored_trace_sha256": "82a529bf5f4e909e1452c1e9fdf98cfbc29851b1e517a63f22b1309c02e6619a"
+    },
+    {
+      "seed": 123,
+      "cut": 5,
+      "compared_steps": 3,
+      "trace_exact": true,
+      "final_snapshot_exact": true,
+      "baseline_trace_sha256": "00b18ae09183d7a0b3f235e1d63c798d7d537be20ed522cc774a49eeeb7e4ce9",
+      "restored_trace_sha256": "00b18ae09183d7a0b3f235e1d63c798d7d537be20ed522cc774a49eeeb7e4ce9"
+    }
+  ],
+  "negative_controls": [
+    {
+      "seed": 7,
+      "seed_only_output_differs": true,
+      "restore_before_init_output_differs": true,
+      "unrelated_global_draws_preserve_replay": true,
+      "seed_only_loss_abs_difference": 0.4733425667264899,
+      "restore_before_init_loss_abs_difference": 0.7327307553033031
+    },
+    {
+      "seed": 42,
+      "seed_only_output_differs": true,
+      "restore_before_init_output_differs": true,
+      "unrelated_global_draws_preserve_replay": true,
+      "seed_only_loss_abs_difference": 0.8645929377605299,
+      "restore_before_init_loss_abs_difference": 1.2371409606470698
+    },
+    {
+      "seed": 123,
+      "seed_only_output_differs": true,
+      "restore_before_init_output_differs": true,
+      "unrelated_global_draws_preserve_replay": true,
+      "seed_only_loss_abs_difference": 0.10740836688886124,
+      "restore_before_init_loss_abs_difference": 0.7738096370302483
+    }
+  ],
+  "mode_probe": {
+    "train": {
+      "output": [
+        [
+          0.2633994006174426,
+          -0.3109911415943025
+        ],
+        [
+          -0.4514998425389086,
+          -0.3512512979420234
+        ],
+        [
+          -0.0516102251703513,
+          -0.10135186633544724
+        ],
+        [
+          -0.2025969489565907,
+          -0.00484600013515063
+        ],
+        [
+          -0.18224485960205444,
+          0.13525984197123775
+        ]
+      ],
+      "requires_grad": true,
+      "rng_changed": true
+    },
+    "no_grad": {
+      "output": [
+        [
+          0.2633994006174426,
+          -0.3109911415943025
+        ],
+        [
+          -0.4514998425389086,
+          -0.3512512979420234
+        ],
+        [
+          -0.0516102251703513,
+          -0.10135186633544724
+        ],
+        [
+          -0.2025969489565907,
+          -0.00484600013515063
+        ],
+        [
+          -0.18224485960205444,
+          0.13525984197123775
+        ]
+      ],
+      "requires_grad": false,
+      "rng_changed": true
+    },
+    "eval": {
+      "output": [
+        [
+          -0.135835307697168,
+          -0.443446670491264
+        ],
+        [
+          -0.15660485468101615,
+          -0.3405045992858059
+        ],
+        [
+          -0.1773744016648644,
+          -0.23756252808034778
+        ],
+        [
+          -0.1981439486487126,
+          -0.1346204568748897
+        ],
+        [
+          -0.2189134956325608,
+          -0.03167838566943154
+        ]
+      ],
+      "requires_grad": true,
+      "rng_changed": false
+    }
+  },
+  "checks": {
+    "fresh_process_traces_exact": true,
+    "fresh_process_final_snapshots_exact": true,
+    "seed_only_controls_detected": true,
+    "restore_order_controls_detected": true,
+    "global_noise_isolated": true,
+    "no_grad_same_random_forward": true,
+    "no_grad_still_consumes_rng": true,
+    "no_grad_disables_recording": true,
+    "eval_does_not_consume_rng": true,
+    "eval_can_record_gradients": true,
+    "caller_cpu_rng_preserved": true
+  },
+  "all_checks_passed": true,
+  "limitations": [
+    "fixed buffer-free model, no optimizer updates",
+    "single-threaded CPU only",
+    "trusted own snapshots only; checksum is not authentication",
+    "no cross-version, cross-platform, CUDA, worker, or joint-training claim"
+  ]
+}

@@ -1,5 +1,25 @@
 # pytorch-from-zero
 
+## 2026-10-31：CPU Dropout 随机前向／反向重放
+
+新增原创 `DropoutReplay`：固定双层线性模型与 Dropout，保存权重、模式、概率与完整 CPU RNG 状态，
+以新进程逐步对照输出、损失及输入／参数梯度。它不进行优化器更新，**不是随机训练恢复**，也没有修改既有 `JointTrainer`。
+默认 CPU RNG 只在单线程上下文中临时借用；成功和异常后恢复调用者状态，不承诺并发隔离。
+
+[协议与官方来源](docs/dropout-rng-boundary.md) · [实现](src/pytorch_lab/dropout_rng.py) ·
+[新进程实验](results/2026-10-31-dropout-rng.json) ·
+[独立手写梯度审查](tests/test_dropout_rng_independent.py) ·
+[实际验收](results/2026-10-31-dropout-rng-verification.md)
+
+```bash
+python -m pytorch_lab.dropout_rng_cli --output results/local-dropout-rng.json
+```
+
+只存 seed、恢复 RNG 后又随机初始化，以及把 no_grad 当作 eval 的错误分别有显式对照。
+本轮本地1,265 + 59 + 45 + 34 = **1,403项测试**通过（新增82）；9案例／6worker／45步骤精确重放，
+干净非editable wheel的13个CLI通过。第十三个CLI追加在旧十二个之后，CI artifact同时收录baseline与其余CLI JSON。
+历史科学结果和 CI 时间预算不变，个人独立自测仍待完成。
+
 ## 2026-10-30：打乱数据与训练状态的联合安全点
 
 新增原创 `JointTrainer`：由同一对象拥有索引流、CPU float64 仿射模型、SGD momentum、待用梯度与提交进度。

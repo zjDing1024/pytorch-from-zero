@@ -1,0 +1,85 @@
+{
+  "all_checks_passed": true,
+  "installation": {
+    "version": "0.1.0",
+    "noneditable_wheel": true
+  },
+  "cli_count": 13,
+  "checks": {
+    "baseline": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "minibatch": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "checkpoint": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "scheduler": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "wine": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "runtime": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "numerical": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "fixed_input": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation_recovery": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "shuffle_stream": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "joint_recovery": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "dropout_rng": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    }
+  },
+  "wheel_filename": "pytorch_from_zero_lab-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "31dd898a02cfb178622d0fa850c67745efe99b5a7724f71512a1c5c83178780b",
+  "package_member_count": 35,
+  "all_package_members_match_final_source_and_installed": true,
+  "locked_runtime_wheels_verified": 10,
+  "runtime_install": "fresh venv; offline official-index wheelhouse; --only-binary --require-hashes",
+  "pip_check": "passed",
+  "execution": "unrelated temporary directory; noneditable wheel; python -I",
+  "installed_checker_sha256": "552d51ea12c02d4c9d516e87d9b82a278a3fa2c9e63c11d6169a272f58933a25",
+  "private_full_checker_report_sha256": "a35131f903e2bdd3e37b3d669bb1a7f36b5e359f50ab66d13a422a6bb2bcbc8d",
+  "requirements_sha256": {
+    "runtime-cpu.lock": "5efbdf77b41e5d0f2e41201f6ee0510807dd173ab96d553e2be5665741cdfc8c",
+    "runtime-common.lock": "66e8f73d3a5bddd44049119979e3fdf22321e7fe9d33f1f82ebddb64023f45ba",
+    "torch-cpu.lock": "f567ce400482a7ddea72961bb725bd735789df93af730ae19a89ad6d104c7515"
+  },
+  "not_tested_locally": [
+    "Docker container",
+    "GPU/AMP/DDP",
+    "workers or prefetch",
+    "cross-runtime snapshot exchange",
+    "full pytest inside wheel environment",
+    "power-loss durability or asynchronous commit/return interruption"
+  ]
+}

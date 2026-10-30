@@ -51,3 +51,14 @@ responsibility boundaries and our independent safe-point design are in
 [joint training recovery](docs/joint-training-recovery.md). No upstream code,
 comments or source excerpts copied; no TorchData or Accelerate runtime dependency
 added. Existing UCI data attribution and historical scientific records remain unchanged.
+
+## CPU stochastic replay study (2026-10-31)
+
+Official PyTorch v2.14.1 source study (revision
+`5c4886908584029761b579af026dcfb627c84070`, BSD-3-Clause-style root license)
+and Hugging Face Accelerate checkpointing study (revision
+`90b233c86202a5ded4bf66407e75222c5fb007fc`, Apache-2.0).
+Exact source/license links and version distinctions are recorded in
+[the RNG boundary note](docs/dropout-rng-boundary.md).
+Probe code, fixture, tests and explanations are original; no upstream snippets,
+comments or implementation copied, and no new framework dependency added.

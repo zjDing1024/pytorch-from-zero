@@ -1,0 +1,219 @@
+{
+  "protocol": "independent-cpu-dropout-equations-and-failure-review-v1",
+  "date": "2026-10-31",
+  "timezone": "Asia/Kuala_Lumpur",
+  "python_version": "3.12.14",
+  "torch_version": "2.14.1+cpu",
+  "device": "cpu",
+  "dtype": "float64",
+  "pytest_subset": {
+    "passed": 39,
+    "failed": 0,
+    "seconds": 3.42,
+    "counting_note": "These 39 tests are a subset of the main pytest suite, not an extra addition to its total.",
+    "warning": "PyTorch warned that NumPy was not installed; no NumPy functionality is used."
+  },
+  "equation_review": {
+    "configurations": 18,
+    "step_comparisons": 72,
+    "atol": 1e-12,
+    "rtol": 1e-12,
+    "max_absolute_difference": 0.0,
+    "exact_snapshot_restoration_at_each_step": true,
+    "cases": [
+      {
+        "seed": 42,
+        "model_seed": 17,
+        "p": 0.0,
+        "training": true,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 7,
+        "model_seed": 3,
+        "p": 0.0,
+        "training": true,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 123,
+        "model_seed": 99,
+        "p": 0.0,
+        "training": true,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 42,
+        "model_seed": 17,
+        "p": 0.35,
+        "training": true,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 7,
+        "model_seed": 3,
+        "p": 0.35,
+        "training": true,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 123,
+        "model_seed": 99,
+        "p": 0.35,
+        "training": true,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 42,
+        "model_seed": 17,
+        "p": 1.0,
+        "training": true,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 7,
+        "model_seed": 3,
+        "p": 1.0,
+        "training": true,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 123,
+        "model_seed": 99,
+        "p": 1.0,
+        "training": true,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 42,
+        "model_seed": 17,
+        "p": 0.0,
+        "training": false,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 7,
+        "model_seed": 3,
+        "p": 0.0,
+        "training": false,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 123,
+        "model_seed": 99,
+        "p": 0.0,
+        "training": false,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 42,
+        "model_seed": 17,
+        "p": 0.35,
+        "training": false,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 7,
+        "model_seed": 3,
+        "p": 0.35,
+        "training": false,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 123,
+        "model_seed": 99,
+        "p": 0.35,
+        "training": false,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 42,
+        "model_seed": 17,
+        "p": 1.0,
+        "training": false,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 7,
+        "model_seed": 3,
+        "p": 1.0,
+        "training": false,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      },
+      {
+        "seed": 123,
+        "model_seed": 99,
+        "p": 1.0,
+        "training": false,
+        "steps": 4,
+        "max_absolute_equation_difference": 0.0,
+        "exact_restore": true
+      }
+    ]
+  },
+  "failure_review": {
+    "mutate_then_raise_cases": 4,
+    "stages": [
+      "after Dropout consumes CPU RNG",
+      "after backward writes parameter gradients"
+    ],
+    "exceptions": [
+      "RuntimeError",
+      "KeyboardInterrupt"
+    ],
+    "private_state_unchanged": true,
+    "caller_cpu_rng_restored": true,
+    "retry_exact": true,
+    "nonfinite_input_gradient_rejected": true
+  },
+  "validation_review": {
+    "malformed_snapshot_variants": 12,
+    "non_numeric_model_scalar_variants": 4,
+    "owner_mode_or_probability_mutations": 4,
+    "owner_structure_dtype_finite_mutations": 4,
+    "trusted_file_roundtrip_checksum_config_no_overwrite": true,
+    "terminal_counter_roundtrip_and_no_advance": true,
+    "unrelated_caller_random_draws_do_not_perturb_replay": true
+  },
+  "limits": [
+    "Handwritten affine chain-rule oracle does not use production fixture, model forward, loss, or autograd; its random mask still uses the same upstream PyTorch Dropout primitive, not an independent RNG algorithm.",
+    "Numerical equations use tolerance, while supported snapshot replay and RNG digest comparisons are exact within the tested runtime.",
+    "No optimizer updates, arbitrary module rollback, malicious-file safety, concurrent global RNG isolation, GPU, or cross-runtime checkpoint guarantee."
+  ],
+  "test_source_sha256": "7b1df4327bbaa27ccac7671eebec10983a04f7b76940080cf01aeee8dc194b1f",
+  "all_checks_passed": true
+}
