@@ -180,7 +180,7 @@ def test_cli_matches_stdout_and_does_not_overwrite(tmp_path):
     assert out.read_bytes() == before
 
 
-def test_thirteenth_installed_cli_keeps_prior_twelve_entries():
+def test_fourteenth_installed_cli_keeps_prior_thirteen_entries():
     import runpy
     from pathlib import Path
 
@@ -201,10 +201,13 @@ def test_thirteenth_installed_cli_keeps_prior_twelve_entries():
         "shuffle_stream",
         "joint_recovery",
         "dropout_rng",
+        "stochastic_joint",
     ]
-    assert commands[-5] == ("accumulation", "pytorch_lab.accumulation_cli", [])
-    assert commands[-4] == ("accumulation_recovery", "pytorch_lab.accumulation_recovery_cli", [])
-    assert commands[-3] == ("shuffle_stream", "pytorch_lab.shuffle_stream_cli", [])
-    assert commands[-2] == ("joint_recovery", "pytorch_lab.joint_recovery_cli", [])
+    assert commands[8] == ("accumulation", "pytorch_lab.accumulation_cli", [])
+    assert commands[9] == ("accumulation_recovery", "pytorch_lab.accumulation_recovery_cli", [])
+    assert commands[10] == ("shuffle_stream", "pytorch_lab.shuffle_stream_cli", [])
+    assert commands[11] == ("joint_recovery", "pytorch_lab.joint_recovery_cli", [])
 
-    assert commands[-1] == ("dropout_rng", "pytorch_lab.dropout_rng_cli", [])
+    assert commands[12] == ("dropout_rng", "pytorch_lab.dropout_rng_cli", [])
+
+    assert commands[13] == ("stochastic_joint", "pytorch_lab.stochastic_joint_cli", [])

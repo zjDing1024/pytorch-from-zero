@@ -1,5 +1,15 @@
 # pytorch-from-zero
 
+## 2026-11-02: stochastic joint training integration
+
+Input Dropout now joins shuffled affine SGD and gradient accumulation in one
+versioned safe-point contract. See [protocol and reproduction](docs/stochastic-joint-training.md),
+[local verification](results/2026-11-02-stochastic-joint-verification.md), and
+[raw new-process evidence](results/2026-11-02-stochastic-joint.json).
+This performs parameter updates, unlike the earlier fixed-weight replay. Old
+formats remain unchanged. Single-threaded CPU float64 only; independent learner
+mastery remains unassessed. Remote CI status is recorded separately after publication.
+
 ## 2026-10-31：CPU Dropout 随机前向／反向重放
 
 新增原创 `DropoutReplay`：固定双层线性模型与 Dropout，保存权重、模式、概率与完整 CPU RNG 状态，

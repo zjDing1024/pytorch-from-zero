@@ -1,0 +1,3909 @@
+{
+  "schema_version": 1,
+  "experiment": "input_dropout_joint_training_recovery",
+  "executed_by": "AI assistant; learner mastery unassessed",
+  "environment": {
+    "python": "3.12.14",
+    "pytorch": "2.14.1+cpu"
+  },
+  "protocol": {
+    "seeds": [
+      7,
+      42,
+      123
+    ],
+    "model_rng_seed": "same as each data seed",
+    "shuffle_seed": 19,
+    "samples": 23,
+    "microbatch_size": 5,
+    "accumulation_steps": 3,
+    "dropout_p": 0.35,
+    "epochs": 3,
+    "dtype": "float64",
+    "device": "cpu",
+    "worker_processes": {
+      "baseline": 3,
+      "resume_and_fault": 3
+    },
+    "comparison": "exact typed-state digest, index suffix and full per-step trace",
+    "fault_mode": "explicit Python exceptions; workers then reload old whole checkpoints",
+    "excluded": [
+      "process kill or power loss",
+      "cross-runtime snapshot exchange",
+      "concurrent RNG consumers",
+      "external effects exactly once",
+      "GPU or AMP or DDP"
+    ]
+  },
+  "recovery_cases": [
+    {
+      "seed": 7,
+      "cut": 1,
+      "compared_safe_points": 15,
+      "compared_steps": 14,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 7,
+      "cut": 3,
+      "compared_safe_points": 13,
+      "compared_steps": 12,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 7,
+      "cut": 5,
+      "compared_safe_points": 11,
+      "compared_steps": 10,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "cut": 1,
+      "compared_safe_points": 15,
+      "compared_steps": 14,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "cut": 3,
+      "compared_safe_points": 13,
+      "compared_steps": 12,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "cut": 5,
+      "compared_safe_points": 11,
+      "compared_steps": 10,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "cut": 1,
+      "compared_safe_points": 15,
+      "compared_steps": 14,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "cut": 3,
+      "compared_safe_points": 13,
+      "compared_steps": 12,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "cut": 5,
+      "compared_safe_points": 11,
+      "compared_steps": 10,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true
+      },
+      "all_checks_passed": true
+    }
+  ],
+  "failure_recovery_cases": [
+    {
+      "seed": 7,
+      "fault": "after_fetch",
+      "cut": 1,
+      "compared_safe_points": 15,
+      "compared_steps": 14,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 7,
+      "fault": "after_forward",
+      "cut": 1,
+      "compared_safe_points": 15,
+      "compared_steps": 14,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 7,
+      "fault": "after_backward",
+      "cut": 3,
+      "compared_safe_points": 13,
+      "compared_steps": 12,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 7,
+      "fault": "after_update",
+      "cut": 4,
+      "compared_safe_points": 12,
+      "compared_steps": 11,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 7,
+      "fault": "before_commit",
+      "cut": 7,
+      "compared_safe_points": 9,
+      "compared_steps": 8,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "fault": "after_fetch",
+      "cut": 1,
+      "compared_safe_points": 15,
+      "compared_steps": 14,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "fault": "after_forward",
+      "cut": 1,
+      "compared_safe_points": 15,
+      "compared_steps": 14,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "fault": "after_backward",
+      "cut": 3,
+      "compared_safe_points": 13,
+      "compared_steps": 12,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "fault": "after_update",
+      "cut": 4,
+      "compared_safe_points": 12,
+      "compared_steps": 11,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 42,
+      "fault": "before_commit",
+      "cut": 7,
+      "compared_safe_points": 9,
+      "compared_steps": 8,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "fault": "after_fetch",
+      "cut": 1,
+      "compared_safe_points": 15,
+      "compared_steps": 14,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "fault": "after_forward",
+      "cut": 1,
+      "compared_safe_points": 15,
+      "compared_steps": 14,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "fault": "after_backward",
+      "cut": 3,
+      "compared_safe_points": 13,
+      "compared_steps": 12,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "fault": "after_update",
+      "cut": 4,
+      "compared_safe_points": 12,
+      "compared_steps": 11,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    },
+    {
+      "seed": 123,
+      "fault": "before_commit",
+      "cut": 7,
+      "compared_safe_points": 9,
+      "compared_steps": 8,
+      "checks": {
+        "every_safe_point_exact": true,
+        "committed_indices_exact": true,
+        "every_output_loss_raw_gradient_trace_exact": true,
+        "injected_failure_observed": true,
+        "caller_rng_restored": true,
+        "all_unsafe_operations_refused": true,
+        "unsafe_file_absent": true,
+        "saved_checkpoint_unchanged": true
+      },
+      "all_checks_passed": true
+    }
+  ],
+  "baseline_coverage": [
+    {
+      "seed": 7,
+      "committed_microbatches": 15,
+      "committed_sample_visits": 69,
+      "each_epoch_all_samples_once": [
+        true,
+        true,
+        true
+      ],
+      "final_state_sha256": "b397dd77472890d9529aff6e926b00394fee56b836e6d4c543405a72cae6a7c4",
+      "reference_trajectory": {
+        "states": [
+          "6a120f0b05a036933de5527aab7258e67387ac25601c5397e87f9cec8fbe6aef",
+          "23501acb78d6c87d1ab9931b71ee8c5bd405a73c6460c5984645236f7ad93ceb",
+          "306b8b2ed09d06cb72725b898af9f8ca70ded78ae0b7076c89b216aba739c3f2",
+          "e0ced96233d49e59ba5027b00a1b3d89114ce649fc4e16e55a93cdbe916f499d",
+          "c1d0750a60b06b91ae56f5ce22299d67ba0b5d258c9a7e2f0de1ff1b3d4be9d7",
+          "d948e47ecdb0a6802858ca3ba8e802a524e10669a268e8d4ec01a96197182c82",
+          "eed4257bb703bfb0220059989284cd81c7d335e498084e7dab0f0e20539fe3ff",
+          "a26b819a8b80e30ad64f8732545a09eba2b4498c8bd20da96904ef40460375cf",
+          "d8edeb296119383147cd11acfc72295c421c69e69cb8e6fc32d99a7b59c05ab5",
+          "1e48757500998f5c52dda985c96b8519b0af93d80af64209446d24ac99d782d0",
+          "c80d17cab091666528ebf8a4a3527579a79fce5bd29b9f3f9698b9c4cd7bb7d3",
+          "8da56ab4aa6967657d0a4658c95929ad71ab0bc1004c57a64a4599058f6b5471",
+          "5a6092ba882fce1e9836dd6388f8db060b3e84d54fa6ceacad84a16f448cdc1c",
+          "5cc3b4fb7bcf90eb461b7f97c2476eead328aeb43ab98b9bca056a96d014c72c",
+          "01fc2d7b73bcb4af27403033a6c03a5d9abeadfda706e41fc049137b87e48afa",
+          "b397dd77472890d9529aff6e926b00394fee56b836e6d4c543405a72cae6a7c4"
+        ],
+        "batches": [
+          [
+            22,
+            3,
+            21,
+            13,
+            20
+          ],
+          [
+            18,
+            15,
+            17,
+            12,
+            1
+          ],
+          [
+            14,
+            2,
+            11,
+            4,
+            0
+          ],
+          [
+            7,
+            8,
+            19,
+            5,
+            10
+          ],
+          [
+            16,
+            6,
+            9
+          ],
+          [
+            12,
+            20,
+            14,
+            16,
+            19
+          ],
+          [
+            8,
+            18,
+            0,
+            10,
+            6
+          ],
+          [
+            5,
+            3,
+            22,
+            21,
+            9
+          ],
+          [
+            2,
+            15,
+            1,
+            13,
+            4
+          ],
+          [
+            17,
+            7,
+            11
+          ],
+          [
+            11,
+            22,
+            6,
+            21,
+            7
+          ],
+          [
+            13,
+            15,
+            19,
+            4,
+            16
+          ],
+          [
+            5,
+            0,
+            9,
+            1,
+            3
+          ],
+          [
+            12,
+            14,
+            10,
+            20,
+            18
+          ],
+          [
+            8,
+            17,
+            2
+          ]
+        ],
+        "traces": [
+          {
+            "output": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "loss": 1.367801147947119,
+            "dropped_input": [
+              [
+                -0.4357680393732094,
+                -0.0343933312358707,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.6158058163716174,
+                -0.13809266441556878,
+                -0.0
+              ],
+              [
+                -0.0,
+                0.34555110114606974,
+                -0.4806014694000659
+              ],
+              [
+                0.4517537215020406,
+                -0.1730110095603785,
+                0.21444226734219848
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.0274959147387335,
+                  -0.020757128356144516
+                ],
+                [
+                  0.5206537437443314,
+                  0.18637136632607929
+                ],
+                [
+                  -0.4414608141500699,
+                  -0.1597624527528083
+                ]
+              ],
+              "bias": [
+                -1.7738462585829622,
+                -2.0743145672308185
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "loss": 1.120729350046121,
+            "dropped_input": [
+              [
+                -0.0,
+                -0.03061840384393441,
+                0.0
+              ],
+              [
+                0.16267438851119576,
+                -0.0,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                -0.41540436055184143
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.5750557250658547,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.256937785223286,
+                  -0.11899147498760278
+                ],
+                [
+                  0.6156629353546059,
+                  -0.03863393493882611
+                ],
+                [
+                  -0.3331427157547924,
+                  -0.09610415454934775
+                ]
+              ],
+              "bias": [
+                -4.081056341948536,
+                -4.9195034907256545
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "loss": 0.7217210147083757,
+            "dropped_input": [
+              [
+                0.37336361244560146,
+                0.022900877563408032,
+                0.32801685463509417
+              ],
+              [
+                0.0,
+                0.3783741412359701,
+                -0.4137341249419468
+              ],
+              [
+                0.6587915142705965,
+                -0.2862751224843233,
+                -0.0
+              ],
+              [
+                1.0073063063889607,
+                0.22981486405028606,
+                0.0
+              ],
+              [
+                0.03398335367410227,
+                0.024098233458422606,
+                0.9418146820663597
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -2.42043154038733,
+                  -0.013782581723281118
+                ],
+                [
+                  0.9911133296457704,
+                  0.18964559926088467
+                ],
+                [
+                  -0.715607827413574,
+                  -1.0663810016313404
+                ]
+              ],
+              "bias": [
+                -5.279267054350994,
+                -4.852815588045618
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.007944695152500847,
+                0.005264456981853835
+              ],
+              [
+                0.005099293798080614,
+                0.004768913665865644
+              ],
+              [
+                0.005107473788188,
+                0.00485127748092625
+              ],
+              [
+                0.005279267054350993,
+                0.004852815588045618
+              ],
+              [
+                0.005279267054350993,
+                0.004852815588045618
+              ]
+            ],
+            "loss": 2.301827198526321,
+            "dropped_input": [
+              [
+                0.9908794153898938,
+                -0.0,
+                0.37321043480599875
+              ],
+              [
+                -0.05129012679036469,
+                -0.0,
+                -0.0780162171762412
+              ],
+              [
+                -0.06973036033962653,
+                0.003042742524172839,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                -0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                -0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.3072550841346906,
+                  0.23162995585358848
+                ],
+                [
+                  -0.0031012373133320723,
+                  -0.006006127717759747
+                ],
+                [
+                  -0.4497537437874406,
+                  0.021605596434941587
+                ]
+              ],
+              "bias": [
+                -2.655517703097413,
+                -1.1211985696585927
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.004783199596644472,
+                0.004757895050225588
+              ],
+              [
+                0.005522004204252753,
+                0.005488401621391501
+              ],
+              [
+                0.0008614440994442578,
+                0.004377834862086824
+              ]
+            ],
+            "loss": 1.1031592580334122,
+            "dropped_input": [
+              [
+                0.0,
+                0.5005153728321046,
+                0.0
+              ],
+              [
+                0.2348804890189897,
+                0.8683461417473624,
+                0.7474127886834491
+              ],
+              [
+                -1.379957490347275,
+                0.8933871954677248,
+                -0.2686979593396851
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -3.61886792379224,
+                  0.6359873536621994
+                ],
+                [
+                  1.8343687475644856,
+                  -1.1952165696162196
+                ],
+                [
+                  -0.5245820542969704,
+                  -0.39770663987165583
+                ]
+              ],
+              "bias": [
+                -0.763732885333569,
+                -2.6507073144383737
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.011815404083408976,
+                0.014578224106766546
+              ],
+              [
+                0.017357039098563336,
+                0.013418974737807383
+              ],
+              [
+                0.011558562097172497,
+                0.014621314728564132
+              ],
+              [
+                0.015374969874447163,
+                0.013915015253797482
+              ],
+              [
+                0.010933096077715924,
+                0.01370368842837765
+              ]
+            ],
+            "loss": 2.0285211122494693,
+            "dropped_input": [
+              [
+                0.057430292445042226,
+                0.08186299256337526,
+                0.29497851366125355
+              ],
+              [
+                0.4517537215020406,
+                -0.1730110095603785,
+                0.21444226734219848
+              ],
+              [
+                0.0,
+                0.022900877563408032,
+                0.32801685463509417
+              ],
+              [
+                0.6333245339506376,
+                0.5005153728321046,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.798852884438415,
+                  -0.5900313984586741
+                ],
+                [
+                  -0.027197287328276393,
+                  -0.12702810965300582
+                ],
+                [
+                  -0.5576101621333471,
+                  -0.47547773048373715
+                ]
+              ],
+              "bias": [
+                -3.5355906226318767,
+                -4.08621826756209
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.010184439266924224,
+                0.013555675709813617
+              ],
+              [
+                0.011997369998708155,
+                0.014706495227452689
+              ],
+              [
+                0.013325155035048303,
+                0.01621959683562001
+              ],
+              [
+                0.0066205261129441756,
+                0.012580173723556647
+              ],
+              [
+                0.012630822371965805,
+                0.015695443236119922
+              ]
+            ],
+            "loss": 1.0372332869361398,
+            "dropped_input": [
+              [
+                -0.05129012679036469,
+                -0.0,
+                -0.0780162171762412
+              ],
+              [
+                -0.0,
+                -0.03061840384393441,
+                0.3981338790374694
+              ],
+              [
+                0.03398335367410227,
+                0.024098233458422606,
+                0.9418146820663597
+              ],
+              [
+                -0.14557896934332265,
+                0.23209000107745104,
+                -0.6508434742658052
+              ],
+              [
+                0.0,
+                0.0,
+                0.7474127886834491
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.7928640567804278,
+                  -0.6817440687425582
+                ],
+                [
+                  0.0822362072705842,
+                  -0.006117658163088471
+                ],
+                [
+                  -0.37835282727856756,
+                  -2.1674391696389037
+                ]
+              ],
+              "bias": [
+                -4.080658761733947,
+                -5.644423015232629
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.004599331334550743,
+                0.01393422782112055
+              ],
+              [
+                0.01153574116914229,
+                0.014410705373497824
+              ],
+              [
+                0.0061306681835668255,
+                0.01427429130093318
+              ],
+              [
+                0.016995653800711094,
+                0.012047956619503605
+              ],
+              [
+                0.010933096077715924,
+                0.01370368842837765
+              ]
+            ],
+            "loss": 1.7255034152243325,
+            "dropped_input": [
+              [
+                -0.5380587754665622,
+                0.0,
+                -0.14925203638943033
+              ],
+              [
+                -0.0,
+                0.0,
+                0.2653105214279472
+              ],
+              [
+                -0.4357680393732094,
+                -0.0,
+                0.023178965071508902
+              ],
+              [
+                0.6158058163716174,
+                -0.0,
+                -0.3514896413299749
+              ],
+              [
+                -0.0,
+                0.0,
+                -0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.5746609109620087,
+                  -0.4344666002644408
+                ],
+                [
+                  0.0822362072705842,
+                  -0.006117658163088471
+                ],
+                [
+                  0.1359278931703497,
+                  -2.201860660547718
+                ]
+              ],
+              "bias": [
+                -2.549734747177099,
+                -7.201241687329394
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.016604378220704694,
+                0.025439239035715714
+              ],
+              [
+                0.019271172716246718,
+                0.03028801574117817
+              ],
+              [
+                0.01622883327876737,
+                0.03589867587488384
+              ],
+              [
+                0.009278585157265741,
+                0.029705072440053455
+              ],
+              [
+                0.01701148091033092,
+                0.0306323174196865
+              ]
+            ],
+            "loss": 0.917949279821698,
+            "dropped_input": [
+              [
+                0.0,
+                0.0,
+                -0.4137341249419468
+              ],
+              [
+                0.0,
+                -0.0,
+                0.3753629735538915
+              ],
+              [
+                0.0,
+                0.5750557250658547,
+                0.953716510770962
+              ],
+              [
+                -0.29057969718215015,
+                0.34555110114606974,
+                -0.0
+              ],
+              [
+                0.0,
+                0.22981486405028606,
+                0.2976224394736854
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.11374767397741121,
+                  -0.01985101388724556
+                ],
+                [
+                  0.16299716668294467,
+                  -0.13800453465340712
+                ],
+                [
+                  -0.7023922680010737,
+                  -0.8165754728038213
+                ]
+              ],
+              "bias": [
+                -0.49218545663425883,
+                0.17372833109227168
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.015669210054117318,
+                0.025811588675538736
+              ],
+              [
+                0.04519876598548574,
+                0.02596744017744578
+              ],
+              [
+                0.01990665769326419,
+                0.025896603074596507
+              ]
+            ],
+            "loss": 0.680057726445069,
+            "dropped_input": [
+              [
+                -0.0,
+                0.10697156230511819,
+                -0.41540436055184143
+              ],
+              [
+                0.9908794153898938,
+                -0.7393917911550217,
+                0.37321043480599875
+              ],
+              [
+                0.0,
+                -0.2862751224843233,
+                -0.17266443132085932
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.4788749690663443,
+                  0.12721877768207615
+                ],
+                [
+                  1.38939555849739,
+                  -0.3389950962432616
+                ],
+                [
+                  -0.9811610424604685,
+                  -0.7674471113074596
+                ]
+              ],
+              "bias": [
+                -2.9106965648055527,
+                0.5012988111093343
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.03313684129448636,
+                0.03686577933261179
+              ],
+              [
+                0.01648605060153681,
+                0.03970858476961757
+              ],
+              [
+                0.035991212413282424,
+                0.03790951147448
+              ],
+              [
+                0.04694696808358975,
+                0.03261385356661102
+              ],
+              [
+                0.06853775604772912,
+                0.032046517137749544
+              ]
+            ],
+            "loss": 1.3718630103940486,
+            "dropped_input": [
+              [
+                0.0,
+                -0.2862751224843233,
+                -0.0
+              ],
+              [
+                -0.4357680393732094,
+                -0.0,
+                0.023178965071508902
+              ],
+              [
+                0.2348804890189897,
+                0.0,
+                0.0
+              ],
+              [
+                0.6158058163716174,
+                -0.13809266441556878,
+                -0.3514896413299749
+              ],
+              [
+                0.9908794153898938,
+                -0.7393917911550217,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.610522481912212,
+                  0.3199803671886099
+                ],
+                [
+                  1.356919572122842,
+                  -0.18951664342349234
+                ],
+                [
+                  0.3647160937420458,
+                  0.02002348821260241
+                ]
+              ],
+              "bias": [
+                -3.117278010880459,
+                -1.1758287866745647
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.0128037541209143,
+                0.03606790340129394
+              ],
+              [
+                0.04490466484977865,
+                0.03372312793894246
+              ],
+              [
+                0.037400859691128434,
+                0.05253263522319553
+              ],
+              [
+                0.025878039460143196,
+                0.0397316009779305
+              ],
+              [
+                0.02249117918018801,
+                0.04194886258238876
+              ]
+            ],
+            "loss": 1.7604058124869446,
+            "dropped_input": [
+              [
+                -0.29057969718215015,
+                0.34555110114606974,
+                -0.4806014694000659
+              ],
+              [
+                0.16267438851119576,
+                -0.7841263703844762,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                1.3580525635995455
+              ],
+              [
+                0.0,
+                0.22981486405028606,
+                0.0
+              ],
+              [
+                0.0,
+                0.5005153728321046,
+                0.06888819594617819
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.9411510336426456,
+                  0.2091689661143337
+                ],
+                [
+                  2.2755448039787836,
+                  0.15320301799480013
+                ],
+                [
+                  -1.149002058357172,
+                  -2.5929396037016152
+                ]
+              ],
+              "bias": [
+                -5.661666093302818,
+                -3.580138763786816
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.02818157451210207,
+                0.038822150525457656
+              ],
+              [
+                0.035516462305406116,
+                0.048272860185208884
+              ],
+              [
+                -0.023880982568205783,
+                0.046623857687209516
+              ],
+              [
+                0.04739129510534003,
+                0.049904422664834636
+              ],
+              [
+                0.025192207113812565,
+                0.043391947615632614
+              ]
+            ],
+            "loss": 1.1546624718492011,
+            "dropped_input": [
+              [
+                -0.0,
+                0.06603695674844945,
+                -0.0
+              ],
+              [
+                0.03398335367410227,
+                0.024098233458422606,
+                0.9418146820663597
+              ],
+              [
+                -1.379957490347275,
+                0.8933871954677248,
+                -0.0
+              ],
+              [
+                0.701379691557322,
+                0.5750557250658547,
+                0.953716510770962
+              ],
+              [
+                -0.0,
+                0.3937302076150561,
+                0.2653105214279472
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -4.139576679249476,
+                  0.4039993499128675
+                ],
+                [
+                  4.325942559114417,
+                  -0.39366131320495296
+                ],
+                [
+                  -0.5424958896354848,
+                  -3.3524873883157307
+                ]
+              ],
+              "bias": [
+                -2.046781932517611,
+                -4.641916209450885
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.04314169737202724,
+                0.056936466502460786
+              ],
+              [
+                0.04240998786473295,
+                0.0572437546930837
+              ],
+              [
+                0.04003464840007613,
+                0.051464976897293464
+              ],
+              [
+                0.05860632928510459,
+                0.049999182105959605
+              ],
+              [
+                0.044243002069706466,
+                0.05803940712461523
+              ]
+            ],
+            "loss": 1.000571492337682,
+            "dropped_input": [
+              [
+                0.057430292445042226,
+                0.08186299256337526,
+                0.29497851366125355
+              ],
+              [
+                0.0,
+                0.022900877563408032,
+                0.32801685463509417
+              ],
+              [
+                -0.0,
+                0.0,
+                -0.0
+              ],
+              [
+                0.4517537215020406,
+                -0.0,
+                0.0
+              ],
+              [
+                -0.0,
+                -0.03061840384393441,
+                0.3981338790374694
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.5122402801045983,
+                  -0.3066602383994274
+                ],
+                [
+                  -0.0203857506978038,
+                  -0.014789188906552338
+                ],
+                [
+                  -0.41533183518771993,
+                  -0.6650764159153759
+                ]
+              ],
+              "bias": [
+                -1.845972869556313,
+                -1.977585977310465
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.03723757364389574,
+                0.05029795209067888
+              ],
+              [
+                0.03588647571125446,
+                0.052405888196418324
+              ],
+              [
+                0.049058458977621205,
+                0.04339307123400948
+              ]
+            ],
+            "loss": 0.6362096254062166,
+            "dropped_input": [
+              [
+                -0.05129012679036469,
+                -0.0,
+                -0.0780162171762412
+              ],
+              [
+                -0.04187021421137258,
+                0.10697156230511819,
+                -0.0
+              ],
+              [
+                0.30832256552847365,
+                0.0,
+                -0.4137341249419468
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.23363688130654592,
+                  -0.06859195946174834
+                ],
+                [
+                  -0.040601284271437194,
+                  -0.019970078169158467
+                ],
+                [
+                  -0.6144255310893154,
+                  -1.0296962079561496
+                ]
+              ],
+              "bias": [
+                -2.4607791855912757,
+                -0.8801468868546207
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": 42,
+      "committed_microbatches": 15,
+      "committed_sample_visits": 69,
+      "each_epoch_all_samples_once": [
+        true,
+        true,
+        true
+      ],
+      "final_state_sha256": "580f6bfe384b37ea10ddf92d8b4d1cfc2c5b18ecff4fafe16c40c1ab457afb67",
+      "reference_trajectory": {
+        "states": [
+          "fbca92d200171e977230534200dea5195c9fceaafccbaf026e0804de4559455c",
+          "28b47171fb6de33f597a3840c3e7dfb5fc81f24814b90dc1d1407f97ccc1881d",
+          "8968fbd3ff3e6512cfa440a98b3fa13c0be03a9182c40bc94527706b810b14be",
+          "cbb44dde96e44f32bc95e029ae5c9a8f37d41ae15187dc744a384c1faa429fc4",
+          "f57799a82278f0379213214c3eb7252cc3d5a7e2f9efe3b5627d1331c11fe0b8",
+          "58192f0bfdf28b2f27c79326f25d1883f24ff10c7c710e97f2b5e3d495bf6fcf",
+          "6457e0725b0ec9c7840c63232a5c7dc7f1c0041753c966105308dda650397ef0",
+          "240cb7a4d90f35e6ce70905079935415cc4a61b1587f2c5f841a8d59cfb45a08",
+          "dc4c880df081d0240e9a187d8ad9b00555af6e44d3ea7b4b596ceb064cbe732b",
+          "722b46b61b3efe6563424fce9b9c4a6d0c626ca32df8f55586dd27ffad390f7f",
+          "07789212c075d45e423c94a349d38c32deb0e5f68494f3a466bed3c45d523f82",
+          "e8a8ec1b7bf8019bdf1ce3be8cc825fd85dbcf8ad3ee03c6555b14ddedc925e1",
+          "db3fe380c9efc92660d5422f4d5b7c8d0487a8adaf3d3f784d30c5d8c625af9c",
+          "0051a22257d92918d990e2df7adbeb595f690b8da96fd3387171ffec3897fe79",
+          "5785897c7f3c6ed678bac8e48ef7211717320515a2ca4df6e7da6c0830c8f538",
+          "580f6bfe384b37ea10ddf92d8b4d1cfc2c5b18ecff4fafe16c40c1ab457afb67"
+        ],
+        "batches": [
+          [
+            22,
+            3,
+            21,
+            13,
+            20
+          ],
+          [
+            18,
+            15,
+            17,
+            12,
+            1
+          ],
+          [
+            14,
+            2,
+            11,
+            4,
+            0
+          ],
+          [
+            7,
+            8,
+            19,
+            5,
+            10
+          ],
+          [
+            16,
+            6,
+            9
+          ],
+          [
+            12,
+            20,
+            14,
+            16,
+            19
+          ],
+          [
+            8,
+            18,
+            0,
+            10,
+            6
+          ],
+          [
+            5,
+            3,
+            22,
+            21,
+            9
+          ],
+          [
+            2,
+            15,
+            1,
+            13,
+            4
+          ],
+          [
+            17,
+            7,
+            11
+          ],
+          [
+            11,
+            22,
+            6,
+            21,
+            7
+          ],
+          [
+            13,
+            15,
+            19,
+            4,
+            16
+          ],
+          [
+            5,
+            0,
+            9,
+            1,
+            3
+          ],
+          [
+            12,
+            14,
+            10,
+            20,
+            18
+          ],
+          [
+            8,
+            17,
+            2
+          ]
+        ],
+        "traces": [
+          {
+            "output": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "loss": 2.0135845964999834,
+            "dropped_input": [
+              [
+                -0.6650729721644569,
+                0.05153365492985198,
+                -0.4140781477314019
+              ],
+              [
+                0.1368426385344294,
+                0.21975249463761343,
+                0.11890784044003465
+              ],
+              [
+                0.0,
+                -0.0,
+                -0.017177771617127975
+              ],
+              [
+                0.44287304463735083,
+                -0.14714184025122232,
+                0.3115960114928908
+              ],
+              [
+                0.0,
+                -0.0,
+                0.49862482177279427
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.20692798736267387,
+                  0.23345232723968962
+                ],
+                [
+                  0.185409852494028,
+                  0.06188434227811282
+                ],
+                [
+                  -0.815949586498814,
+                  -0.3475849298314496
+                ]
+              ],
+              "bias": [
+                -4.009097759957366,
+                -2.1660988909191805
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "loss": 0.8376632241864196,
+            "dropped_input": [
+              [
+                0.4242143517674366,
+                -0.417677609910134,
+                -0.0
+              ],
+              [
+                -0.10872843930176979,
+                0.29321989157762224,
+                0.31882773251561375
+              ],
+              [
+                -0.0,
+                0.22709067101296224,
+                -0.17778317681932618
+              ],
+              [
+                0.9903662823472917,
+                0.07452317262128869,
+                -0.0
+              ],
+              [
+                -0.11945754306862888,
+                0.3441811390729745,
+                0.40090634577163975
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.472170011525265,
+                  0.6718435856040635
+                ],
+                [
+                  0.7464372983268002,
+                  -0.25330273843603757
+                ],
+                [
+                  -0.5837086978090342,
+                  -0.5876443741117998
+                ]
+              ],
+              "bias": [
+                -5.620604584212871,
+                -3.2570806568294306
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "loss": 0.48546319146225403,
+            "dropped_input": [
+              [
+                0.3106877988608562,
+                0.6722883005256298,
+                -0.11626455932043948
+              ],
+              [
+                -0.918106669242083,
+                -0.8966168212765142,
+                0.08896225714031283
+              ],
+              [
+                0.0,
+                -0.636168022428676,
+                -0.16446058411749678
+              ],
+              [
+                -0.5238241779066896,
+                -0.0,
+                0.8893386979062937
+              ],
+              [
+                0.15361860910269934,
+                0.12429630297894412,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.2663760573352816,
+                  1.0005414404369786
+                ],
+                [
+                  1.513717443372121,
+                  -0.5446524301177611
+                ],
+                [
+                  -0.5997662972009054,
+                  -1.2802569775334876
+                ]
+              ],
+              "bias": [
+                -6.290892527108638,
+                -3.794139403798736
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.006326243201283886,
+                0.0038500699145078243
+              ],
+              [
+                0.005988146334233449,
+                0.003903070862823904
+              ],
+              [
+                0.006551690661521383,
+                0.0038462992367289755
+              ],
+              [
+                0.005784670252067145,
+                0.005547534147902169
+              ],
+              [
+                0.006390377205846639,
+                0.004019200023023644
+              ]
+            ],
+            "loss": 0.6736740234735342,
+            "dropped_input": [
+              [
+                0.0,
+                -0.005172062411455052,
+                0.045887261777232596
+              ],
+              [
+                0.0,
+                0.20000178646336936,
+                -0.0
+              ],
+              [
+                -0.18723996098866777,
+                -0.3172886919678602,
+                0.0293929659785591
+              ],
+              [
+                -0.7651655017181714,
+                0.0,
+                0.7715755259891262
+              ],
+              [
+                0.4436786998522601,
+                0.4385722879345061,
+                0.33595605398620754
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.3479846123384074,
+                  0.637763022939428
+                ],
+                [
+                  0.2648854136010161,
+                  0.08734629748485584
+                ],
+                [
+                  0.3859534035405132,
+                  -0.8368546888316668
+                ]
+              ],
+              "bias": [
+                -0.42202772376078024,
+                -1.558974158662648
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.006054280858496159,
+                0.0029842440786156687
+              ],
+              [
+                0.006624999031569863,
+                0.003290063120938021
+              ],
+              [
+                0.006859718703664866,
+                0.003344719850457366
+              ]
+            ],
+            "loss": 0.2829407119791657,
+            "dropped_input": [
+              [
+                0.08230215457939877,
+                -0.0,
+                -0.5682832600458128
+              ],
+              [
+                0.6520979316805685,
+                0.3172666635310856,
+                -0.01907846526693586
+              ],
+              [
+                0.4491763511015497,
+                0.0,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.5882652797660863,
+                  0.5860055803234944
+                ],
+                [
+                  0.2577942223674357,
+                  0.16929148517951365
+                ],
+                [
+                  0.8354216239159078,
+                  -0.950243301659433
+                ]
+              ],
+              "bias": [
+                -1.5922564925165044,
+                -1.634998758336036
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.01741767181548408,
+                0.007071825972681424
+              ],
+              [
+                0.016517070663997095,
+                0.010297281451841344
+              ],
+              [
+                0.013258165455497366,
+                0.008963669946172592
+              ],
+              [
+                0.016378112437716162,
+                0.007020212466204954
+              ],
+              [
+                0.013659622134044792,
+                0.010556918763128982
+              ]
+            ],
+            "loss": 1.300326681873413,
+            "dropped_input": [
+              [
+                0.9903662823472917,
+                0.07452317262128869,
+                -0.0
+              ],
+              [
+                0.5121909687511796,
+                -0.2246010312283565,
+                0.49862482177279427
+              ],
+              [
+                0.3106877988608562,
+                0.6722883005256298,
+                -0.11626455932043948
+              ],
+              [
+                0.08230215457939877,
+                -0.4725635282492284,
+                -0.5682832600458128
+              ],
+              [
+                -0.18723996098866777,
+                -0.0,
+                0.0293929659785591
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.244199378099156,
+                  -0.03754153478208214
+                ],
+                [
+                  0.7244825483962642,
+                  -0.012500304663173062
+                ],
+                [
+                  -0.28835047585113477,
+                  -0.5797172676003601
+                ]
+              ],
+              "bias": [
+                -3.477089518628433,
+                -1.2577259877889566
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.014452016690312826,
+                0.00867900852018279
+              ],
+              [
+                0.015788215709947147,
+                0.008431910738061228
+              ],
+              [
+                0.014236468629129598,
+                0.010487332501212221
+              ],
+              [
+                0.015644147425670808,
+                0.009980161949264372
+              ],
+              [
+                0.015504283471538432,
+                0.008135550354303729
+              ]
+            ],
+            "loss": 0.4783509815754247,
+            "dropped_input": [
+              [
+                0.0,
+                0.0,
+                -0.2973545925508773
+              ],
+              [
+                0.0,
+                -0.417677609910134,
+                -0.29007703609459967
+              ],
+              [
+                0.0,
+                0.0,
+                0.145234561239976
+              ],
+              [
+                0.4436786998522601,
+                0.0,
+                0.33595605398620754
+              ],
+              [
+                0.6520979316805685,
+                0.3172666635310856,
+                -0.01907846526693586
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.2845229895718253,
+                  -0.03144785337847575
+                ],
+                [
+                  1.198736011146552,
+                  0.10442463498530233
+                ],
+                [
+                  -0.0038490827994054344,
+                  -0.7205429813046369
+                ]
+              ],
+              "bias": [
+                -4.045977864170048,
+                -0.884742169249277
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.013238586920929468,
+                0.013189589673052947
+              ],
+              [
+                0.013602321784114413,
+                0.010039584990584882
+              ],
+              [
+                0.012094223951248559,
+                0.010164592952116866
+              ],
+              [
+                0.01867957541029308,
+                0.0060825301421465645
+              ],
+              [
+                0.014904073596380416,
+                0.011047476354886924
+              ]
+            ],
+            "loss": 1.3994300556794397,
+            "dropped_input": [
+              [
+                -0.0,
+                0.2160005101059886,
+                0.7715755259891262
+              ],
+              [
+                0.0,
+                0.21975249463761343,
+                0.0
+              ],
+              [
+                -0.6650729721644569,
+                0.05153365492985198,
+                -0.4140781477314019
+              ],
+              [
+                1.2903274866411585,
+                -0.0,
+                -0.017177771617127975
+              ],
+              [
+                0.4491763511015497,
+                0.20122299678599245,
+                0.5684416315135553
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -3.739304776361505,
+                  -0.17483259436991386
+                ],
+                [
+                  1.3307462987969711,
+                  -0.18689416255229183
+                ],
+                [
+                  0.37110627632164606,
+                  -1.4383432119595057
+                ]
+              ],
+              "bias": [
+                -5.450431454299251,
+                -2.9712806064973694
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.018075149019635278,
+                0.021637470884660465
+              ],
+              [
+                0.024657422594809953,
+                0.020679841099110696
+              ],
+              [
+                0.022392999818650304,
+                0.021687799316200858
+              ],
+              [
+                0.030069407715638177,
+                0.01586304187412246
+              ],
+              [
+                0.020013698853254443,
+                0.026872372592627647
+              ]
+            ],
+            "loss": 0.6044298677187461,
+            "dropped_input": [
+              [
+                -0.918106669242083,
+                -0.0,
+                0.0
+              ],
+              [
+                -0.10872843930176979,
+                0.0,
+                0.31882773251561375
+              ],
+              [
+                -0.11945754306862888,
+                0.3441811390729745,
+                0.40090634577163975
+              ],
+              [
+                0.44287304463735083,
+                -0.0,
+                0.0
+              ],
+              [
+                -0.5238241779066896,
+                -0.0,
+                0.8893386979062937
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.3594463483589223,
+                  0.20918784216268504
+                ],
+                [
+                  0.231692416118632,
+                  -0.03331903326735733
+                ],
+                [
+                  0.10811292360547353,
+                  -0.9362683201662171
+                ]
+              ],
+              "bias": [
+                -0.34392548720670624,
+                -1.9188826388960947
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.02531953737034913,
+                0.01814978504127389
+              ],
+              [
+                0.03079636144992392,
+                0.015841112555982497
+              ],
+              [
+                0.02991500105178525,
+                0.017141545507093927
+              ]
+            ],
+            "loss": 0.29032973827346237,
+            "dropped_input": [
+              [
+                -0.096091250475793,
+                0.0,
+                -0.0
+              ],
+              [
+                0.5308960498724576,
+                -0.005172062411455052,
+                0.045887261777232596
+              ],
+              [
+                0.0,
+                -0.636168022428676,
+                -0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.49792135383369707,
+                  0.34102456160089434
+                ],
+                [
+                  0.8162022281037944,
+                  -0.16322961902087024
+                ],
+                [
+                  0.09502293919908246,
+                  -0.9280771851618342
+                ]
+              ],
+              "bias": [
+                -1.6806495498825584,
+                -1.923386726813569
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.04536110632743435,
+                0.02463585968023033
+              ],
+              [
+                0.03950370941025858,
+                0.02254220327400673
+              ],
+              [
+                0.04500360230685712,
+                0.023968264150116925
+              ],
+              [
+                0.060156843535363325,
+                0.01944658253456851
+              ],
+              [
+                0.046326180774633345,
+                0.02445213294845846
+              ]
+            ],
+            "loss": 1.1483177699429512,
+            "dropped_input": [
+              [
+                0.0,
+                -0.636168022428676,
+                -0.16446058411749678
+              ],
+              [
+                -0.0,
+                0.05153365492985198,
+                -0.4140781477314019
+              ],
+              [
+                0.6520979316805685,
+                0.3172666635310856,
+                -0.01907846526693586
+              ],
+              [
+                1.2903274866411585,
+                -0.33240835248849215,
+                -0.0
+              ],
+              [
+                0.5308960498724576,
+                -0.005172062411455052,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -2.399317680656274,
+                  0.020027703929453355
+                ],
+                [
+                  1.1690791888607766,
+                  -0.0021907595502383198
+                ],
+                [
+                  0.18761820836572543,
+                  0.19686267322677684
+                ]
+              ],
+              "bias": [
+                -2.9716280208576706,
+                -0.07903826582989287
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.046444570237989,
+                0.024767006602535484
+              ],
+              [
+                0.03726526943465128,
+                0.028269188100144553
+              ],
+              [
+                0.039195292161522434,
+                0.028268865791830217
+              ],
+              [
+                0.035476683978611125,
+                0.030115748162244535
+              ],
+              [
+                0.03879710197992368,
+                0.027621631383372057
+              ]
+            ],
+            "loss": 0.8426170566375701,
+            "dropped_input": [
+              [
+                0.44287304463735083,
+                -0.14714184025122232,
+                0.0
+              ],
+              [
+                -0.10872843930176979,
+                0.0,
+                0.0
+              ],
+              [
+                -0.18723996098866777,
+                -0.3172886919678602,
+                0.0
+              ],
+              [
+                -0.5238241779066896,
+                -0.42423755345543696,
+                0.0
+              ],
+              [
+                0.0,
+                -0.0,
+                -0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -2.522368615498923,
+                  0.42316336629904233
+                ],
+                [
+                  1.5652836589908374,
+                  0.5601695537448756
+                ],
+                [
+                  0.18761820836572543,
+                  0.19686267322677684
+                ]
+              ],
+              "bias": [
+                -5.40040922081841,
+                -2.3340479277338266
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.0259500712947574,
+                0.032497289496953526
+              ],
+              [
+                0.03879710197992368,
+                0.027621631383372057
+              ],
+              [
+                0.0415528854019042,
+                0.032320519090464954
+              ],
+              [
+                0.032659065690072174,
+                0.03383209473134819
+              ],
+              [
+                0.03862220913039709,
+                0.02713070996195083
+              ]
+            ],
+            "loss": 0.6051737175865122,
+            "dropped_input": [
+              [
+                -0.7651655017181714,
+                0.2160005101059886,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.4491763511015497,
+                0.20122299678599245,
+                0.5684416315135553
+              ],
+              [
+                -0.11945754306862888,
+                0.3441811390729745,
+                0.40090634577163975
+              ],
+              [
+                0.1368426385344294,
+                0.21975249463761343,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -3.16689564912494,
+                  0.892713460649898
+                ],
+                [
+                  1.9714436336925532,
+                  0.2992495171102103
+                ],
+                [
+                  0.30183523859091876,
+                  -0.09779478332778826
+                ]
+              ],
+              "bias": [
+                -3.5066535073293856,
+                -3.190757332101939
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.05268020845284815,
+                0.03345802074273385
+              ],
+              [
+                0.04266275517049976,
+                0.03978315072485403
+              ],
+              [
+                0.0605343282949391,
+                0.040535067466767265
+              ],
+              [
+                0.06458484502781359,
+                0.04226284251887424
+              ],
+              [
+                0.06270459852487838,
+                0.03049638319941858
+              ]
+            ],
+            "loss": 1.0659726242384022,
+            "dropped_input": [
+              [
+                0.0,
+                0.07452317262128869,
+                -0.3295667581958942
+              ],
+              [
+                0.0,
+                0.6722883005256298,
+                -0.0
+              ],
+              [
+                0.4436786998522601,
+                0.0,
+                0.33595605398620754
+              ],
+              [
+                0.5121909687511796,
+                -0.2246010312283565,
+                0.49862482177279427
+              ],
+              [
+                0.4242143517674366,
+                -0.0,
+                -0.29007703609459967
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.0942489026907547,
+                  -0.6108603423409307
+                ],
+                [
+                  0.38403351231858157,
+                  0.11251925739781526
+                ],
+                [
+                  -0.12896321138983252,
+                  -0.6875342201292985
+                ]
+              ],
+              "bias": [
+                -2.715311009201806,
+                -0.9763831151302509
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.049500901654715185,
+                0.03902766810624032
+              ],
+              [
+                0.047780442730587534,
+                0.03696433554779473
+              ],
+              [
+                0.0523966894280688,
+                0.0387077396965444
+              ]
+            ],
+            "loss": 0.08960134488834301,
+            "dropped_input": [
+              [
+                0.0,
+                0.20000178646336936,
+                -0.0
+              ],
+              [
+                -0.096091250475793,
+                0.22709067101296224,
+                -0.17778317681932618
+              ],
+              [
+                -0.0,
+                -0.0,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.0855949638494644,
+                  -0.5774073891168096
+                ],
+                [
+                  0.42883642036335323,
+                  0.09608450590964006
+                ],
+                [
+                  -0.11295213096797543,
+                  -0.6256412562150573
+                ]
+              ],
+              "bias": [
+                -2.3897428389358253,
+                -0.8825013619131785
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": 123,
+      "committed_microbatches": 15,
+      "committed_sample_visits": 69,
+      "each_epoch_all_samples_once": [
+        true,
+        true,
+        true
+      ],
+      "final_state_sha256": "bc3d1de0734d36af809e3ab24ffcd3eba50714888f4332781a9fc203d4930659",
+      "reference_trajectory": {
+        "states": [
+          "fe8d034c1c67f5f3e3ccd7465575aa97ba650e3662413c3529865e720905babc",
+          "e44690140dd5b4712ccbbfa2184422c356b9779a16df7d4d43007692e0dbc453",
+          "1ee0e8737514b3ab6b15804f6b90e898421dc21eff9d90912a83fddc0232679f",
+          "bd999b9ef2ea5c67bd2363075f8f5991ce6655936e3dfa9365473e86f90add31",
+          "4baf1d90988efb35c281187800d0ab7aa0c0fab0603f115d0218f7e6eb85fb3a",
+          "7afacaf813ef3df265e2d6443fe5b0ea485ee82f9b0ff0235730674286609fcd",
+          "4e45baac408ff02cbfc5a1e44474d8bbae0e89b2bdbbacfc4a27fd107884c6e6",
+          "c9d12623fba0e9f2c01b6433c35df7b0d9a41f1658b3583f1a8f722a7040922a",
+          "dcf86be75c53557d90d6a304b60cd05784fe6eeea92cc75a291504b44599cb39",
+          "d91963a026368b9dc31e777177e37767b748e1f0a01fb6b3136b93628cdd325e",
+          "3e42f7316a1bdaa49d146a04ca28549d64c1f9632dd870d592ac19bf33027143",
+          "62250f16a1e4c16f72b9bb492f368cd5dd37eff52c6f52f775704c9ec2c1c80f",
+          "97d7c4d29c965664f1eb8b675bbee8f06701b468aef3ea20fe6394a6df7f0f74",
+          "37e9341eea7622b581d70114f34e0e5f865c98fb92e6ca3b81de2fcf83db34e6",
+          "dc116fd4696a28dbd50d21e6f1a56ee96510ded5484684d4b47d50b342f2ad08",
+          "bc3d1de0734d36af809e3ab24ffcd3eba50714888f4332781a9fc203d4930659"
+        ],
+        "batches": [
+          [
+            22,
+            3,
+            21,
+            13,
+            20
+          ],
+          [
+            18,
+            15,
+            17,
+            12,
+            1
+          ],
+          [
+            14,
+            2,
+            11,
+            4,
+            0
+          ],
+          [
+            7,
+            8,
+            19,
+            5,
+            10
+          ],
+          [
+            16,
+            6,
+            9
+          ],
+          [
+            12,
+            20,
+            14,
+            16,
+            19
+          ],
+          [
+            8,
+            18,
+            0,
+            10,
+            6
+          ],
+          [
+            5,
+            3,
+            22,
+            21,
+            9
+          ],
+          [
+            2,
+            15,
+            1,
+            13,
+            4
+          ],
+          [
+            17,
+            7,
+            11
+          ],
+          [
+            11,
+            22,
+            6,
+            21,
+            7
+          ],
+          [
+            13,
+            15,
+            19,
+            4,
+            16
+          ],
+          [
+            5,
+            0,
+            9,
+            1,
+            3
+          ],
+          [
+            12,
+            14,
+            10,
+            20,
+            18
+          ],
+          [
+            8,
+            17,
+            2
+          ]
+        ],
+        "traces": [
+          {
+            "output": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "loss": 1.556449537338615,
+            "dropped_input": [
+              [
+                0.09225782918973033,
+                -0.2217178589207576,
+                -0.3782930774146011
+              ],
+              [
+                0.02932904500188338,
+                -0.6044968736615951,
+                0.12569072520307778
+              ],
+              [
+                0.09970259908597834,
+                -0.6053780749236558,
+                0.0
+              ],
+              [
+                -0.7771908794724569,
+                -0.0,
+                -0.18611148694877547
+              ],
+              [
+                -0.2038385381111444,
+                -0.15608461827852838,
+                0.0073531494501167995
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  0.0015833851248928943,
+                  0.2528857358263529
+                ],
+                [
+                  1.526590168865479,
+                  0.754002496433912
+                ],
+                [
+                  0.3306169538740866,
+                  0.2188265892276888
+                ]
+              ],
+              "bias": [
+                -3.8015712786650058,
+                -2.338158635742681
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "loss": 0.8258242056740661,
+            "dropped_input": [
+              [
+                -0.1008028752992294,
+                -0.0,
+                0.3510715377377767
+              ],
+              [
+                -0.3100208416724913,
+                0.7325202205382463,
+                0.38718227065848126
+              ],
+              [
+                -0.26550329574697606,
+                0.0,
+                -0.48706015260378405
+              ],
+              [
+                0.09381571122906376,
+                0.6876572858438189,
+                -0.0
+              ],
+              [
+                0.1879737111232613,
+                0.19315419154259791,
+                0.1154690065339219
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  0.13173852114239595,
+                  0.7163398334424701
+                ],
+                [
+                  2.119493178287589,
+                  -0.1571770134473469
+                ],
+                [
+                  0.29560872101534014,
+                  -0.39633762075747636
+                ]
+              ],
+              "bias": [
+                -3.783245194896595,
+                -4.4600483488981
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "loss": 0.40672863505433654,
+            "dropped_input": [
+              [
+                -0.22409668775567987,
+                -0.24035347718898945,
+                0.2959764014459753
+              ],
+              [
+                0.23833825896047245,
+                -0.5425652321239639,
+                -0.1563135869894738
+              ],
+              [
+                0.04341723968631204,
+                0.0,
+                -0.5643372823932831
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0788498400633907,
+                0.3253085837486214
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  0.17427686028561273,
+                  1.0304989770219806
+                ],
+                [
+                  2.4423547758976443,
+                  -0.30521205949675523
+                ],
+                [
+                  0.19349682739495044,
+                  -0.8212967985787476
+                ]
+              ],
+              "bias": [
+                -4.369072196028798,
+                -4.343806431672005
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.005645379652828526,
+                0.004258718436310297
+              ],
+              [
+                0.0038810238482493795,
+                0.00420679239993643
+              ],
+              [
+                0.004625898874045768,
+                0.003554511466874794
+              ],
+              [
+                0.0044461554553746375,
+                0.004016626730707021
+              ],
+              [
+                0.004406067315966021,
+                0.005197338419694154
+              ]
+            ],
+            "loss": 0.7840270460360839,
+            "dropped_input": [
+              [
+                0.0,
+                -0.5299678744633399,
+                0.09334578096862661
+              ],
+              [
+                -0.0,
+                0.21950658287870395,
+                -0.2483999551953908
+              ],
+              [
+                0.36715124222962325,
+                -0.09449446119240619,
+                -0.4652461044739208
+              ],
+              [
+                0.0,
+                -0.0,
+                -0.3983696290198235
+              ],
+              [
+                -0.570866661121035,
+                0.0,
+                0.32297030522947445
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.6424513856001262,
+                  0.39313564849054583
+                ],
+                [
+                  0.473400222775765,
+                  -0.0007136586535322156
+                ],
+                [
+                  0.6801993841901689,
+                  -0.5267252605992553
+                ]
+              ],
+              "bias": [
+                -0.9713966730933027,
+                0.10805334459872218
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.004369072196028798,
+                0.004343806431672005
+              ],
+              [
+                0.005235461215723683,
+                0.003927465494865833
+              ],
+              [
+                0.00452079352227246,
+                0.004288507459776713
+              ]
+            ],
+            "loss": 0.829846156782332,
+            "dropped_input": [
+              [
+                0.0,
+                -0.0,
+                0.0
+              ],
+              [
+                0.0,
+                -0.32411584184273745,
+                -0.3864825404788067
+              ],
+              [
+                0.034533581245598834,
+                -0.06458510119586898,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.6563952928779098,
+                  0.3665415528083352
+                ],
+                [
+                  0.6745055822426143,
+                  -0.1864390883432201
+                ],
+                [
+                  0.8889056188068631,
+                  -0.8074951133760735
+                ]
+              ],
+              "bias": [
+                -3.211273419475645,
+                -0.18872234711707886
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.010116605729180307,
+                0.008493591018175432
+              ],
+              [
+                0.014565872211966497,
+                0.008571233630400228
+              ],
+              [
+                0.014442715599076809,
+                0.009410582221243913
+              ],
+              [
+                0.015489731457804991,
+                0.005443769907605946
+              ],
+              [
+                0.015693167737263182,
+                0.005761138181178159
+              ]
+            ],
+            "loss": 1.0604613753923275,
+            "dropped_input": [
+              [
+                0.09381571122906376,
+                0.6876572858438189,
+                -0.01920227801184312
+              ],
+              [
+                -0.2038385381111444,
+                -0.15608461827852838,
+                0.0073531494501167995
+              ],
+              [
+                -0.22409668775567987,
+                -0.24035347718898945,
+                0.2959764014459753
+              ],
+              [
+                1.0319024519040083,
+                -0.11646610095261381,
+                0.0
+              ],
+              [
+                0.36715124222962325,
+                -0.09449446119240619,
+                -0.4652461044739208
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.3109059753611758,
+                  -0.0038900212125386
+                ],
+                [
+                  0.716410445411967,
+                  0.09934286305609707
+                ],
+                [
+                  0.19886083919734054,
+                  -0.18000737021287902
+                ]
+              ],
+              "bias": [
+                -2.8804607903473953,
+                -1.9765799174840668
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.013884156892709863,
+                0.008171402835924631
+              ],
+              [
+                0.01463581967505482,
+                0.009231701000753009
+              ],
+              [
+                0.013437850723868066,
+                0.008242278073943812
+              ],
+              [
+                0.013233392954726041,
+                0.00913777558805102
+              ],
+              [
+                0.01527354755255729,
+                0.005322482212924899
+              ]
+            ],
+            "loss": 0.8920583208772043,
+            "dropped_input": [
+              [
+                -0.0,
+                0.0,
+                -0.0
+              ],
+              [
+                -0.1008028752992294,
+                -0.27410579548033,
+                0.3510715377377767
+              ],
+              [
+                0.0,
+                0.0788498400633907,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                0.32297030522947445
+              ],
+              [
+                0.665856503167611,
+                -0.0,
+                -0.3864825404788067
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.5695755880068536,
+                  0.5718002482199894
+                ],
+                [
+                  0.9619104713961795,
+                  0.3631332060211594
+                ],
+                [
+                  0.29655446866487817,
+                  -1.0040482898438006
+                ]
+              ],
+              "bias": [
+                -3.0483777535374466,
+                -2.5313066824628727
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.014982876100093703,
+                0.0061589354338998405
+              ],
+              [
+                0.01705247387815855,
+                0.008004127095726572
+              ],
+              [
+                0.015901360860790786,
+                0.006840202462545197
+              ],
+              [
+                0.017310720207268107,
+                0.007627250620557891
+              ],
+              [
+                0.012815181088492378,
+                0.01020286762661702
+              ]
+            ],
+            "loss": 1.6465792262067471,
+            "dropped_input": [
+              [
+                0.32279158915833,
+                -0.0,
+                -0.3983696290198235
+              ],
+              [
+                0.0,
+                -0.6044968736615951,
+                0.12569072520307778
+              ],
+              [
+                0.0,
+                -0.2217178589207576,
+                -0.3782930774146011
+              ],
+              [
+                0.0,
+                -0.6053780749236558,
+                0.0
+              ],
+              [
+                0.034533581245598834,
+                -0.06458510119586898,
+                0.7276719838255219
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -1.8029455990193748,
+                  0.7907153904480791
+                ],
+                [
+                  2.35359448463237,
+                  1.0288228262251438
+                ],
+                [
+                  0.5872586951091746,
+                  -1.6954834908628724
+                ]
+              ],
+              "bias": [
+                -6.959166389833744,
+                -3.771386180751738
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.03505134401698303,
+                0.013733128597590467
+              ],
+              [
+                0.018011154685936715,
+                0.01914970723582773
+              ],
+              [
+                0.026613127534625143,
+                0.014957129095954388
+              ],
+              [
+                0.03357771616580925,
+                0.013664622490424543
+              ],
+              [
+                0.030416023178918068,
+                0.012519177373058545
+              ]
+            ],
+            "loss": 0.5389821114379976,
+            "dropped_input": [
+              [
+                0.23833825896047245,
+                -0.5425652321239639,
+                -0.0
+              ],
+              [
+                -0.3100208416724913,
+                0.7325202205382463,
+                0.38718227065848126
+              ],
+              [
+                0.1879737111232613,
+                0.19315419154259791,
+                0.1154690065339219
+              ],
+              [
+                -0.0,
+                -0.41289966097390496,
+                -0.18611148694877547
+              ],
+              [
+                0.5468611805363488,
+                0.0,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  0.037060429826834135,
+                  0.3151148211593447
+                ],
+                [
+                  0.561396309364706,
+                  -0.8865943644834764
+                ],
+                [
+                  0.22187941937728797,
+                  -0.29138229929683046
+                ]
+              ],
+              "bias": [
+                0.7546940350574778,
+                -0.6897217738992409
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.02839238011098331,
+                0.015004330732018947
+              ],
+              [
+                0.0338622312915739,
+                0.015192560669329077
+              ],
+              [
+                0.027825395374276352,
+                0.01483071784965122
+              ]
+            ],
+            "loss": 0.10751070304668758,
+            "dropped_input": [
+              [
+                -0.0,
+                0.00555862196195908,
+                -0.0
+              ],
+              [
+                0.04994082309629855,
+                -0.5299678744633399,
+                0.09334578096862661
+              ],
+              [
+                0.04341723968631204,
+                0.07385174657136964,
+                -0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  0.016005960909741507,
+                  0.3346919283520692
+                ],
+                [
+                  0.8283667206550235,
+                  -0.8907399806614301
+                ],
+                [
+                  0.17580288608839195,
+                  -0.28579038759983144
+                ]
+              ],
+              "bias": [
+                0.2097307602245555,
+                -0.3573887078102138
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.043101649291605246,
+                0.01565743424445917
+              ],
+              [
+                0.041981254889225474,
+                0.017462498671470705
+              ],
+              [
+                0.04724149135475805,
+                0.016873729636026773
+              ],
+              [
+                0.05000450749448844,
+                0.01950692454296078
+              ],
+              [
+                0.04822356972189982,
+                0.020300041642304523
+              ]
+            ],
+            "loss": 1.3543119277183595,
+            "dropped_input": [
+              [
+                0.0,
+                0.0,
+                -0.5643372823932831
+              ],
+              [
+                0.0,
+                -0.0,
+                -0.3782930774146011
+              ],
+              [
+                0.0,
+                -0.32411584184273745,
+                -0.3864825404788067
+              ],
+              [
+                0.09970259908597834,
+                -0.6053780749236558,
+                0.0
+              ],
+              [
+                0.0,
+                -0.5299678744633399,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.14720458044990767,
+                  -0.11002043305363683
+                ],
+                [
+                  1.2879761369600315,
+                  0.38701059099007495
+                ],
+                [
+                  0.4410682789802428,
+                  -0.38236446191020135
+                ]
+              ],
+              "bias": [
+                -3.1531655454389584,
+                -0.22757129209885663
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.04746222479986663,
+                0.01867828412512361
+              ],
+              [
+                0.025594442775476622,
+                0.026040476189091902
+              ],
+              [
+                0.041222319174009175,
+                0.020984339772074864
+              ],
+              [
+                0.03886395606340996,
+                0.023808610110010963
+              ],
+              [
+                0.041575564516253535,
+                0.020949813779126254
+              ]
+            ],
+            "loss": 0.8645350103565772,
+            "dropped_input": [
+              [
+                -0.0,
+                -0.41289966097390496,
+                -0.18611148694877547
+              ],
+              [
+                -0.0,
+                0.7325202205382463,
+                0.38718227065848126
+              ],
+              [
+                0.0,
+                -0.09449446119240619,
+                -0.0
+              ],
+              [
+                0.5468611805363488,
+                0.0,
+                0.6571623006645653
+              ],
+              [
+                0.0,
+                -0.11646610095261381,
+                0.0
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  0.010032612219461778,
+                  -0.29216402142369385
+                ],
+                [
+                  1.8304409386605272,
+                  -0.17863918438196458
+                ],
+                [
+                  0.8032640835473495,
+                  -0.922932262944267
+                ]
+              ],
+              "bias": [
+                -4.4489939049495515,
+                -2.02584892086724
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.0439428428531793,
+                0.01508360229539709
+              ],
+              [
+                0.03913673935108546,
+                0.021256217758864236
+              ],
+              [
+                0.03655619809326824,
+                0.027857796367905845
+              ],
+              [
+                0.040774999508745496,
+                0.01986093959297581
+              ],
+              [
+                0.04883210877628217,
+                0.02120397263669812
+              ]
+            ],
+            "loss": 0.54754143519354,
+            "dropped_input": [
+              [
+                0.32279158915833,
+                -0.0,
+                -0.3983696290198235
+              ],
+              [
+                0.46654232421086134,
+                0.0788498400633907,
+                0.3253085837486214
+              ],
+              [
+                0.034533581245598834,
+                -0.06458510119586898,
+                0.7276719838255219
+              ],
+              [
+                0.1879737111232613,
+                0.0,
+                0.0
+              ],
+              [
+                0.02932904500188338,
+                -0.6044968736615951,
+                0.12569072520307778
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.0584071927728048,
+                  0.12153567365780554
+                ],
+                [
+                  2.054486499774245,
+                  -0.2706974814297421
+                ],
+                [
+                  0.8124294975784447,
+                  -1.6394947414997745
+                ]
+              ],
+              "bias": [
+                -5.125808644777311,
+                -1.1412054167004542
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.03903124081521597,
+                0.028300240199662843
+              ],
+              [
+                0.0496624536876869,
+                0.033246522443285964
+              ],
+              [
+                0.038547236241492436,
+                0.03350067527709256
+              ],
+              [
+                0.05223877941652247,
+                0.02904118237081641
+              ],
+              [
+                0.05011758986756427,
+                0.03294728302300204
+              ]
+            ],
+            "loss": 0.9803638514945618,
+            "dropped_input": [
+              [
+                0.09381571122906376,
+                0.6876572858438189,
+                -0.0
+              ],
+              [
+                -0.22409668775567987,
+                -0.0,
+                0.2959764014459753
+              ],
+              [
+                -0.570866661121035,
+                0.48935633477358764,
+                0.0
+              ],
+              [
+                -0.2038385381111444,
+                -0.0,
+                0.0073531494501167995
+              ],
+              [
+                -0.1008028752992294,
+                -0.0,
+                0.3510715377377767
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.038967320138159955,
+                  0.7143619885630905
+                ],
+                [
+                  0.6322961098577076,
+                  -0.5013117292435948
+                ],
+                [
+                  -0.4173716317251779,
+                  -0.4855222798548191
+                ]
+              ],
+              "bias": [
+                -0.7410031293428739,
+                -3.065689490356291
+              ]
+            }
+          },
+          {
+            "output": [
+              [
+                0.04849688059749527,
+                0.027193129979310914
+              ],
+              [
+                0.053693318930824116,
+                0.027187714822195702
+              ],
+              [
+                0.06735052895745901,
+                0.023457913874361625
+              ]
+            ],
+            "loss": 0.2066821868620752,
+            "dropped_input": [
+              [
+                -0.3311305637689049,
+                0.21950658287870395,
+                -0.2483999551953908
+              ],
+              [
+                -0.0,
+                0.00555862196195908,
+                -0.0
+              ],
+              [
+                0.0,
+                -0.5425652321239639,
+                -0.1563135869894738
+              ]
+            ],
+            "raw_gradients": {
+              "weight": [
+                [
+                  -0.22791502089261606,
+                  0.6756444391253768
+                ],
+                [
+                  0.8696720617699212,
+                  -0.8319649252024168
+                ],
+                [
+                  -0.5266756364030396,
+                  -0.6170859564535662
+                ]
+              ],
+              "bias": [
+                -0.46149288053248205,
+                -2.378112209059866
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "checks": {
+    "all_9_recovery_cases_exact": true,
+    "all_15_failure_recovery_cases_exact": true,
+    "all_epochs_cover_every_sample_once": true,
+    "all_baselines_complete_15_microbatches_69_visits": true
+  },
+  "all_checks_passed": true
+}

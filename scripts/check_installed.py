@@ -1,4 +1,4 @@
-"""Exercise thirteen CLIs from a wheel installed in this interpreter, outside the source tree."""
+"""Exercise fourteen CLIs from a wheel installed in this interpreter, outside the source tree."""
 
 import argparse
 import json
@@ -23,6 +23,7 @@ COMMANDS = (
     ("shuffle_stream", "pytorch_lab.shuffle_stream_cli", []),
     ("joint_recovery", "pytorch_lab.joint_recovery_cli", []),
     ("dropout_rng", "pytorch_lab.dropout_rng_cli", []),
+    ("stochastic_joint", "pytorch_lab.stochastic_joint_cli", []),
 )
 
 
@@ -91,7 +92,7 @@ def check_installed() -> dict:
                 ):
                     raise RuntimeError(f"{name} did not produce matching successful evidence")
                 results[name] = {"exit_code": run.returncode, "all_checks_passed": True}
-                if name in {"runtime", "numerical", "fixed_input"}:
+                if name in {"runtime", "numerical", "fixed_input", "stochastic_joint"}:
                     results[name]["report"] = evidence
             except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
                 failure = {
@@ -102,7 +103,10 @@ def check_installed() -> dict:
                     else None,
                 }
                 # Preserve bounded structured evidence from our own child, never raw stderr.
-                if name in {"runtime", "numerical", "fixed_input"} and output.is_file():
+                if (
+                    name in {"runtime", "numerical", "fixed_input", "stochastic_joint"}
+                    and output.is_file()
+                ):
                     try:
                         if output.stat().st_size <= 16 * 1024 * 1024:
                             failure["report"] = json.loads(output.read_text())
