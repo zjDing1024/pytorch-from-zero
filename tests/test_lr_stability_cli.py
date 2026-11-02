@@ -88,5 +88,5 @@ def test_installed_commands_preserve_entry_position():
     commands = runpy.run_path(str(Path(__file__).parents[1] / "scripts/check_installed.py"))[
         "COMMANDS"
     ]
-    assert len(commands) == 17
+    assert len(commands) == 18
     assert commands[15] == ("lr_stability", "pytorch_lab.lr_stability_cli", [])

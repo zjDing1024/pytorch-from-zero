@@ -1,5 +1,21 @@
 # pytorch-from-zero
 
+## 2026-11-03: Wine training-only optimization observations
+
+Return to the existing real-data classifier with a fixed two-epoch prefix, original
+split/scaler/initialization/SGD, and no held-out scoring or retuning. Observe raw
+gradients, cloned actual parameter deltas and zero-denominator update ratios.
+Diagnostic on/off trajectories and the uninstrumented legacy training reference
+are checked independently. [Protocol and results](docs/wine-observations.md) ·
+[frozen plan](docs/wine-observations-plan.json) ·
+[raw 84-batch evidence](results/2026-11-03-wine-observations.json).
+
+Run `python -m pytorch_lab.wine_observations_cli --output results/my-wine-observations.json`.
+This is a 14-update prefix per configuration, **not** a full benchmark or a claim
+of improved test accuracy. It is the eighteenth installed-package CLI. Existing
+delivery checks separately rerun the historical Wine benchmark; those held-out
+outputs do not guide this training-only probe.
+
 ## 2026-11-02: Learning-rate stability
 
 Original fixed-quadratic CPU experiment compares four learning rates against an analytic trajectory. It retains contracting, oscillating, critical and finite unstable paths, plus a separate stress-oracle mismatch without relaxed tolerance. [Protocol and results](docs/lr-stability.md).

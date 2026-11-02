@@ -1,0 +1,103 @@
+{
+  "all_checks_passed": true,
+  "installation": {
+    "version": "0.1.0",
+    "noneditable_wheel": true
+  },
+  "cli_count": 18,
+  "checks": {
+    "baseline": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "minibatch": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "checkpoint": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "scheduler": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "wine": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "runtime": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "numerical": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "fixed_input": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation_recovery": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "shuffle_stream": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "joint_recovery": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "dropout_rng": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "stochastic_joint": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "training_diagnostics": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "lr_stability": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "feature_conditioning": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "wine_observations": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    }
+  },
+  "wheel": {
+    "wheel_sha256": "27bd9e77dd92a736ff4ca165169821c3c90d65d3f210ee8c22cc396ce1fda104",
+    "package_members": 45,
+    "source_wheel_install_exact": true
+  },
+  "runtime_dependencies": {
+    "wheel_count": 10,
+    "offline_install": true,
+    "require_hashes": true,
+    "pip_check": "passed"
+  },
+  "wine_observations": {
+    "runs": 6,
+    "observed_batches": 84,
+    "total_optimizer_updates": 252,
+    "total_training_sample_visits": 3852,
+    "all_checks_passed": true
+  },
+  "scope": "18 actual installed CLI executions, not full installed pytest or local Docker",
+  "raw_installed_report_sha256": "1157a037d718030eedb1bf8f9a42250377a9adaf266b8dece0b842637fe1094a",
+  "source_report_sha256": "2cf12f7a007c88a98db4bfa4f6be14fb14382f30607f4c9b5967d5095d5a7b1d"
+}
