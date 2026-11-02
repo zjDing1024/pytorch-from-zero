@@ -88,5 +88,5 @@ def test_installed_commands_keep_diagnostics_entry():
     commands = runpy.run_path(str(Path(__file__).parents[1] / "scripts/check_installed.py"))[
         "COMMANDS"
     ]
-    assert len(commands) == 16
+    assert len(commands) == 17
     assert commands[14] == ("training_diagnostics", "pytorch_lab.training_diagnostics_cli", [])

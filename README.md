@@ -318,3 +318,17 @@ python -I -m pytorch_lab.fixed_input_probe --dispatch-study --output results/loc
 ```bash
 python -I -m pytorch_lab.accumulation_recovery_cli --output results/local-recovery.json
 ```
+
+## 2026-11-02：特征缩放与条件数（独立学习增量）
+
+原创[等价预测与优化器坐标实验](docs/feature-conditioning.md)：固定目标、零初始化与每格 12 步，
+三种输入尺度比较共享标量学习率、曲率安全学习率与恢复函数轨迹的对角步长。
+尺度 4 的共享 `.15` 学习率使 MSE 从 2.25 增长到 6428.39945；
+曲率安全策略下降到 .05311921，而映射步长在三个尺度上均重现原坐标 .04051333 终值。
+这区分表示等价与优化器度量，不把稳定等同最快，也不把助手测试等同个人掌握。
+[运行前计划](docs/feature-conditioning-plan.json)、[逐步原始输出](results/2026-11-02-feature-conditioning.json)
+与[验证记录](results/2026-11-02-feature-conditioning-verification.md)保留完整证据。
+
+```bash
+python -m pytorch_lab.feature_conditioning_cli --output results/local-feature-conditioning.json
+```

@@ -1,4 +1,4 @@
-"""Exercise fifteen CLIs from a wheel installed in this interpreter, outside the source tree."""
+"""Exercise seventeen CLIs from a wheel installed in this interpreter, outside the source tree."""
 
 import argparse
 import json
@@ -26,6 +26,7 @@ COMMANDS = (
     ("stochastic_joint", "pytorch_lab.stochastic_joint_cli", []),
     ("training_diagnostics", "pytorch_lab.training_diagnostics_cli", []),
     ("lr_stability", "pytorch_lab.lr_stability_cli", []),
+    ("feature_conditioning", "pytorch_lab.feature_conditioning_cli", []),
 )
 
 
@@ -101,6 +102,7 @@ def check_installed() -> dict:
                     "stochastic_joint",
                     "training_diagnostics",
                     "lr_stability",
+                    "feature_conditioning",
                 }:
                     results[name]["report"] = evidence
             except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
@@ -121,6 +123,7 @@ def check_installed() -> dict:
                         "stochastic_joint",
                         "training_diagnostics",
                         "lr_stability",
+                        "feature_conditioning",
                     }
                     and output.is_file()
                 ):
