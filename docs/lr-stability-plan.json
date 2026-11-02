@@ -1,0 +1,17 @@
+{
+  "format": "affine-lr-stability-plan-v1",
+  "fixture": "x=[-1,-0.5,0,0.5,1]; y=2*x+0.5; mean squared error",
+  "initial": [0.0, 0.0],
+  "dtype": "CPU float64",
+  "optimizer": "SGD without momentum or weight decay",
+  "steps": 12,
+  "learning_rates": [0.1, 0.75, 1.0, 1.25],
+  "hessian_eigenvalues": [1.0, 2.0],
+  "error_factors": ["1-lr", "1-2*lr"],
+  "oracle": "weight=2-2*(1-lr)^k; bias=0.5-0.5*(1-2*lr)^k; loss=0.5*(weight-2)^2+(bias-0.5)^2",
+  "oracle_atol": 1e-12,
+  "oracle_rtol": 1e-12,
+  "expected_regimes": ["contracting", "contracting_with_bias_oscillation", "critical_bias_two_cycle", "unstable_bias_growth"],
+  "finite_policy": "bounded lr in [0,1.5], steps<=32; reject any nonfinite measurement; preserve finite growing trajectories",
+  "limits": "No monotonicity claim for arbitrary tasks; stability is worst-case spectral classification, actual initial error can omit unstable directions."
+}

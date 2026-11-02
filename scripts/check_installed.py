@@ -25,6 +25,7 @@ COMMANDS = (
     ("dropout_rng", "pytorch_lab.dropout_rng_cli", []),
     ("stochastic_joint", "pytorch_lab.stochastic_joint_cli", []),
     ("training_diagnostics", "pytorch_lab.training_diagnostics_cli", []),
+    ("lr_stability", "pytorch_lab.lr_stability_cli", []),
 )
 
 
@@ -99,6 +100,7 @@ def check_installed() -> dict:
                     "fixed_input",
                     "stochastic_joint",
                     "training_diagnostics",
+                    "lr_stability",
                 }:
                     results[name]["report"] = evidence
             except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
@@ -118,6 +120,7 @@ def check_installed() -> dict:
                         "fixed_input",
                         "stochastic_joint",
                         "training_diagnostics",
+                        "lr_stability",
                     }
                     and output.is_file()
                 ):

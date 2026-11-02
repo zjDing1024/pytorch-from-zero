@@ -1,5 +1,9 @@
 # pytorch-from-zero
 
+## 2026-11-02: Learning-rate stability
+
+Original fixed-quadratic CPU experiment compares four learning rates against an analytic trajectory. It retains contracting, oscillating, critical and finite unstable paths, plus a separate stress-oracle mismatch without relaxed tolerance. [Protocol and results](docs/lr-stability.md).
+
 ## 2026-11-02: fixed-batch training diagnostics
 
 The recovery sequence is complete. A new original [training diagnostic probe](docs/training-diagnostics.md) observes loss, gradient presence/norm and actual parameter changes for correct training, omitted backward and omitted optimizer.step. Its diagnosis uses measured symptoms, not the controlled path label. [Frozen plan](docs/training-diagnostics-plan.json) and [full 36-step result](results/2026-11-02-training-diagnostics.json) distinguish observations from root-cause claims. Run `python -m pytorch_lab.training_diagnostics_cli --output results/my-diagnostics.json` with a new path.

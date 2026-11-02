@@ -84,9 +84,9 @@ def test_output_race_does_not_overwrite(tmp_path, monkeypatch):
     assert output.read_text() == "concurrent writer"
 
 
-def test_installed_commands_keep_new_entry_last():
+def test_installed_commands_keep_diagnostics_entry():
     commands = runpy.run_path(str(Path(__file__).parents[1] / "scripts/check_installed.py"))[
         "COMMANDS"
     ]
-    assert len(commands) == 15
+    assert len(commands) == 16
     assert commands[14] == ("training_diagnostics", "pytorch_lab.training_diagnostics_cli", [])

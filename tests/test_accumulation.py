@@ -203,6 +203,7 @@ def test_fourteenth_installed_cli_keeps_prior_thirteen_entries():
         "dropout_rng",
         "stochastic_joint",
         "training_diagnostics",
+        "lr_stability",
     ]
     assert commands[8] == ("accumulation", "pytorch_lab.accumulation_cli", [])
     assert commands[9] == ("accumulation_recovery", "pytorch_lab.accumulation_recovery_cli", [])
@@ -213,3 +214,4 @@ def test_fourteenth_installed_cli_keeps_prior_thirteen_entries():
 
     assert commands[13] == ("stochastic_joint", "pytorch_lab.stochastic_joint_cli", [])
     assert commands[14] == ("training_diagnostics", "pytorch_lab.training_diagnostics_cli", [])
+    assert commands[15] == ("lr_stability", "pytorch_lab.lr_stability_cli", [])
