@@ -43,6 +43,7 @@ jobs:
       - run: python -m pytorch_lab.joint_recovery_cli --output results/local-ci-joint-recovery.json
       - run: python -m pytorch_lab.dropout_rng_cli --output results/local-ci-dropout-rng.json
       - run: python -m pytorch_lab.stochastic_joint_cli --output results/local-ci-stochastic-joint.json
+      - run: python -m pytorch_lab.training_diagnostics_cli --output results/local-ci-training-diagnostics.json
       - run: python validation/verify_shuffle_stream.py > results/local-ci-shuffle-stream-review.json
       - run: python validation/verify_accumulation_recovery.py > results/local-ci-accumulation-recovery-review.json
       - name: Retain full scientific outputs and CPU evidence

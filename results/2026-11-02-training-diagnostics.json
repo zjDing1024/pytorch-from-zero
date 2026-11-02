@@ -1,0 +1,1106 @@
+{
+  "format": "fixed-batch-training-diagnostics-v1",
+  "config": {
+    "steps": 12,
+    "learning_rate": 0.1
+  },
+  "fixture": {
+    "x": [
+      -1,
+      -0.5,
+      0,
+      0.5,
+      1
+    ],
+    "y": [
+      -1.5,
+      -0.5,
+      0.5,
+      1.5,
+      2.5
+    ]
+  },
+  "runtime": {
+    "torch": "2.14.1+cpu",
+    "device": "cpu",
+    "dtype": "float64"
+  },
+  "paths": {
+    "correct": {
+      "traces": [
+        {
+          "step": 0,
+          "loss_before": 2.25,
+          "loss_after": 1.78,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.2,
+            0.1
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.223606797749979,
+          "parameter_delta": [
+            0.2,
+            0.1
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.223606797749979,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 1,
+          "loss_before": 1.78,
+          "loss_after": 1.4145999999999999,
+          "parameters_before": [
+            0.2,
+            0.1
+          ],
+          "parameters_after": [
+            0.38,
+            0.18000000000000005
+          ],
+          "gradients": [
+            -1.8,
+            -0.8000000000000003
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 1.9697715603592212,
+          "update_norm": 0.1969771560359221,
+          "parameter_delta": [
+            0.18,
+            0.08000000000000004
+          ],
+          "parameter_norm_before": 0.223606797749979,
+          "parameter_norm_after": 0.4204759208325728,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 2,
+          "loss_before": 1.4145999999999999,
+          "loss_after": 1.128418,
+          "parameters_before": [
+            0.38,
+            0.18000000000000005
+          ],
+          "parameters_after": [
+            0.542,
+            0.24400000000000005
+          ],
+          "gradients": [
+            -1.62,
+            -0.6399999999999999
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 1.7418381095842403,
+          "update_norm": 0.17418381095842406,
+          "parameter_delta": [
+            0.16200000000000003,
+            0.064
+          ],
+          "parameter_norm_before": 0.4204759208325728,
+          "parameter_norm_after": 0.5943904440685432,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 3,
+          "loss_before": 1.128418,
+          "loss_after": 0.90287746,
+          "parameters_before": [
+            0.542,
+            0.24400000000000005
+          ],
+          "parameters_after": [
+            0.6878000000000001,
+            0.2952
+          ],
+          "gradients": [
+            -1.458,
+            -0.5119999999999999
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 1.5452857340958013,
+          "update_norm": 0.15452857340958018,
+          "parameter_delta": [
+            0.14580000000000004,
+            0.05119999999999997
+          ],
+          "parameter_norm_before": 0.5943904440685432,
+          "parameter_norm_after": 0.7484730322463196,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 4,
+          "loss_before": 0.90287746,
+          "loss_after": 0.7242004257999999,
+          "parameters_before": [
+            0.6878000000000001,
+            0.2952
+          ],
+          "parameters_after": [
+            0.8190200000000001,
+            0.33616
+          ],
+          "gradients": [
+            -1.3122,
+            -0.40959999999999996
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 1.374642135248298,
+          "update_norm": 0.13746421352482982,
+          "parameter_delta": [
+            0.13122,
+            0.040959999999999996
+          ],
+          "parameter_norm_before": 0.7484730322463196,
+          "parameter_norm_after": 0.8853232776788376,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 5,
+          "loss_before": 0.7242004257999999,
+          "loss_after": 0.5820389421459998,
+          "parameters_before": [
+            0.8190200000000001,
+            0.33616
+          ],
+          "parameters_after": [
+            0.9371180000000001,
+            0.36892800000000003
+          ],
+          "gradients": [
+            -1.18098,
+            -0.32767999999999997
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 1.2255969740497892,
+          "update_norm": 0.12255969740497898,
+          "parameter_delta": [
+            0.11809800000000004,
+            0.03276800000000002
+          ],
+          "parameter_norm_before": 0.8853232776788376,
+          "parameter_norm_after": 1.0071236344699692,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 6,
+          "loss_before": 0.5820389421459998,
+          "loss_after": 0.46853096537697975,
+          "parameters_before": [
+            0.9371180000000001,
+            0.36892800000000003
+          ],
+          "parameters_after": [
+            1.0434062000000002,
+            0.3951424
+          ],
+          "gradients": [
+            -1.0628819999999999,
+            -0.26214399999999993
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 1.0947317583134235,
+          "update_norm": 0.1094731758313424,
+          "parameter_delta": [
+            0.10628820000000005,
+            0.02621439999999997
+          ],
+          "parameter_norm_before": 1.0071236344699692,
+          "parameter_norm_after": 1.1157212978500501,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 7,
+          "loss_before": 0.46853096537697975,
+          "loss_after": 0.37764091218813434,
+          "parameters_before": [
+            1.0434062000000002,
+            0.3951424
+          ],
+          "parameters_after": [
+            1.1390655800000002,
+            0.41611392
+          ],
+          "gradients": [
+            -0.9565937999999998,
+            -0.20971519999999993
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 0.9793120867779993,
+          "update_norm": 0.09793120867780002,
+          "parameter_delta": [
+            0.09565938000000007,
+            0.02097152000000002
+          ],
+          "parameter_norm_before": 1.1157212978500501,
+          "parameter_norm_after": 1.2126917126617562,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 8,
+          "loss_before": 0.37764091218813434,
+          "loss_after": 0.30469287022136865,
+          "parameters_before": [
+            1.1390655800000002,
+            0.41611392
+          ],
+          "parameters_after": [
+            1.2251590220000002,
+            0.432891136
+          ],
+          "gradients": [
+            -0.8609344199999998,
+            -0.16777215999999992
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 0.8771291656374228,
+          "update_norm": 0.08771291656374222,
+          "parameter_delta": [
+            0.08609344199999991,
+            0.016777215999999984
+          ],
+          "parameter_norm_before": 1.2126917126617562,
+          "parameter_norm_after": 1.2993880732157608,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 9,
+          "loss_before": 0.30469287022136865,
+          "loss_after": 0.24603561294265558,
+          "parameters_before": [
+            1.2251590220000002,
+            0.432891136
+          ],
+          "parameters_after": [
+            1.3026431198000001,
+            0.4463129088
+          ],
+          "gradients": [
+            -0.7748409779999998,
+            -0.13421772799999995
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 0.7863796409479827,
+          "update_norm": 0.07863796409479827,
+          "parameter_delta": [
+            0.07748409779999998,
+            0.01342177280000001
+          ],
+          "parameter_norm_before": 1.2993880732157608,
+          "parameter_norm_after": 1.3769801415139562,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 10,
+          "loss_before": 0.24603561294265558,
+          "loss_after": 0.19879885484409313,
+          "parameters_before": [
+            1.3026431198000001,
+            0.4463129088
+          ],
+          "parameters_after": [
+            1.37237880782,
+            0.45705032704000004
+          ],
+          "gradients": [
+            -0.6973568801999999,
+            -0.10737418240000005
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 0.7055748248119015,
+          "update_norm": 0.07055748248119012,
+          "parameter_delta": [
+            0.06973568801999996,
+            0.010737418240000018
+          ],
+          "parameter_norm_before": 1.3769801415139562,
+          "parameter_norm_after": 1.4464849095655357,
+          "diagnosis": "gradient_and_update_observed"
+        },
+        {
+          "step": 11,
+          "loss_before": 0.19879885484409313,
+          "loss_after": 0.16071347777446246,
+          "parameters_before": [
+            1.37237880782,
+            0.45705032704000004
+          ],
+          "parameters_after": [
+            1.435140927038,
+            0.465640261632
+          ],
+          "gradients": [
+            -0.6276211921799999,
+            -0.08589934591999994
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 0.6334722239395569,
+          "update_norm": 0.0633472223939556,
+          "parameter_delta": [
+            0.0627621192179999,
+            0.00858993459199997
+          ],
+          "parameter_norm_before": 1.4464849095655357,
+          "parameter_norm_after": 1.5087910172426822,
+          "diagnosis": "gradient_and_update_observed"
+        }
+      ],
+      "diagnostics": [
+        "gradient_and_update_observed",
+        "gradient_and_update_observed",
+        "gradient_and_update_observed",
+        "gradient_and_update_observed",
+        "gradient_and_update_observed",
+        "gradient_and_update_observed",
+        "gradient_and_update_observed",
+        "gradient_and_update_observed",
+        "gradient_and_update_observed",
+        "gradient_and_update_observed",
+        "gradient_and_update_observed",
+        "gradient_and_update_observed"
+      ]
+    },
+    "omit_backward": {
+      "traces": [
+        {
+          "step": 0,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 1,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 2,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 3,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 4,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 5,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 6,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 7,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 8,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 9,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 10,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        },
+        {
+          "step": 11,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            null,
+            null
+          ],
+          "gradient_present": 0,
+          "gradient_total": 2,
+          "gradient_norm": 0.0,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "missing_gradients_no_update"
+        }
+      ],
+      "diagnostics": [
+        "missing_gradients_no_update",
+        "missing_gradients_no_update",
+        "missing_gradients_no_update",
+        "missing_gradients_no_update",
+        "missing_gradients_no_update",
+        "missing_gradients_no_update",
+        "missing_gradients_no_update",
+        "missing_gradients_no_update",
+        "missing_gradients_no_update",
+        "missing_gradients_no_update",
+        "missing_gradients_no_update",
+        "missing_gradients_no_update"
+      ]
+    },
+    "omit_step": {
+      "traces": [
+        {
+          "step": 0,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 1,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 2,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 3,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 4,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 5,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 6,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 7,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 8,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 9,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 10,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        },
+        {
+          "step": 11,
+          "loss_before": 2.25,
+          "loss_after": 2.25,
+          "parameters_before": [
+            0.0,
+            0.0
+          ],
+          "parameters_after": [
+            0.0,
+            0.0
+          ],
+          "gradients": [
+            -2.0,
+            -1.0
+          ],
+          "gradient_present": 2,
+          "gradient_total": 2,
+          "gradient_norm": 2.23606797749979,
+          "update_norm": 0.0,
+          "parameter_delta": [
+            0.0,
+            0.0
+          ],
+          "parameter_norm_before": 0.0,
+          "parameter_norm_after": 0.0,
+          "diagnosis": "gradient_without_update"
+        }
+      ],
+      "diagnostics": [
+        "gradient_without_update",
+        "gradient_without_update",
+        "gradient_without_update",
+        "gradient_without_update",
+        "gradient_without_update",
+        "gradient_without_update",
+        "gradient_without_update",
+        "gradient_without_update",
+        "gradient_without_update",
+        "gradient_without_update",
+        "gradient_without_update",
+        "gradient_without_update"
+      ]
+    }
+  },
+  "checks": {
+    "correct_symptoms": true,
+    "correct_loss": true,
+    "omit_backward_symptoms": true,
+    "omit_backward_loss": true,
+    "omit_step_symptoms": true,
+    "omit_step_loss": true
+  },
+  "all_checks_passed": true,
+  "limits": [
+    "controlled fault names are experimental labels, not inferred root causes",
+    "zero gradient differs from absent gradient; nonzero gradient need not produce an update",
+    "no arbitrary-model convergence, classification accuracy or performance claim"
+  ]
+}
