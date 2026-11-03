@@ -1,5 +1,19 @@
 # pytorch-from-zero
 
+## 2026-11-03: paired Wine momentum comparison
+
+An original train-only experiment compares SGD momentum 0 versus 0.9 at identical
+initialization, batch order, nominal learning rate and two-epoch update budget.
+It verifies the equal first update and the local second-step momentum mechanism,
+then measures actual divergent trajectories without claiming universal superiority.
+[Protocol, official sources and results](docs/wine-momentum.md) ·
+[frozen plan](docs/wine-momentum-plan.json) ·
+[raw paired evidence](results/2026-11-03-wine-momentum.json).
+
+Run `python -m pytorch_lab.wine_momentum_cli --output results/my-wine-momentum.json`.
+This nineteenth installed CLI adds 168 actual optimizer updates across 12 arms;
+no heldout scoring or tuning occurs in this probe.
+
 ## 2026-11-03: Wine training-only optimization observations
 
 Return to the existing real-data classifier with a fixed two-epoch prefix, original

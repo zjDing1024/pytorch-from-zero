@@ -1,0 +1,93 @@
+{
+  "date": "2026-11-03",
+  "scope": "Fresh offline noneditable wheel, isolated interpreter outside source tree; not full pytest or local Docker",
+  "installation": {
+    "version": "0.1.0",
+    "noneditable_wheel": true
+  },
+  "cli_count": 19,
+  "checks": {
+    "baseline": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "minibatch": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "checkpoint": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "scheduler": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "wine": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "runtime": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "numerical": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "fixed_input": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "accumulation_recovery": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "shuffle_stream": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "joint_recovery": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "dropout_rng": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "stochastic_joint": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "training_diagnostics": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "lr_stability": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "feature_conditioning": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "wine_observations": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "wine_momentum": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    }
+  },
+  "all_checks_passed": true,
+  "wheel_sha256": "b2070656bf293df0ab92687f42e20b4ba477a43c5338823d9d5ebeee80ea1d5d",
+  "package_members": 47,
+  "source_wheel_installed_bytes_equal": true,
+  "runtime_locked_dependencies": 10,
+  "full_report_sha256": "d56b1d63c5e833864e8f0b3bb91296231257b05f66cbe5697fecfc7fb21dabbd"
+}
