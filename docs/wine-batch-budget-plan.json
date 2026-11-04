@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "question": "How does changing batch grouping affect fixed Wine training under equal sample-visits versus equal optimizer-update budgets?",
+  "frozen_before_results": true,
+  "architectures": ["linear", "mlp16"],
+  "seeds": [42, 7, 123],
+  "batch_sizes": [16, 32],
+  "arms": {"batch16_14updates": [14, 214], "batch32_2epochs": [8, 214], "batch32_14updates": [14, 385]},
+  "ordering": "Four permutations from a local seed generator, identical per configuration across arms; retain epoch tails and never cross epoch boundaries",
+  "learning_rate": 0.05,
+  "momentum": 0.9,
+  "weight_decay": 0.0001,
+  "dtype": "float64",
+  "device": "cpu",
+  "total_unique_runs": 18,
+  "total_optimizer_updates": 216,
+  "total_training_sample_visits": 4878,
+  "full_train_evaluation_forwards": 24,
+  "full_train_evaluation_sample_visits": 2568,
+  "metrics": ["final_train_CE", "sample_weighted_online_CE", "actual_update_L2", "parameter_digest", "row_ids"],
+  "checks": ["identical_initialization", "exact_budgets", "shared_sample_prefix", "tail_retained", "finite_gradients_and_parameters"],
+  "limits": ["No heldout scoring or tuning", "Equal visits differ in updates; equal updates differ in visits", "Neither budget is equal compute time", "Momentum and decay act per update; not a pure gradient-noise intervention", "No winning-arm acceptance requirement"]
+}

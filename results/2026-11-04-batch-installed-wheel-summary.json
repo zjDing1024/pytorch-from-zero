@@ -1,0 +1,17 @@
+{
+  "actual_installed_clis": 21,
+  "all_checks_passed": true,
+  "package_members_byte_verified": 51,
+  "locked_runtime_dependencies": 10,
+  "same_runtime_batch_json_equals_source": true,
+  "installed_full_pytest_run": false,
+  "local_docker_run": false,
+  "report_sha256": "eefd732e94596bd9b30bcca228436980020e30ae506798ba91f542512403d7a6",
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu",
+    "device": "cpu",
+    "dtype": "float64",
+    "threads": 1
+  }
+}

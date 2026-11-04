@@ -51,6 +51,7 @@ jobs:
       - run: python -m pytorch_lab.wine_gradient_sampling_cli --output results/local-ci-wine-gradient-sampling.json
       - run: python validation/verify_shuffle_stream.py > results/local-ci-shuffle-stream-review.json
       - run: python validation/verify_accumulation_recovery.py > results/local-ci-accumulation-recovery-review.json
+      - run: python -m pytorch_lab.wine_batch_budget_cli --output results/local-ci-wine-batch-budget.json
       - name: Retain full scientific outputs and CPU evidence
         if: always()
         uses: actions/upload-artifact@v4

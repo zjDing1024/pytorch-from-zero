@@ -30,6 +30,7 @@ COMMANDS = (
     ("wine_observations", "pytorch_lab.wine_observations_cli", []),
     ("wine_momentum", "pytorch_lab.wine_momentum_cli", []),
     ("wine_gradient_sampling", "pytorch_lab.wine_gradient_sampling_cli", []),
+    ("wine_batch_budget", "pytorch_lab.wine_batch_budget_cli", []),
 )
 
 
@@ -109,6 +110,7 @@ def check_installed() -> dict:
                     "wine_observations",
                     "wine_momentum",
                     "wine_gradient_sampling",
+                    "wine_batch_budget",
                 }:
                     results[name]["report"] = evidence
             except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
@@ -133,6 +135,7 @@ def check_installed() -> dict:
                         "wine_observations",
                         "wine_momentum",
                         "wine_gradient_sampling",
+                        "wine_batch_budget",
                     }
                     and output.is_file()
                 ):

@@ -1,3 +1,10 @@
+# Wine batch-budget experiment (2026-11-04)
+
+Compare batch16/32 under equal sample visits versus equal optimizer updates.
+[Protocol and actual results](docs/wine-batch-budget.md) describe the distinct budgets,
+shared explicit permutations, train-only scope and mixed outcomes.
+Run `python -m pytorch_lab.wine_batch_budget_cli --output results/new-batch-budget.json`.
+
 # pytorch-from-zero
 
 ## 2026-11-04: reconstructed fixed-parameter gradient sampling
