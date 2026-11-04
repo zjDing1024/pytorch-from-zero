@@ -1,5 +1,19 @@
 # pytorch-from-zero
 
+## 2026-11-04: reconstructed fixed-parameter gradient sampling
+
+New original implementation and new execution after the uncommitted November3
+working files became unavailable. This is not recovery of those bytes/results.
+Compare full mean-CE gradients with correctly weighted tail batches and random
+subsets at unchanged Wine parameters; no optimizer or heldout scoring.
+[Protocol, derivation, source/license and results](docs/wine-gradient-sampling.md),
+[raw evidence](results/2026-11-04-wine-gradient-sampling.json).
+
+```bash
+python -m pytorch_lab.wine_gradient_sampling_cli --output results/my-gradient-sampling.json
+```
+
+
 ## 2026-11-03: paired Wine momentum comparison
 
 An original train-only experiment compares SGD momentum 0 versus 0.9 at identical

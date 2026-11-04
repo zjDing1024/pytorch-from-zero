@@ -48,6 +48,7 @@ jobs:
       - run: python -m pytorch_lab.feature_conditioning_cli --output results/local-ci-feature-conditioning.json
       - run: python -m pytorch_lab.wine_observations_cli --output results/local-ci-wine-observations.json
       - run: python -m pytorch_lab.wine_momentum_cli --output results/local-ci-wine-momentum.json
+      - run: python -m pytorch_lab.wine_gradient_sampling_cli --output results/local-ci-wine-gradient-sampling.json
       - run: python validation/verify_shuffle_stream.py > results/local-ci-shuffle-stream-review.json
       - run: python validation/verify_accumulation_recovery.py > results/local-ci-accumulation-recovery-review.json
       - name: Retain full scientific outputs and CPU evidence
