@@ -1,3 +1,7 @@
+# Latest: bounded CPU batch-budget measurements (2026-11-05)
+
+Original lean update-loop timing with warmup/repeats and exact scientific reference checks. [Protocol, scope and results](docs/wine-batch-compute.md). This is not total application latency or a universal speed ranking.
+
 # Wine batch-budget experiment (2026-11-04)
 
 Compare batch16/32 under equal sample visits versus equal optimizer updates.

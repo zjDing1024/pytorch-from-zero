@@ -112,7 +112,7 @@ def test_concurrent_output_creation_is_not_overwritten(tmp_path, monkeypatch):
 def test_twenty_installed_commands_and_source_ci_entry():
     root = Path(__file__).parents[1]
     commands = runpy.run_path(str(root / "scripts/check_installed.py"))["COMMANDS"]
-    assert len(commands) == 21
+    assert len(commands) == 22
     assert commands[19] == ("wine_gradient_sampling", "pytorch_lab.wine_gradient_sampling_cli", [])
     workflow = (root / ".github/workflows/tests.yml").read_text()
     assert (

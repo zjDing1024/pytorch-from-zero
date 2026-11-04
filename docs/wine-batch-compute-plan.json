@@ -1,0 +1,43 @@
+{
+  "question": "CPU update-loop cost for frozen batch budgets without audit hashing",
+  "repeats": 3,
+  "warmup_per_arm": 1,
+  "architectures": [
+    "linear",
+    "mlp16"
+  ],
+  "seeds": [
+    42,
+    7,
+    123
+  ],
+  "arms": [
+    "batch16_14updates",
+    "batch32_2epochs",
+    "batch32_14updates"
+  ],
+  "timed_scope": [
+    "zero_grad",
+    "forward",
+    "CE",
+    "backward",
+    "SGD.step"
+  ],
+  "excluded": [
+    "imports",
+    "setup",
+    "batch indexing",
+    "evaluation",
+    "hashing",
+    "reference validation"
+  ],
+  "order": "rotate arms by measured round",
+  "total_trajectories": 90,
+  "total_updates": 1080,
+  "total_training_visits": 24390,
+  "evaluation_forwards": 90,
+  "timing_threshold": null,
+  "threads": 1,
+  "device": "cpu",
+  "dtype": "float64"
+}
