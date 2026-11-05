@@ -1,5 +1,15 @@
 # Latest: bounded CPU batch-budget measurements (2026-11-05)
 
+## 2026-11-06：Wine 更新次数学习率时钟
+
+固定两模型、三种子和batch16/32的14次SGD更新，比较固定LR与每7次更新减半。
+36条恢复后缀在每个完整更新边界对照模型、动量、scheduler与批次进度，全部精确相同。
+单次主实验实际588更新／12486训练访问；12配置上固定LR短前缀训练CE更低，不外推泛化。
+[原理与运行](docs/wine-update-schedule.md)、[执行前协议](docs/wine-update-schedule-plan.json)、
+[原始结果](results/2026-11-06-wine-update-schedule.json)、
+[验收与范围](results/2026-11-06-update-schedule-verification.md)。
+恢复仅限同进程可信内部快照，不是新通用checkpoint服务；本人掌握仍待独立自测。
+
 Original lean update-loop timing with warmup/repeats and exact scientific reference checks. [Protocol, scope and results](docs/wine-batch-compute.md). This is not total application latency or a universal speed ranking.
 
 # Wine batch-budget experiment (2026-11-04)

@@ -88,7 +88,7 @@ def test_installed_commands_keep_new_entry_last():
     commands = runpy.run_path(str(Path(__file__).parents[1] / "scripts/check_installed.py"))[
         "COMMANDS"
     ]
-    assert len(commands) == 22
+    assert len(commands) == 23
     assert commands[16] == ("feature_conditioning", "pytorch_lab.feature_conditioning_cli", [])
 
 

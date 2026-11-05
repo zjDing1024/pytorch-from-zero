@@ -1,0 +1,22 @@
+{
+  "frozen_before_execution": true,
+  "date_utc": "2026-11-05",
+  "question": "How does a schedule measured in optimizer updates change a fixed Wine training prefix, and can its full state resume across the decay boundary?",
+  "architectures": ["linear", "mlp16"],
+  "seeds": [42, 7, 123],
+  "batch_sizes": [16, 32],
+  "updates_per_run": 14,
+  "arms": ["constant", "step7"],
+  "lr": 0.05,
+  "momentum": 0.9,
+  "weight_decay": 0.0001,
+  "step_size_updates": 7,
+  "gamma": 0.5,
+  "scheduler_order": "optimizer.step then scheduler.step",
+  "expected_lr_used": [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025],
+  "restoration_cuts": [6, 7, 8],
+  "restoration_scope": "trusted in-memory state roundtrip into fresh model, optimizer and scheduler; complete update boundaries only",
+  "checks": ["matched initial parameters and batch rows", "identical first seven updates", "exact LR-used and LR-next formula", "complete state at every remaining boundary equal after restore", "train-only endpoint CE", "actual work counters"],
+  "selection": "none; no heldout scoring or parameter tuning",
+  "limits": ["same update count does not equal sample visits or compute", "no new-process or file persistence claim", "not integrated into generic JointTrainer", "no GPU, AMP, DDP or generalization claim"]
+}

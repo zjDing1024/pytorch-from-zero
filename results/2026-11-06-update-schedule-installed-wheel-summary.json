@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-06 Asia/Kuala_Lumpur",
+  "noneditable_wheel": true,
+  "locked_dependency_count": 10,
+  "installed_cli_count": 23,
+  "all_checks_passed": true,
+  "commands": [
+    "baseline",
+    "minibatch",
+    "checkpoint",
+    "scheduler",
+    "wine",
+    "runtime",
+    "numerical",
+    "fixed_input",
+    "accumulation",
+    "accumulation_recovery",
+    "shuffle_stream",
+    "joint_recovery",
+    "dropout_rng",
+    "stochastic_joint",
+    "training_diagnostics",
+    "lr_stability",
+    "feature_conditioning",
+    "wine_observations",
+    "wine_momentum",
+    "wine_gradient_sampling",
+    "wine_batch_budget",
+    "wine_batch_compute",
+    "wine_update_schedule"
+  ],
+  "new_schedule_report_exactly_equals_source": true,
+  "new_schedule_protocol": {
+    "device": "cpu",
+    "dtype": "float64",
+    "threads": 1,
+    "scored_partitions": [
+      "train"
+    ],
+    "comparison_runs": 24,
+    "restored_suffix_runs": 36,
+    "actual_optimizer_updates": 588,
+    "actual_training_sample_visits": 12486,
+    "endpoint_evaluations": 60,
+    "evaluation_sample_visits": 6420,
+    "restoration": "trusted in-memory snapshots into fresh objects, same process"
+  },
+  "source_wheel_installed_files_equal": 55,
+  "wheel_sha256": "4e44d434feae135b00b8a053e5ca2755d2b34ca59f1df2d08b3c4981745849db",
+  "full_local_check_report_sha256": "6f2cb260dde03eb6669c92dbe7775408ca8cdadd6bb6324d8f7cd3bb8b5f32a7",
+  "limits": [
+    "Existing benchmark CLIs separately score heldout data; they do not choose this new experiment configuration.",
+    "No full pytest in installed environment; no local Docker run."
+  ]
+}

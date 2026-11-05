@@ -53,6 +53,7 @@ jobs:
       - run: python validation/verify_accumulation_recovery.py > results/local-ci-accumulation-recovery-review.json
       - run: python -m pytorch_lab.wine_batch_budget_cli --output results/local-ci-wine-batch-budget.json
       - run: python -m pytorch_lab.wine_batch_compute_cli --output results/local-ci-wine-batch-compute.json
+      - run: python -m pytorch_lab.wine_update_schedule_cli --output results/local-ci-wine-update-schedule.json
       - name: Retain full scientific outputs and CPU evidence
         if: always()
         uses: actions/upload-artifact@v4
