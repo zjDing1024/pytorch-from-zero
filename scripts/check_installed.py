@@ -1,4 +1,4 @@
-"""Exercise 23 installed-wheel CLIs outside the source tree."""
+"""Exercise 24 installed-wheel CLIs outside the source tree."""
 
 import argparse
 import json
@@ -33,6 +33,7 @@ COMMANDS = (
     ("wine_batch_budget", "pytorch_lab.wine_batch_budget_cli", []),
     ("wine_batch_compute", "pytorch_lab.wine_batch_compute_cli", []),
     ("wine_update_schedule", "pytorch_lab.wine_update_schedule_cli", []),
+    ("wine_learning_curves", "pytorch_lab.wine_learning_curves_cli", []),
 )
 
 
@@ -115,6 +116,7 @@ def check_installed() -> dict:
                     "wine_batch_budget",
                     "wine_batch_compute",
                     "wine_update_schedule",
+                    "wine_learning_curves",
                 }:
                     results[name]["report"] = evidence
             except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
@@ -142,6 +144,7 @@ def check_installed() -> dict:
                         "wine_batch_budget",
                         "wine_batch_compute",
                         "wine_update_schedule",
+                        "wine_learning_curves",
                     }
                     and output.is_file()
                 ):

@@ -1,5 +1,9 @@
 # Latest: bounded CPU batch-budget measurements (2026-11-05)
 
+## 2026-11-07: Longer training and validation-only endpoint selection
+
+A fixed 20-epoch Wine comparison now records train/validation curves, retains 16 candidate endpoints across three seeds, and verifies snapshot reloads. The reused validation selects mlp16/constant/epoch20; this is not new held-out generalization evidence. No test scoring in the new experiment. [Design, results and official sources](docs/wine-learning-curves.md) · [Raw evidence](results/2026-11-07-wine-learning-curves-final.json). Assistant-produced work does not establish learner mastery.
+
 ## 2026-11-06：Wine 更新次数学习率时钟
 
 固定两模型、三种子和batch16/32的14次SGD更新，比较固定LR与每7次更新减半。

@@ -62,3 +62,7 @@ Exact source/license links and version distinctions are recorded in
 [the RNG boundary note](docs/dropout-rng-boundary.md).
 Probe code, fixture, tests and explanations are original; no upstream snippets,
 comments or implementation copied, and no new framework dependency added.
+
+## 2026-11-07 validation curve source study
+
+Read PyTorch v2.14.1 Module source and BSD-style LICENSE; official evaluation/checkpoint and scikit-learn validation/preprocessing documentation are linked in [the experiment notes](docs/wine-learning-curves.md). New implementation and tests are original, with no upstream code copied and no new dependency. Existing dataset attribution remains unchanged.
