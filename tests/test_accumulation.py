@@ -212,6 +212,7 @@ def test_fourteenth_installed_cli_keeps_prior_thirteen_entries():
         "wine_batch_compute",
         "wine_update_schedule",
         "wine_learning_curves",
+        "wine_model_bundle",
     ]
     assert commands[8] == ("accumulation", "pytorch_lab.accumulation_cli", [])
     assert commands[9] == ("accumulation_recovery", "pytorch_lab.accumulation_recovery_cli", [])

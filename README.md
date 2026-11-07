@@ -401,3 +401,13 @@ python -I -m pytorch_lab.accumulation_recovery_cli --output results/local-recove
 ```bash
 python -m pytorch_lab.feature_conditioning_cli --output results/local-feature-conditioning.json
 ```
+
+## 2026-11-08：可重载的 Wine 推理产物
+
+新增[严格 JSON 推理合同](docs/wine-model-bundle.md)：预先固定 seed42，封装
+MLP 权重、训练集标准化、13列顺序与类别映射，新进程重载核对预测。
+SHA256只校验完整性，不证明来源可信；本轮不新增测试集分数或性能主张。
+
+```bash
+python -m pytorch_lab.wine_model_bundle_cli --output results/local-bundle-check.json
+```
