@@ -1,4 +1,16 @@
-# Latest: bounded CPU batch-budget measurements (2026-11-05)
+# Latest: partial batch inference and end-to-end costs (2026-11-10)
+
+Original bounded batch API/CLI preserves row order, isolates invalid rows and shares
+one forward call across valid rows. Warm component costs and fresh-process JSON
+file-to-file costs are measured separately at 1/16/107/1024 rows.
+[Contract and reproduction](docs/wine-batch-inference.md) ·
+[Predeclared plan](docs/wine-batch-inference-plan.json) ·
+[Raw final evidence](results/2026-11-10-batch-inference-final.json).
+This is local CPU delivery evidence, not an HTTP service, new accuracy result, cloud
+billing claim or learner-mastery assessment. Implemented on the actual current date;
+no November 9 execution or backdated daily report has been fabricated.
+
+## Bounded CPU batch-budget measurements (2026-11-05)
 
 ## 2026-11-07: Longer training and validation-only endpoint selection
 

@@ -1,0 +1,565 @@
+{
+  "installation": {
+    "version": "0.1.0",
+    "noneditable_wheel": true
+  },
+  "all_checks_passed": true,
+  "checks": {
+    "baseline": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "minibatch": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "checkpoint": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "scheduler": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "wine": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "runtime": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "numerical": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "fixed_input": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "accumulation": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "accumulation_recovery": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "shuffle_stream": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "joint_recovery": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "dropout_rng": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "stochastic_joint": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "training_diagnostics": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "lr_stability": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "feature_conditioning": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "wine_observations": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "wine_momentum": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "wine_gradient_sampling": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "wine_batch_budget": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "wine_batch_compute": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "wine_update_schedule": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "wine_learning_curves": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "wine_model_bundle": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    },
+    "wine_batch_inference": {
+      "all_checks_passed": true,
+      "exit_code": 0
+    }
+  },
+  "batch_inference_report": {
+    "all_checks_passed": true,
+    "checks_passed": 68,
+    "checks_total": 68,
+    "environment": {
+      "cpu_threads": 1,
+      "dtype": "float64",
+      "machine": "x86_64",
+      "platform": "Linux",
+      "python": "3.12.14",
+      "torch": "2.14.1+cpu"
+    },
+    "fixture_training_work": {
+      "training_visits": 2140,
+      "updates": 140
+    },
+    "mixed_example": {
+      "items": [
+        {
+          "index": 0,
+          "ok": true,
+          "prediction": {
+            "class": "class_0",
+            "class_index": 0,
+            "logits": [
+              10.492088041872163,
+              -4.412306707314575,
+              -6.7142329992457785
+            ],
+            "probabilities": [
+              0.999999629726913,
+              3.365917317682062e-07,
+              3.3681355181845897e-08
+            ]
+          }
+        },
+        {
+          "error": {
+            "code": "invalid_number"
+          },
+          "index": 1,
+          "ok": false
+        },
+        {
+          "error": {
+            "code": "invalid_shape"
+          },
+          "index": 2,
+          "ok": false
+        },
+        {
+          "index": 3,
+          "ok": true,
+          "prediction": {
+            "class": "class_0",
+            "class_index": 0,
+            "logits": [
+              7.223681569751548,
+              -2.6040547831257084,
+              -6.340889133816617
+            ],
+            "probabilities": [
+              0.9999447831082281,
+              5.3931729957700035e-05,
+              1.285161814345375e-06
+            ]
+          }
+        }
+      ],
+      "schema": "wine-batch-response-v1",
+      "summary": {
+        "failed": 2,
+        "requested": 4,
+        "succeeded": 2
+      },
+      "timings_seconds": {
+        "in_memory_total": 0.00040588199999547214,
+        "model_forward": 0.0001478829999541631,
+        "postprocessing": 5.508300000656163e-05,
+        "preprocessing": 0.0001636970000618021,
+        "validation": 3.189799986103026e-05
+      }
+    },
+    "protocol": "wine-batch-inference-v1",
+    "repeats": 3,
+    "runs": [
+      {
+        "fresh_process_file_to_file_seconds": {
+          "max": 1.5709821560001274,
+          "median": 1.5601985719999902,
+          "min": 1.4366387950001354,
+          "samples": [
+            1.5709821560001274,
+            1.5601985719999902,
+            1.4366387950001354
+          ]
+        },
+        "fresh_process_inside_seconds": [
+          {
+            "before_output_encoding": 0.0036625149998599227,
+            "bundle_read_parse": 0.00017063699988284498,
+            "bundle_validate_load": 0.0027774000000135857,
+            "prediction": 0.0006239219999315537,
+            "request_read_parse": 9.055600003193831e-05
+          },
+          {
+            "before_output_encoding": 0.004224453999995603,
+            "bundle_read_parse": 0.00024309700006597268,
+            "bundle_validate_load": 0.0030317339999328397,
+            "prediction": 0.0007721449999280594,
+            "request_read_parse": 0.0001774780000687315
+          },
+          {
+            "before_output_encoding": 0.003069560999847454,
+            "bundle_read_parse": 0.000237458999890805,
+            "bundle_validate_load": 0.0022875710001244443,
+            "prediction": 0.00047433499980797933,
+            "request_read_parse": 7.019600002422521e-05
+          }
+        ],
+        "input_bytes": 290,
+        "output_bytes": 766,
+        "rows": 1,
+        "warm_seconds": {
+          "in_memory_total": {
+            "max": 0.0004316409999773896,
+            "median": 0.00032581200002823607,
+            "min": 0.000301805999924909,
+            "samples": [
+              0.0004316409999773896,
+              0.000301805999924909,
+              0.00032581200002823607
+            ]
+          },
+          "model_forward": {
+            "max": 0.00013320099992597534,
+            "median": 0.00012893399980384856,
+            "min": 0.00012501799983510864,
+            "samples": [
+              0.00012893399980384856,
+              0.00012501799983510864,
+              0.00013320099992597534
+            ]
+          },
+          "postprocessing": {
+            "max": 0.00015499400001317554,
+            "median": 4.682000007960596e-05,
+            "min": 3.983999999945809e-05,
+            "samples": [
+              0.00015499400001317554,
+              3.983999999945809e-05,
+              4.682000007960596e-05
+            ]
+          },
+          "preprocessing": {
+            "max": 0.00010955600009765476,
+            "median": 0.00010794300010275037,
+            "min": 0.00010380700018686184,
+            "samples": [
+              0.00010955600009765476,
+              0.00010380700018686184,
+              0.00010794300010275037
+            ]
+          },
+          "validation": {
+            "max": 1.9678999933603336e-05,
+            "median": 1.9659999907162273e-05,
+            "min": 1.704599981167121e-05,
+            "samples": [
+              1.9678999933603336e-05,
+              1.704599981167121e-05,
+              1.9659999907162273e-05
+            ]
+          }
+        }
+      },
+      {
+        "fresh_process_file_to_file_seconds": {
+          "max": 1.612933473000112,
+          "median": 1.4308410080000158,
+          "min": 1.4010968009999942,
+          "samples": [
+            1.4308410080000158,
+            1.4010968009999942,
+            1.612933473000112
+          ]
+        },
+        "fresh_process_inside_seconds": [
+          {
+            "before_output_encoding": 0.005474409999806085,
+            "bundle_read_parse": 0.0005114419998335507,
+            "bundle_validate_load": 0.003577707999966151,
+            "prediction": 0.0010325779999220686,
+            "request_read_parse": 0.0003526820000843145
+          },
+          {
+            "before_output_encoding": 0.002806404000011753,
+            "bundle_read_parse": 0.00017544499996802188,
+            "bundle_validate_load": 0.0019589650000853,
+            "prediction": 0.0005759690000104456,
+            "request_read_parse": 9.602499994798563e-05
+          },
+          {
+            "before_output_encoding": 0.0038199040000108653,
+            "bundle_read_parse": 0.00023450399999092042,
+            "bundle_validate_load": 0.0026054319998820574,
+            "prediction": 0.0008526060000804137,
+            "request_read_parse": 0.00012736200005747378
+          }
+        ],
+        "input_bytes": 1317,
+        "output_bytes": 4073,
+        "rows": 16,
+        "warm_seconds": {
+          "in_memory_total": {
+            "max": 0.000551391999806583,
+            "median": 0.00041976299985435617,
+            "min": 0.0003681050000068353,
+            "samples": [
+              0.00041976299985435617,
+              0.0003681050000068353,
+              0.000551391999806583
+            ]
+          },
+          "model_forward": {
+            "max": 0.00016677099984008237,
+            "median": 0.00015011599998615566,
+            "min": 0.00013871900000594906,
+            "samples": [
+              0.00015011599998615566,
+              0.00013871900000594906,
+              0.00016677099984008237
+            ]
+          },
+          "postprocessing": {
+            "max": 6.944500000827247e-05,
+            "median": 6.098199992266018e-05,
+            "min": 4.705099991042516e-05,
+            "samples": [
+              6.098199992266018e-05,
+              4.705099991042516e-05,
+              6.944500000827247e-05
+            ]
+          },
+          "preprocessing": {
+            "max": 0.00013633600019602454,
+            "median": 0.00013173900015317486,
+            "min": 0.00011930000005122565,
+            "samples": [
+              0.00013633600019602454,
+              0.00011930000005122565,
+              0.00013173900015317486
+            ]
+          },
+          "validation": {
+            "max": 8.530899981451512e-05,
+            "median": 6.391599981725449e-05,
+            "min": 4.5859000010750606e-05,
+            "samples": [
+              6.391599981725449e-05,
+              4.5859000010750606e-05,
+              8.530899981451512e-05
+            ]
+          }
+        }
+      },
+      {
+        "fresh_process_file_to_file_seconds": {
+          "max": 1.5092858230000274,
+          "median": 1.456591483000011,
+          "min": 1.4167191120000098,
+          "samples": [
+            1.456591483000011,
+            1.4167191120000098,
+            1.5092858230000274
+          ]
+        },
+        "fresh_process_inside_seconds": [
+          {
+            "before_output_encoding": 0.005619690000003175,
+            "bundle_read_parse": 0.0003279449999809003,
+            "bundle_validate_load": 0.003367661000083899,
+            "prediction": 0.0013707389998671715,
+            "request_read_parse": 0.0005533450000712037
+          },
+          {
+            "before_output_encoding": 0.003466300000127376,
+            "bundle_read_parse": 0.00017998200019064825,
+            "bundle_validate_load": 0.001944533999903797,
+            "prediction": 0.00104793100013012,
+            "request_read_parse": 0.00029385299990281055
+          },
+          {
+            "before_output_encoding": 0.004170692999878156,
+            "bundle_read_parse": 0.00021806899985676864,
+            "bundle_validate_load": 0.0023962560001109523,
+            "prediction": 0.0012753839998822514,
+            "request_read_parse": 0.0002809840000281838
+          }
+        ],
+        "input_bytes": 7488,
+        "output_bytes": 24208,
+        "rows": 107,
+        "warm_seconds": {
+          "in_memory_total": {
+            "max": 0.0007680589999381482,
+            "median": 0.0007645440000487724,
+            "min": 0.0007039820000045438,
+            "samples": [
+              0.0007680589999381482,
+              0.0007039820000045438,
+              0.0007645440000487724
+            ]
+          },
+          "model_forward": {
+            "max": 0.00021692700011044508,
+            "median": 0.00015968100001373386,
+            "min": 0.00015049699982228049,
+            "samples": [
+              0.00015049699982228049,
+              0.00021692700011044508,
+              0.00015968100001373386
+            ]
+          },
+          "postprocessing": {
+            "max": 0.00012621099995158147,
+            "median": 9.934000013345212e-05,
+            "min": 8.632999993096746e-05,
+            "samples": [
+              9.934000013345212e-05,
+              8.632999993096746e-05,
+              0.00012621099995158147
+            ]
+          },
+          "preprocessing": {
+            "max": 0.00023190000001704902,
+            "median": 0.00020537900013550825,
+            "min": 0.00019913100004487205,
+            "samples": [
+              0.00023190000001704902,
+              0.00019913100004487205,
+              0.00020537900013550825
+            ]
+          },
+          "validation": {
+            "max": 0.0002769380000700039,
+            "median": 0.00026348799997322203,
+            "min": 0.00019244999998591084,
+            "samples": [
+              0.0002769380000700039,
+              0.00019244999998591084,
+              0.00026348799997322203
+            ]
+          }
+        }
+      },
+      {
+        "fresh_process_file_to_file_seconds": {
+          "max": 1.6934242250001716,
+          "median": 1.6439754289999655,
+          "min": 1.643752933000087,
+          "samples": [
+            1.6934242250001716,
+            1.643752933000087,
+            1.6439754289999655
+          ]
+        },
+        "fresh_process_inside_seconds": [
+          {
+            "before_output_encoding": 0.013088447999962227,
+            "bundle_read_parse": 0.00022985700002209342,
+            "bundle_validate_load": 0.0023552229999950214,
+            "prediction": 0.007460927000010997,
+            "request_read_parse": 0.003042440999934115
+          },
+          {
+            "before_output_encoding": 0.0076979039999969245,
+            "bundle_read_parse": 0.00018020200013779686,
+            "bundle_validate_load": 0.0021102139999129577,
+            "prediction": 0.004107005999912872,
+            "request_read_parse": 0.0013004820000332984
+          },
+          {
+            "before_output_encoding": 0.007347346000187827,
+            "bundle_read_parse": 0.00016686200001458928,
+            "bundle_validate_load": 0.0019507440001689247,
+            "prediction": 0.003884641000013289,
+            "request_read_parse": 0.0013450989999910234
+          }
+        ],
+        "input_bytes": 69788,
+        "output_bytes": 227948,
+        "rows": 1024,
+        "warm_seconds": {
+          "in_memory_total": {
+            "max": 0.005066154999894934,
+            "median": 0.003962668999974994,
+            "min": 0.0029879879998588876,
+            "samples": [
+              0.003962668999974994,
+              0.0029879879998588876,
+              0.005066154999894934
+            ]
+          },
+          "model_forward": {
+            "max": 0.0003568780000478,
+            "median": 0.0002033670000400889,
+            "min": 0.0001962860001185618,
+            "samples": [
+              0.0002033670000400889,
+              0.0001962860001185618,
+              0.0003568780000478
+            ]
+          },
+          "postprocessing": {
+            "max": 0.0009093119999761257,
+            "median": 0.0007970429999204498,
+            "min": 0.0004977910000434349,
+            "samples": [
+              0.0009093119999761257,
+              0.0004977910000434349,
+              0.0007970429999204498
+            ]
+          },
+          "preprocessing": {
+            "max": 0.0011244570000599197,
+            "median": 0.0007355899999765825,
+            "min": 0.0006823599999279395,
+            "samples": [
+              0.0007355899999765825,
+              0.0006823599999279395,
+              0.0011244570000599197
+            ]
+          },
+          "validation": {
+            "max": 0.002774616999886348,
+            "median": 0.002104034000012689,
+            "min": 0.0016021669998735888,
+            "samples": [
+              0.002104034000012689,
+              0.0016021669998735888,
+              0.002774616999886348
+            ]
+          }
+        }
+      }
+    ],
+    "scope": "CPU local latency, not throughput/load/SLA. Fresh-process wall time includes interpreter, imports, read/parse, bundle load, inference, encode/write and exit; no fsync durability guarantee. Warm timings exclude model load and JSON IO. No new accuracy scoring or monetary extrapolation.",
+    "warmups": 1
+  },
+  "source_package_files_equal": 61,
+  "warning": "Optional NumPy is absent; no NumPy conversion used."
+}
