@@ -1,0 +1,1 @@
+{"config":{"architecture":"mlp16","arm":"constant","epochs":20,"seed":42},"work":{"training_visits":2140,"updates":140}}

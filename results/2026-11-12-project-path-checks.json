@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-12",
+  "timezone": "Asia/Kuala_Lumpur",
+  "main_suite": {
+    "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=src python -m pytest -q",
+    "passed": 2067,
+    "warnings": 1,
+    "seconds": 814.45,
+    "exit_code": 0
+  },
+  "standalone_suites": [
+    {
+      "directory": "experiments/wine-first-step-2026-10-13",
+      "passed": 59
+    },
+    {
+      "directory": "experiments/wine-saved-forward-2026-10-14",
+      "passed": 45
+    },
+    {
+      "directory": "tools/wine-delivery",
+      "passed": 34
+    }
+  ],
+  "unique_test_total": 2205,
+  "new_integration_tests": 7,
+  "new_tests_are_included_in_main_total": true,
+  "ruff_check": "passed",
+  "ruff_format_check": "passed",
+  "compileall": "passed",
+  "static_review": "No blocking issue found; static review only, not an independent runtime claim.",
+  "source_pipeline_checks": 5,
+  "installed_wheel_pipeline_checks": 5,
+  "historical_installed_clis_rerun_locally": false,
+  "docker_run_locally": false,
+  "prior_attempt": "First full-suite attempt interrupted before completion; no completed pass/fail claim.",
+  "scope": "Exact remote commit, CI and actual container execution are checked after publication."
+}

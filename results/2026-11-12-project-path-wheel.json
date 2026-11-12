@@ -1,0 +1,23 @@
+{
+  "noneditable_wheel": true,
+  "outside_source_tree": true,
+  "isolated_python_flag": true,
+  "package_wheel_sha256": "9540e651fdd22af3ffe3ac421ea8b545ae2e529a059ae92a69a57c9ed8f004a8",
+  "checks": {
+    "all_rows_predicted": true,
+    "fresh_process_classes_match": true,
+    "fresh_process_logits_match": true,
+    "row_order_preserved": true,
+    "same_exported_model": true
+  },
+  "all_checks_passed": true,
+  "source_model_sha256": "d22e4d3217f1779fcf2f8563cbe20817198b1bb5f6e8f6c627b28fc54c287dcc",
+  "wheel_model_sha256": "d22e4d3217f1779fcf2f8563cbe20817198b1bb5f6e8f6c627b28fc54c287dcc",
+  "source_and_wheel_model_equal": true,
+  "validation_metrics": {
+    "accuracy": 0.9722222222222222,
+    "cross_entropy": 0.05811863818000037,
+    "macro_f1": 0.974320987654321
+  },
+  "scope": "New integration path only; historical 26 installed CLIs not rerun locally. CI separately runs those and the new path."
+}

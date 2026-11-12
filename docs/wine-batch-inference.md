@@ -112,5 +112,6 @@ The engineering evidence is isolation of bad rows, preservation of ordering, exa
 preprocessing semantics, bounded file handling, dependency-free error contracts,
 installed package delivery and honest measurement boundaries. It is assistant-built
 and tested work, not proof that the learner independently masters serving systems.
-Next: input schema examples and HTTP-level timeout/backpressure design only after
-independent learner explanation; avoid adding a framework without a concrete need.
+Current project entry: [train → evaluate → export → predict](project-path.md).
+Any later HTTP work needs explicit timeout, backpressure and failure-handling tests;
+avoid adding a framework without a concrete need.
